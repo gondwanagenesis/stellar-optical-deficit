@@ -79,6 +79,9 @@ def fig_residual_distribution(resid: np.ndarray, sigma: float,
          * np.exp(-0.5 * ((bins - med) / sigma) ** 2))
     ax[0].plot(bins, g, color=POS, lw=1.2, label="Gaussian, same $\\sigma$")
     ax[0].set_yscale("log")
+    # Counts below one star are not meaningful; without this the Gaussian
+    # reference curve trails down to 1e-5 and stretches the axis pointlessly.
+    ax[0].set_ylim(bottom=0.5)
     ax[0].set_xlabel("residual $M_G - $ fiducial (mag)")
     ax[0].set_ylabel("stars")
     ax[0].legend(fontsize=7)

@@ -69,23 +69,35 @@ Figures: `F1_sample_and_fiducial.png`, `F8_cutflow.png`.
 
 ## 2. Intrinsic main-sequence scatter — the number everything scales on
 
+Variant A (NIR colour control), N = **3,321,566** stars with GSP-Phot `[M/H]`:
+
 | quantity | value |
 |---|---|
-| observed residual scatter (robust) | **0.0963 mag** |
-| measurement contribution | 0.0437 mag |
-| **intrinsic main-sequence scatter** | **0.0858 mag** |
-| same, without the NIR colour control | 0.168 mag |
-| `dM_G/dM_Ks` (median) | **1.246** (16–84%: 1.043–1.448) |
-| spline knots / `[M/H]` degree (5-fold CV) | 6 / 1 |
+| observed residual scatter (robust) | **0.09913 mag** |
+| measurement contribution | 0.04436 mag |
+| **intrinsic main-sequence scatter** | **0.08865 mag** |
+| same, with no metallicity or colour control | 0.17522 mag |
+| `dM_G/dM_Ks` (median) | **1.2566** (16–84%: 1.0597–1.4567) |
+| spline knots / `[M/H]` degree (5-fold CV) | 6 / 1 (30 parameters) |
+| naive `sigma/sqrt(N)` | **5.439e-5 mag** |
 
-Controlling on the dereddened `(J−Ks)` colour reduces the scatter from 0.139 to
-0.096 mag. This is legitimate: a near-infrared colour is unaffected by an
+Controlling on the dereddened `(J−Ks)` colour reduces the scatter from 0.175 to
+0.099 mag. This is legitimate: a near-infrared colour is unaffected by an
 optically selective absorber, so it removes temperature/abundance structure
-without touching the signal. Using the *optical* colour would have absorbed
-the signal and was not done.
+without touching the signal. Using the *optical* colour would partly absorb the
+signal, and is run only as a clearly labelled variant (§3).
 
-`dM_G/dM_Ks = 1.25` is the most consequential single number here — it drives
-findings 2 and 3 in the headline.
+The validation sample gave 0.0963 / 0.0858 / 1.246 for these three quantities
+against the full sample's 0.0991 / 0.0886 / 1.2566 — the 48k subset was
+representative for the fit even though it was not for the systematics.
+
+`dM_G/dM_Ks = 1.26` is the most consequential single number here — it drives
+findings 2 and 3 in the headline. Note that its 16th percentile is 1.06, so the
+slope exceeds unity essentially everywhere in the sample, not merely on average.
+
+A naive reading of `sigma/sqrt(N) = 5.4e-5 mag` would suggest sensitivity to
+`f ≈ 5e-5`, within striking distance of the brief's 1e-5 target. Section 3 is
+about why that number is not a sensitivity.
 
 ---
 
@@ -338,20 +350,26 @@ sit in confused regions, which is also why they are outliers.
 **Zackrisson et al. 2015 (ApJ 810, 23)** set a conservative limit of **3%** on
 the fraction of local disk galaxies subject to galaxy-scale Dysonian
 astroengineering (0.3% tentative), from 1,359 disks against the Tully–Fisher
-relation. That is a limit on the *fraction of galaxies*, whereas ours is on the
-fraction of *stars* within 500 pc. The two are not directly comparable, but the
-per-system dimming sensitivities are: Zackrisson resolves galaxy-scale dimming
-at the few-tenths-of-a-magnitude level, and so do we
-(`Δ ≳ 0.4 mag`, i.e. `f ≳ 0.3`, before a star enters our tail). Twelve extra
-years, a 3,500× larger sample and per-star rather than per-galaxy photometry
-have **not** bought a better per-object dimming threshold, because both
-analyses are limited by the intrinsic width of the relation they regress
-against, not by photon noise.
+relation. That is a limit on the *fraction of galaxies*; ours is on the
+fraction of *stars* within 500 pc, so the two constrain different populations
+and should not be quoted against each other as if they were the same number.
+
+The comparison that *is* meaningful is structural. Both analyses regress
+against an empirical scaling relation and are limited by that relation's
+intrinsic width, not by photon noise. Tully–Fisher scatter is ~0.4 mag; the
+lower main sequence in `M_G` versus `M_Ks` is ~0.09 mag, four to five times
+tighter per object. Yet our limit on the fraction of harvested systems is
+comparable to theirs rather than 20× better, because we are not limited by that
+scatter either — we are limited by a contaminant population (§7) that a sample
+of 1,359 galaxies does not have and 3.9 million stars unavoidably does. Buying
+statistical precision moved the bottleneck rather than the limit.
 
 **Annis 1999 (JBIS 52, 33)** adopted a 1.5 mag dimming criterion (a factor 4)
-on 57 disks and 106 ellipticals. Our per-star threshold of ~0.4 mag is about
-1.1 mag deeper, on ~300× more objects — but Annis was searching for
-Kardashev III civilisations, a different target class.
+on 57 disks and 106 ellipticals, finding no significant outliers. Our per-star
+threshold of ~0.4 mag is about 1.1 mag deeper on ~24,000× more objects — but
+Annis was searching for Kardashev III civilisations, a different target class,
+and the criterion difference reflects the relation's scatter rather than any
+methodological advance.
 
 **Suazo et al. 2024 (MNRAS 531, 695; Project Hephaistos II)** searched 5M
 Gaia×2MASS×WISE sources for *infrared excess*, finding 7 candidates after a
