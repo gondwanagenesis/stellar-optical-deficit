@@ -1,0 +1,39 @@
+{
+  "n_cells": 31184,
+  "median_stars_per_cell": 95,
+  "z_std_real": 1.5541730311169548,
+  "z_std_null": 1.000904989251705,
+  "cells_above_3sigma": 1005,
+  "expected_above_3sigma": 279.0,
+  "excess_above_3sigma": 726.0,
+  "cells_above_4sigma": 371,
+  "expected_above_4sigma": 102.15,
+  "excess_above_4sigma": 268.85,
+  "cells_above_5sigma": 137,
+  "expected_above_5sigma": 39.75,
+  "excess_above_5sigma": 97.25,
+  "corr_z_absb": -0.015583199505291322,
+  "corr_z_A0": -0.002262969353507684,
+  "frac_anomalous_lowb": 0.5950248756218905,
+  "frac_all_lowb": 0.3270908158029759,
+  "median_absb_anomalous": 15.507159193695458,
+  "median_absb_all": 30.718612529209963,
+  "connected_z3": {
+    "n_anomalous_cells": 1005,
+    "largest_clump": 135,
+    "n_clumps": 314,
+    "largest_clump_null_mean": 10.55,
+    "largest_clump_null_max": 14
+  },
+  "connected_z4": {
+    "n_anomalous_cells": 371,
+    "largest_clump": 27,
+    "n_clumps": 189,
+    "largest_clump_null_mean": 4.0,
+    "largest_clump_null_max": 8
+  },
+  "verdict": "structure at s < 25 pc (+19.5 sigma) -- INVESTIGATE",
+  "cell_pc": 25.0,
+  "n_stars": 3321566,
+  "sigma_clean": 0.06153149110829038
+}

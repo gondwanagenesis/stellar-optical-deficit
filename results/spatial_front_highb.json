@@ -1,0 +1,39 @@
+{
+  "n_cells": 14511,
+  "median_stars_per_cell": 69,
+  "z_std_real": 1.3785723782031731,
+  "z_std_null": 1.0013870104570468,
+  "cells_above_3sigma": 290,
+  "expected_above_3sigma": 95.4,
+  "excess_above_3sigma": 194.6,
+  "cells_above_4sigma": 85,
+  "expected_above_4sigma": 38.35,
+  "excess_above_4sigma": 46.65,
+  "cells_above_5sigma": 36,
+  "expected_above_5sigma": 15.9,
+  "excess_above_5sigma": 20.1,
+  "corr_z_absb": 3.873838904544541e-07,
+  "corr_z_A0": 0.01275562137880343,
+  "frac_anomalous_lowb": 0.0,
+  "frac_all_lowb": 0.0,
+  "median_absb_anomalous": 46.275661787276704,
+  "median_absb_all": 49.998727506850145,
+  "connected_z3": {
+    "n_anomalous_cells": 290,
+    "largest_clump": 22,
+    "n_clumps": 157,
+    "largest_clump_null_mean": 5.4,
+    "largest_clump_null_max": 9
+  },
+  "connected_z4": {
+    "n_anomalous_cells": 85,
+    "largest_clump": 4,
+    "n_clumps": 73,
+    "largest_clump_null_mean": 2.25,
+    "largest_clump_null_max": 3
+  },
+  "verdict": "structure at +14.3 sigma, but the anomalous cells are preferentially dusty and/or low-latitude -- consistent with UNMODELLED EXTINCTION, not a front",
+  "cell_pc": 25.0,
+  "n_stars": 1216573,
+  "sigma_clean": 0.05805352091373483
+}
