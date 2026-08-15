@@ -1,0 +1,15 @@
+{
+  "tag": "primary",
+  "n_stars": 3321566,
+  "sigma_mag": 0.09912799253680192,
+  "naive_sigma_over_sqrtN_mag": 5.439072754496357e-05,
+  "floor_spatial_mag": 0.01693921492749784,
+  "floor_all_axes_mag": 0.015987726762783126,
+  "worst_split_test": "colour (blue vs red half)",
+  "worst_split_difference_mag": -0.05204875474055956,
+  "worst_split_n_sigma": -353.3051771307937,
+  "max_paired_rms_mag": 0.11171078686225537,
+  "max_paired_mean_shift_mag": 0.007023960426879168,
+  "floor_total_mag": 0.05204875474055956,
+  "floor_implied_f": 0.04680775992410402
+}

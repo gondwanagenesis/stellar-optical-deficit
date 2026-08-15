@@ -1,0 +1,9 @@
+{
+  "slope_resid_per_A0": 0.0611103643530165,
+  "slope_err": 0.00013570071569808854,
+  "n_sigma": 450.331923738537,
+  "median_A_G_over_A_0": 0.7419210480044118,
+  "implied_fractional_extinction_error": 0.09254802909071545,
+  "interpretation": "the extinction correction appears to be under-correcting by 9.3% of A_G",
+  "caveat": "this is an UPPER BOUND on the extinction error. A_0 correlates with distance and galactic latitude, which correlate with stellar population (age, alpha-enhancement, thin vs thick disc), so some of the fitted slope is astrophysical rather than an extinction-correction failure. The two are not separable with this diagnostic alone -- but the colour-split-at-low-extinction test shows a large population term does exist."
+}

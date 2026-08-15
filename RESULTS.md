@@ -103,54 +103,113 @@ about why that number is not a sensitivity.
 
 ## 3. Measured systematic floor (step 3, run before any signal was examined)
 
-Naive expectation on this sample: `sigma/sqrt(N)` = **4.40e-4 mag**.
+Naive expectation on the full sample: `sigma/sqrt(N)` = **5.439e-5 mag**.
 
-### Two-sided splits that must return zero
+### Two-sided splits that must return zero (variant A, N = 3,321,566)
 
 | split | difference (mag) | significance |
 |---|---|---|
-| colour, blue vs red half | −0.0532 | −39 sigma |
-| extinction quartile, low vs high | −0.0199 | −12 sigma |
-| apparent G, bright vs faint | −0.031 (pre-NIR) | −19 sigma |
-| distance, near vs far | −0.019 (pre-NIR) | −12 sigma |
-| galactic latitude, |b|<20 vs >20 | +0.020 (pre-NIR) | +11 sigma |
-| crowding, sparse vs crowded | −0.013 (pre-NIR) | −8 sigma |
-| galactic hemisphere, N vs S | +0.009 (pre-NIR) | +5 sigma |
+| **colour, blue vs red half** | **−0.05205** | **−353 σ** |
+| extinction quartile, low vs high `A_0` | −0.04456 | −212 σ |
+| apparent G, bright vs faint | −0.02818 | −189 σ |
+| crowding, sparse vs crowded | −0.02612 | −174 σ |
+| galactic latitude, \|b\|<20 vs >20 | +0.02730 | +173 σ |
+| galactic hemisphere, N vs S | −0.00550 | −37 σ |
+| distance, near vs far | −0.00106 | −7 σ |
+| metallicity, poor vs rich | −0.00099 | −7 σ |
+| *colour split within lowest-`A_0` quartile* | *−0.06779* | *−259 σ* |
+| *distance split within lowest-`A_0` quartile* | *+0.01031* | *+38 σ* |
 
-**Every single split fails.** Figure: `F4_null_splits.png`.
+**Every single split fails, the mildest at 7 sigma.** Figure:
+`F4_null_splits.png`.
 
 ### Paired extinction-treatment differences (same stars)
 
 | comparison | mean shift | per-star RMS |
 |---|---|---|
-| Fitz19 vs Wang & Chen 19 band law | 0.00016 mag | 0.022 mag |
-| Edenhofer map vs Gaia GSP-Phot per-star `A_G` | 0.0082 mag | **0.112 mag** |
+| Fitz19 vs Wang & Chen 19 band law | 0.000051 mag | 0.0285 mag |
+| Edenhofer map vs Gaia GSP-Phot per-star `A_G` | 0.00702 mag | **0.1117 mag** |
 
-The per-star RMS of the map-vs-GSP-Phot comparison is comparable to the entire
-intrinsic scatter.
+The two band laws barely move the *mean* (5e-5 mag) despite their factor-2.5
+disagreement in `A_Ks` — refitting the fiducial absorbs most of it — but they
+displace individual stars by 0.029 mag RMS. Swapping the map for Gaia's
+per-star `A_G` displaces individual residuals by **0.112 mag RMS**, larger
+than the entire intrinsic main-sequence scatter.
+
+### Residual regressed directly on extinction
+
+Slope `0.1253 ± 0.0005` mag per unit `A_0`, **247 sigma**. Attributed entirely
+to the extinction correction that is a **19.0% under-correction of `A_G`** —
+an upper bound, since `A_0` correlates with distance and latitude and hence
+with stellar population. The next test separates the two.
+
+### The floor is astrophysical, not instrumental
+
+Repeating the two worst splits *inside the lowest-extinction quartile*:
+
+| split | full sample | within lowest-`A_0` quartile |
+|---|---|---|
+| colour, blue vs red | −0.05205 (353σ) | **−0.06779 (259σ) — grows** |
+| distance, near vs far | −0.00106 (7σ) | +0.01031 (38σ) |
+
+The colour systematic is **larger** where there is almost no dust. It is not an
+extinction-law failure; it is real main-sequence structure that `M_Ks`, `[M/H]`
+and `(J−Ks)` do not capture — age, alpha-enhancement, rotation, activity. **No
+better dust map would move it.**
 
 ### Group-mean scatter versus group size — the floor itself
 
-`F3_systematic_floor.png` is the headline figure. Random subsamples track
-`sigma/sqrt(N)` down to 7e-4 mag, exactly as they must — which is why that
-curve is a control and not a measurement. Structured groups plateau:
+`F3_systematic_floor.png` is the headline figure.
+
+**The random-subsample control tracks `sigma/sqrt(N)` exactly, over five
+decades in N:**
+
+| N | RMS of subsample means | `sigma/sqrt(N)` |
+|---|---|---|
+| 100 | 0.012660 | 0.013675 |
+| 10,000 | 0.001361 | 0.001367 |
+| 100,000 | 0.000434 | 0.000432 |
+| 1,000,000 | 0.000132 | 0.000137 |
+| **3,000,000** | **0.000080** | **0.000079** |
+
+Agreement to 1% at N = 3 million. This is why that curve is a *control* and not
+a measurement: random subsampling cannot manufacture a systematic, so it will
+reproduce the naive scaling however wrong the naive scaling is as a
+sensitivity. Anyone quoting `sigma/sqrt(N)` here would find this test
+reassuring, and would be wrong.
+
+**Structured groups, on the same residuals, plateau instead** (median excess
+over groups holding ≥1% of the sample):
 
 | grouping axis | plateau (mag) |
 |---|---|
-| apparent-G bins | ~0.020 |
-| sky patches (HEALPix) | ~0.019 |
-| extinction bins | ~0.008 |
-| crowding bins | ~0.008 |
-| distance bins | ~0.005 |
+| apparent-G bins | **0.02287** |
+| extinction (`A_0`) bins | 0.01834 |
+| sky patches (HEALPix) | 0.01694 |
+| crowding bins | 0.01534 |
+| distance bins | 0.00341 |
 
-**Measured floor: 5.3e-2 mag** (conservative, set by the worst split), or
-~1.1e-2 mag taking the spatial plateau alone. Against a naive `sigma/sqrt(N)`
-of 4.4e-4 mag, that is **121x worse**.
+At N = 3×10⁶ the random control sits at 8.0e-5 mag while structured groups sit
+at 1.5–2.3e-2 mag — a factor of **200–290** between the two on identical data.
 
-In harvested-fraction units the floor corresponds to **f ≈ 4.8e-2** on a
-uniform offset — except that, per §4, a uniform offset is not measurable at
-all, so this number is best read as the scale of the coherent systematics
-rather than as a sensitivity.
+### The number
+
+| quantity | variant A |
+|---|---|
+| naive `sigma/sqrt(N)` | 5.439e-5 mag |
+| spatial plateau | 1.694e-2 mag |
+| median plateau, all axes | 1.599e-2 mag |
+| worst null split (colour) | 5.205e-2 mag |
+| **measured floor (conservative)** | **5.205e-2 mag** |
+| **ratio to naive** | **957× worse** |
+| implied uniform `f` | 4.68e-2 |
+
+Taking the plateau rather than the worst split gives 1.6e-2 mag, still **294×**
+the naive expectation. Either way the conclusion is the same and it is not
+marginal.
+
+The implied `f` should be read as *the scale of the coherent systematics*, not
+as a sensitivity — per §4 a uniform offset is not measurable at all.
 
 ### What the floor is actually made of
 
