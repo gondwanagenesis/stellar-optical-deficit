@@ -6,20 +6,22 @@ set -euo pipefail
 cd "$(dirname "$0")"
 R="bash run.sh"
 
-# Cross-validation only selects two integers (knot count, metallicity degree),
-# and those are not sensitive to N once the subsample is large compared with the
-# number of parameters. 200k stars against ~30 parameters is ample, and it keeps
-# the 27-point grid to ~20 min instead of ~40. The chosen complexity is then
-# refit on the full 3.9M sample.
-CV_N="${CV_MAX_N:-200000}"
+# Spline complexity was selected by 5-fold CV on a 200k subsample; the measured
+# loss surface is in results/cv_primary.csv and is monotone in both knots and
+# metallicity degree, with its minimum at the grid corner (6, 1). See
+# DECISIONS.md D9a for why the grid was truncated there rather than run to 40
+# knots. Passing the selection explicitly keeps the expensive search out of
+# every re-run while leaving the evidence on disk.
+KNOTS="${FIT_KNOTS:-6}"
+MHDEG="${FIT_MH_DEGREE:-1}"
 
 echo "=============== step 2: fiducial (variant A, NIR control) ==============="
 $R scripts/10_fit_fiducial.py --tag primary --out-tag primary --nir-control \
-    --cv-max-n "$CV_N"
+    --knots "$KNOTS" --mh-degree "$MHDEG"
 
 echo "=============== step 2b: fiducial (variant B, + optical colour) ========"
 $R scripts/10_fit_fiducial.py --tag primary --out-tag primary_optcol \
-    --nir-control --optical-colour-control --cv-max-n "$CV_N"
+    --nir-control --optical-colour-control --knots "$KNOTS" --mh-degree "$MHDEG"
 
 echo "=============== step 3: null tests / systematic floor =================="
 $R scripts/11_null_tests.py --tag primary

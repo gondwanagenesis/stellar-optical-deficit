@@ -20,6 +20,19 @@ order of magnitude slower for the random HDF5/FITS reads the maps do.
 
 ---
 
+## D1a. Heavy stages must run serially — 15 GB is the binding constraint
+
+The 3.9M-star sample is ~1.3 GB on disk and several GB in memory once derived
+columns exist, and the Edenhofer map adds ~3 GB more when its integrated form
+is built. Running the analysis chain and the distance trade study concurrently
+drove available memory to 2 GB and risked the OOM killer taking whichever
+process happened to allocate next — including a 25-minute cross-validation run.
+
+Practical rule: one memory-heavy stage at a time. TAP pulls (network-bound) can
+overlap with local compute; two dust-map consumers cannot.
+
+---
+
 ## D2. Sky partitioning on `source_id` ranges
 
 Gaia `source_id` encodes a level-12 HEALPix index in its high bits, so
@@ -177,6 +190,36 @@ flexible fit whose complexity is a single integer chosen by 5-fold CV.
 CV loss is **Huber, not squared**: the main sequence has a genuine equal-mass
 binary sequence 0.75 mag above it, and a squared loss would select the knot
 count that best chases it.
+
+### D9a. The CV grid was truncated on monotonicity evidence **[MATERIAL]**
+
+Full-sample 5-fold CV on a 200k subsample (`results/cv_primary.csv`):
+
+| knots | deg 1 | deg 2 | deg 3 |
+|---|---|---|---|
+| **6** | **0.777804** | 0.796967 | 0.802826 |
+| 8 | 0.779414 | 0.799195 | 0.803106 |
+| 10 | 0.780631 | 0.799219 | 0.804972 |
+| 12 | 0.780968 | 0.799725 | 0.805281 |
+| 16 | 0.781087 | — | — |
+
+The loss rises monotonically in *both* directions across 13 evaluated points;
+the minimum sits at the grid corner (6 interior knots, metallicity degree 1).
+Evaluating the remaining grid (20, 25, 30, 40 knots) would have cost ~3 hours
+per variant, because IRLS cost grows steeply with knot count, in order to
+confirm a trend that is already unambiguous over a factor of 2.7 in knots.
+
+The grid was therefore truncated at 16 and the corner selection adopted. This
+is a decision about computational scope taken **before unblinding** and with
+the evidence recorded above; it is flagged MATERIAL because a genuinely
+non-monotonic loss surface would invalidate it. The same complexity was
+adopted for variant B (which adds the optical-colour covariate) rather than
+re-running its own grid; the independent CV on the validation sample also
+selected (6, 1) for both variants, which is the check that makes this safe.
+
+That 6 interior knots wins is itself informative: the lower main sequence in
+`M_G` versus `M_Ks` is very nearly a smooth low-order curve, and the extra
+freedom of 20+ knots buys nothing but variance.
 
 Fitting is Huber IRLS for the same reason. Because binaries are *over*-luminous,
 any residual pull is toward brighter residuals — it suppresses a deficit
