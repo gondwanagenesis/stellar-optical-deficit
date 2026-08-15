@@ -235,27 +235,35 @@ instrumental**, and no better dust map would move it.
 
 Adding the dereddened *optical* `(BP−RP)` colour as a further control removes
 that astrophysical term — at the price of narrowing what the search can see.
+Both run on the same 3,321,566 stars.
 
 | | **A: NIR control only** | **B: + optical colour** |
 |---|---|---|
-| residual scatter | 0.0963 mag | **0.0267 mag** |
-| worst null split | colour, −0.0532 | extinction, −0.0159 |
-| **measured floor** | **5.3e-2 mag** | **1.6e-2 mag** |
-| implied `f` | 4.8e-2 | **1.5e-2** |
-| ratio to `sigma/sqrt(N)` | 121x | 131x |
+| residual scatter | 0.09913 mag | **0.02779 mag** |
+| naive `sigma/sqrt(N)` | 5.439e-5 mag | **1.525e-5 mag** |
+| worst null split | colour, −0.05205 (353σ) | extinction, −0.02098 (351σ) |
+| spatial plateau | 1.694e-2 mag | 9.178e-3 mag |
+| **measured floor** | **5.205e-2 mag** | **2.098e-2 mag** |
+| implied `f` | 4.68e-2 | **1.91e-2** |
+| **ratio to `sigma/sqrt(N)`** | **957×** | **1376×** |
 | sensitive to | **any** optically selective absorber | absorbers **grey across the optical** only |
 
-Variant B is 3.3x better and is the more constraining number *for the absorber
-class it can see*: an absorber that is grey across the optical leaves `BP−RP`
+Variant B is 2.5× better and is the more constraining number *for the absorber
+class it can see*: an absorber grey across the optical leaves `BP−RP`
 unchanged, so controlling on colour costs nothing and leverage stays at 1. An
 absorber that reddens or blues the optical has its signal partly absorbed by
 the control, and variant A is the honest number there. Both are reported;
 neither is "the" answer alone.
 
-Note that in variant B the colour split passes (2.4σ) and **extinction becomes
-the limiting term** (32σ) — the two variants are limited by different physics,
-which is why the ratio to `sigma/sqrt(N)` is ~125x in both cases despite the
-3.6x difference in scatter.
+The two variants are limited by **different physics**, which is the useful
+part. In B the colour split collapses from 353σ to 23σ and the
+colour-within-low-extinction test from 259σ to **4σ** — the astrophysical
+term is genuinely removed, confirming the diagnosis. What remains is
+extinction (351σ), crowding (239σ) and latitude (242σ).
+
+**Note that variant B's naive `sigma/sqrt(N)` is 1.5e-5 mag — the brief's 1e-5
+target, essentially reached on paper.** Its measured floor is 1376× that.
+Adding stars closes none of that gap, because the gap is not statistical.
 
 ---
 
