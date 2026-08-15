@@ -1,0 +1,14 @@
+{
+  "slope_dMG_dMKs": 1.2464072147672312,
+  "alpha_blind_analytic": 0.18896257086491683,
+  "alpha_blind_numeric": 0.18624604568088043,
+  "leverage_grey_alpha0": -0.2464072147672282,
+  "leverage_dustlike_alpha2": 0.8929535492065865,
+  "lambda_eff_G_um": 0.673,
+  "lambda_eff_Ks_um": 2.159,
+  "interpretation": {
+    "flat_absorber": "NOT invisible: leverage is negative, so a grey absorber makes a star look OVER-luminous in G at fixed M_Ks",
+    "true_blind_spot": "alpha ~ ln(s)/ln(lambda_Ks/lambda_G); an absorber already moderately selective",
+    "dust": "interstellar dust has alpha ~ 2, far on the positive side, so under-corrected reddening mimics the signal directly"
+  }
+}

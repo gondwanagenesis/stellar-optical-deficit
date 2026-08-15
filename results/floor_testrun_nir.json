@@ -1,0 +1,15 @@
+{
+  "tag": "testrun_nir",
+  "n_stars": 47927,
+  "sigma_mag": 0.09630548331496978,
+  "naive_sigma_over_sqrtN_mag": 0.00043990702010321777,
+  "floor_spatial_mag": 0.011065026883139928,
+  "floor_all_axes_mag": 0.007699594645249412,
+  "worst_split_test": "colour (blue vs red half)",
+  "worst_split_difference_mag": -0.05319734463253992,
+  "worst_split_n_sigma": -45.71187388938042,
+  "max_paired_rms_mag": 0.11200765040746023,
+  "max_paired_mean_shift_mag": 0.008165643694942517,
+  "floor_total_mag": 0.05319734463253992,
+  "floor_implied_f": 0.04781559964425108
+}

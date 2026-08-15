@@ -1,0 +1,22 @@
+{
+  "tag": "testrun_nir",
+  "source_tag": "testrun",
+  "nir_control": true,
+  "n_stars_total": 54885,
+  "n_stars_fitted": 47927,
+  "n_interior_knots": 6,
+  "mh_degree": 1,
+  "n_params": 30,
+  "converged": true,
+  "sigma_observed_mag": 0.09630548331496978,
+  "sigma_measurement_mag": 0.043663966706820316,
+  "sigma_intrinsic_mag": 0.08583824397059629,
+  "sigma_observed_bare_mag": 0.16765012128084006,
+  "slope_dMG_dMKs_median": 1.2464072147672312,
+  "slope_dMG_dMKs_p16": 1.0429717388988475,
+  "slope_dMG_dMKs_p84": 1.4476863172746945,
+  "mean_residual": 0.005600480116801377,
+  "median_residual": -0.005086420503509714,
+  "bowley_skew": 0.04639033202784184,
+  "naive_sigma_over_sqrtN": 0.00043990702010321777
+}

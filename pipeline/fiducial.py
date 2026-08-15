@@ -39,6 +39,7 @@ import logging
 from dataclasses import dataclass, field
 
 import numpy as np
+import scipy.sparse as sp
 from scipy.interpolate import BSpline
 
 from . import config as cfg
@@ -65,18 +66,54 @@ def quantile_knots(x: np.ndarray, n_interior: int, degree: int = 3) -> np.ndarra
                            np.repeat(hi, degree + 1)])
 
 
-def design_matrix(m_ks: np.ndarray, mh: np.ndarray, knots: np.ndarray,
-                  mh_degree: int, degree: int = 3) -> np.ndarray:
-    """Dense design matrix: spline basis in M_Ks, tensored with mh powers."""
+def _normalise_covs(covs) -> list[tuple[np.ndarray, int]]:
+    """Accept ``None``, ``(values, degree)``, or a list of such pairs."""
+    if covs is None:
+        return []
+    if isinstance(covs, tuple) and len(covs) == 2 and np.ndim(covs[1]) == 0:
+        covs = [covs]
+    out = []
+    for values, deg in covs:
+        if values is None or deg == 0:
+            continue
+        out.append((np.asarray(values, dtype=float), int(deg)))
+    return out
+
+
+def design_matrix(m_ks: np.ndarray, covs, knots: np.ndarray,
+                  degree: int = 3) -> sp.csr_matrix:
+    """Sparse design matrix: spline basis in M_Ks, tensored with covariate powers.
+
+    ``covs`` is a list of ``(values, polynomial_degree)`` pairs -- metallicity,
+    and optionally a near-infrared colour (see NIR CONTROL below).
+
+    Sparse is not an optimisation detail here.  A cubic B-spline has only 4
+    non-zero basis functions per point, so the matrix has 4*(1 + sum of degrees)
+    non-zeros per row instead of (K+4)*(1 + sum of degrees).  At N = 5e6 and
+    K = 20 that is the difference between fitting on the whole sample and not.
+
+    NIR CONTROL
+    -----------
+    Adding the *optical* colour (BP-RP) as a control would be self-defeating:
+    optical harvesting changes BP-RP, so the control would absorb the signal.
+    A near-infrared colour such as (J-Ks) is safe for exactly the reason this
+    whole method works -- the test is only sensitive to absorbers that are
+    spectrally selective in the optical, and such an absorber leaves J-Ks
+    alone.  (J-Ks) therefore controls for temperature, age and abundance
+    structure at fixed M_Ks without touching the signal.  The cost is the
+    2MASS photometric error it injects, which is why it is optional and its
+    effect on the scatter is reported.
+    """
     x = np.clip(np.asarray(m_ks, dtype=float), knots[0], knots[-1])
-    B = BSpline.design_matrix(x, knots, degree, extrapolate=False).toarray()
-    if mh_degree == 0 or mh is None:
+    B = BSpline.design_matrix(x, knots, degree, extrapolate=False).tocsr()
+    pairs = _normalise_covs(covs)
+    if not pairs:
         return B
-    z = np.asarray(mh, dtype=float)
     blocks = [B]
-    for j in range(1, mh_degree + 1):
-        blocks.append(B * (z ** j)[:, None])
-    return np.hstack(blocks)
+    for values, deg in pairs:
+        for j in range(1, deg + 1):
+            blocks.append(sp.diags(values ** j) @ B)
+    return sp.hstack(blocks, format="csr")
 
 
 # --------------------------------------------------------------------------
@@ -87,7 +124,7 @@ def design_matrix(m_ks: np.ndarray, mh: np.ndarray, knots: np.ndarray,
 class FiducialFit:
     coef: np.ndarray
     knots: np.ndarray
-    mh_degree: int
+    cov_degrees: tuple
     degree: int
     sigma_robust: float
     n_used: int
@@ -95,13 +132,17 @@ class FiducialFit:
     converged: bool
     ridge: float = 0.0
 
-    def predict(self, m_ks: np.ndarray, mh: np.ndarray) -> np.ndarray:
-        A = design_matrix(m_ks, mh, self.knots, self.mh_degree, self.degree)
-        return A @ self.coef
+    @property
+    def mh_degree(self) -> int:
+        return self.cov_degrees[0] if self.cov_degrees else 0
 
-    def residuals(self, m_ks: np.ndarray, mh: np.ndarray,
+    def predict(self, m_ks: np.ndarray, covs) -> np.ndarray:
+        A = design_matrix(m_ks, covs, self.knots, self.degree)
+        return np.asarray(A @ self.coef).ravel()
+
+    def residuals(self, m_ks: np.ndarray, covs,
                   m_g: np.ndarray) -> np.ndarray:
-        return np.asarray(m_g, dtype=float) - self.predict(m_ks, mh)
+        return np.asarray(m_g, dtype=float) - self.predict(m_ks, covs)
 
 
 def _robust_sigma(r: np.ndarray) -> float:
@@ -109,8 +150,8 @@ def _robust_sigma(r: np.ndarray) -> float:
     return 1.4826 * float(np.nanmedian(np.abs(r - np.nanmedian(r))))
 
 
-def fit_fiducial(m_ks: np.ndarray, mh: np.ndarray, m_g: np.ndarray,
-                 n_interior: int, mh_degree: int,
+def fit_fiducial(m_ks: np.ndarray, covs, m_g: np.ndarray,
+                 n_interior: int,
                  degree: int | None = None,
                  huber_delta: float | None = None,
                  max_iter: int | None = None,
@@ -123,10 +164,10 @@ def fit_fiducial(m_ks: np.ndarray, mh: np.ndarray, m_g: np.ndarray,
 
     m_ks = np.asarray(m_ks, dtype=float)
     m_g = np.asarray(m_g, dtype=float)
-    mh = None if mh_degree == 0 else np.asarray(mh, dtype=float)
+    pairs = _normalise_covs(covs)
 
     knots = quantile_knots(m_ks, n_interior, degree)
-    A = design_matrix(m_ks, mh, knots, mh_degree, degree)
+    A = design_matrix(m_ks, covs, knots, degree)
     n, p = A.shape
 
     w = np.ones(n)
@@ -134,13 +175,13 @@ def fit_fiducial(m_ks: np.ndarray, mh: np.ndarray, m_g: np.ndarray,
     prev = None
     converged = False
 
-    for it in range(max_iter):
-        Aw = A * w[:, None]
-        AtA = Aw.T @ A
+    for _ in range(max_iter):
+        Aw = sp.diags(w) @ A
+        AtA = np.asarray((Aw.T @ A).todense())
         AtA.flat[:: p + 1] += ridge * n          # tiny ridge for conditioning
-        Atb = Aw.T @ m_g
+        Atb = np.asarray(Aw.T @ m_g).ravel()
         coef = np.linalg.solve(AtA, Atb)
-        r = m_g - A @ coef
+        r = m_g - np.asarray(A @ coef).ravel()
         s = _robust_sigma(r)
         if s <= 0 or not np.isfinite(s):
             break
@@ -151,8 +192,9 @@ def fit_fiducial(m_ks: np.ndarray, mh: np.ndarray, m_g: np.ndarray,
             break
         prev = coef.copy()
 
-    r = m_g - A @ coef
-    return FiducialFit(coef=coef, knots=knots, mh_degree=mh_degree, degree=degree,
+    r = m_g - np.asarray(A @ coef).ravel()
+    return FiducialFit(coef=coef, knots=knots,
+                       cov_degrees=tuple(d for _, d in pairs), degree=degree,
                        sigma_robust=_robust_sigma(r), n_used=n, n_params=p,
                        converged=converged, ridge=ridge)
 
@@ -174,7 +216,8 @@ class CVResult:
 
 def cross_validate(m_ks: np.ndarray, mh: np.ndarray, m_g: np.ndarray,
                    knot_grid=None, mh_degree_grid=None, folds: int | None = None,
-                   seed: int = 12345, max_fit_n: int = 400_000) -> CVResult:
+                   seed: int = 12345, max_fit_n: int = 400_000,
+                   extra_covs: list | None = None) -> CVResult:
     """k-fold CV on robust (Huber) out-of-fold loss.
 
     The loss is the mean Huber loss, not the mean square, because the binary
@@ -191,14 +234,19 @@ def cross_validate(m_ks: np.ndarray, mh: np.ndarray, m_g: np.ndarray,
 
     rng = np.random.default_rng(seed)
     n = len(m_ks)
+    extra_covs = list(extra_covs or [])
     if n > max_fit_n:
         idx = rng.choice(n, max_fit_n, replace=False)
         m_ks, mh, m_g = m_ks[idx], mh[idx], m_g[idx]
+        extra_covs = [c[idx] for c in extra_covs]
         n = max_fit_n
 
     fold_id = rng.integers(0, folds, size=n)
     res = CVResult()
     best = (np.inf, None, None)
+
+    def build(sel, p):
+        return [(mh[sel], p)] + [(c[sel], 1) for c in extra_covs]
 
     for k in knot_grid:
         for p in mh_degree_grid:
@@ -207,8 +255,8 @@ def cross_validate(m_ks: np.ndarray, mh: np.ndarray, m_g: np.ndarray,
                 tr = fold_id != f
                 te = ~tr
                 try:
-                    fit = fit_fiducial(m_ks[tr], mh[tr], m_g[tr], k, p)
-                    r = fit.residuals(m_ks[te], mh[te], m_g[te])
+                    fit = fit_fiducial(m_ks[tr], build(tr, p), m_g[tr], k)
+                    r = fit.residuals(m_ks[te], build(te, p), m_g[te])
                 except np.linalg.LinAlgError:
                     losses.append(np.inf)
                     continue
@@ -234,13 +282,18 @@ def cross_validate(m_ks: np.ndarray, mh: np.ndarray, m_g: np.ndarray,
 # Error budget
 # --------------------------------------------------------------------------
 
-def slope(fit: FiducialFit, m_ks: np.ndarray, mh: np.ndarray,
+def slope(fit: FiducialFit, m_ks: np.ndarray, covs,
           h: float = 0.01) -> np.ndarray:
-    """dM_G/dM_Ks along the fitted relation, by central difference."""
-    return (fit.predict(m_ks + h, mh) - fit.predict(m_ks - h, mh)) / (2 * h)
+    """dM_G/dM_Ks along the fitted relation, by central difference.
+
+    Note this holds the covariates fixed, which is the relevant derivative:
+    it is the slope a star moves along when its M_Ks changes at fixed
+    metallicity and NIR colour.
+    """
+    return (fit.predict(m_ks + h, covs) - fit.predict(m_ks - h, covs)) / (2 * h)
 
 
-def residual_uncertainty(df, fit: FiducialFit) -> np.ndarray:
+def residual_uncertainty(df, fit: FiducialFit, covs=None) -> np.ndarray:
     """Per-star measurement contribution to the residual, in magnitudes.
 
         r = M_G - f(M_Ks)
@@ -253,8 +306,9 @@ def residual_uncertainty(df, fit: FiducialFit) -> np.ndarray:
     the residual leakage flips across the colour range.
     """
     m_ks = df["M_Ks"].to_numpy(dtype=float)
-    mh = df["mh_gspphot"].to_numpy(dtype=float)
-    fprime = slope(fit, m_ks, mh)
+    if covs is None:
+        covs = [(df["mh_gspphot"].to_numpy(dtype=float), fit.mh_degree)]
+    fprime = slope(fit, m_ks, covs)
 
     # Gaia G: sigma_mag = 1.0857 / (flux/flux_error), plus the calibration floor.
     # Calibration floor 2.0 mmag from Riello et al. 2021 Sect. 8.1.

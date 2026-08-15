@@ -1,0 +1,15 @@
+{
+  "tag": "testrun",
+  "n_stars": 47927,
+  "sigma_mag": 0.13918285936659372,
+  "naive_sigma_over_sqrtN_mag": 0.0006357635599331054,
+  "floor_spatial_mag": 0.01945348562346722,
+  "floor_all_axes_mag": 0.019240800952202125,
+  "worst_split_test": "colour (blue vs red half)",
+  "worst_split_difference_mag": -0.06393678616772037,
+  "worst_split_n_sigma": -38.94113212503131,
+  "max_paired_rms_mag": 0.10178480831319793,
+  "max_paired_mean_shift_mag": 0.0067269767809304895,
+  "floor_total_mag": 0.06393678616772037,
+  "floor_implied_f": 0.05718760056107308
+}

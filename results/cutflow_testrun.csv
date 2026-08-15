@@ -8,7 +8,7 @@ cut,n_before,n_after,n_removed,frac_removed,note
 6. |C*| < 3 sigma_C*(G),224662,206620,18042,0.08030730608647657,Riello+2021 BP/RP excess locus
 7. dust map coverage,206620,205958,662,0.003203949278869422,"finite A_0 at this l,b,d"
 8. 10 < d < 500 pc,206620,57336,149284,0.7225050817926628,zero-point-corrected distance
-9. A_G < 0.5,206620,57336,149284,0.7225050817926628,extinction-law error stays sub-threshold
-"10. finite M_G, M_Ks, (BP-RP)_0",206620,57336,149284,0.7225050817926628,
-11. 3.0 < M_Ks < 8.0,206620,56705,149915,0.7255589971929145,lower main sequence box
-12. 0.7 < (BP-RP)_0 < 3.6,206620,56698,149922,0.7255928758106669,
+9. A_G < 0.5,206620,55538,151082,0.7312070467524925,extinction-law error stays sub-threshold
+"10. finite M_G, M_Ks, (BP-RP)_0",206620,55538,151082,0.7312070467524925,
+11. 3.0 < M_Ks < 8.0,206620,54911,151709,0.7342416029426,lower main sequence box
+12. 0.7 < (BP-RP)_0 < 3.6,206620,54885,151735,0.7343674378085374,

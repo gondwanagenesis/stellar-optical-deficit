@@ -1,0 +1,22 @@
+{
+  "tag": "testrun",
+  "n_stars_total": 54885,
+  "n_stars_fitted": 47927,
+  "frac_with_mh": 0.8732258358385716,
+  "n_interior_knots": 6,
+  "mh_degree": 1,
+  "n_params": 20,
+  "converged": true,
+  "sigma_observed_mag": 0.13918285936659372,
+  "sigma_measurement_mag": 0.05313535463842859,
+  "sigma_intrinsic_mag": 0.12864098269567686,
+  "sigma_observed_nomh_mag": 0.16765012128084006,
+  "sigma_intrinsic_nomh_mag": 0.15869059811347147,
+  "slope_dMG_dMKs_median": 1.5208154289940268,
+  "slope_dMG_dMKs_p16": 1.2324826500600743,
+  "slope_dMG_dMKs_p84": 1.9423040175725763,
+  "mean_residual": 0.00996155325553182,
+  "median_residual": -0.011999690997533285,
+  "bowley_skew": 0.0817182888004677,
+  "naive_sigma_over_sqrtN": 0.0006357635599331054
+}
