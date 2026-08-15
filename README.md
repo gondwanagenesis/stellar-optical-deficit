@@ -10,8 +10,19 @@ observers, whereas photons that were absorbed and never departed are missing
 from every direction. The cost is sensitivity, and quantifying that cost is
 what this repository does.
 
-**Read `RESULTS.md` first, then `LIMITATIONS.md`.** `DECISIONS.md` records the
-judgement calls.
+## → Start with [PAPER.md](PAPER.md)
+
+That is the full write-up: abstract, method, the measured systematic floor, the
+limits, and the three assumptions we began with that turned out to be wrong.
+
+`RESULTS.md` has every number in reporting order, `LIMITATIONS.md` is the
+honest list of what this cannot do, and `DECISIONS.md` records the judgement
+calls (including two flagged as material and one bug found after unblinding).
+
+**Headline:** zero candidates in 3.3 million stars; best limit on the mean
+harvested optical fraction **f̄ < 2.1 × 10⁻⁴**; and the naive `sigma/sqrt(N)`
+sensitivity that motivates this kind of search overstates the truth by
+**957–1376×**.
 
 ## The measurement
 
