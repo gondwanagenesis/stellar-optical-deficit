@@ -1,0 +1,14 @@
+# Parquet caches and downloaded catalogues. Provenance lives in
+# data/cache/manifest.jsonl, which IS tracked.
+data/cache/raw_gaia/
+data/cache/derived/
+data/cache/*.log
+!data/cache/manifest.jsonl
+
+# The blinding offset. Committing this would defeat the point.
+blind/secret_offset.json
+
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
