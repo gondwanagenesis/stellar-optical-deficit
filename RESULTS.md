@@ -1,18 +1,21 @@
 # RESULTS — stellar optical-deficit search
 
-**Status: interim.** All numbers below come from a 2-HEALPix-partition
-validation sample (47,927 stars after cuts). The full-sky 500 pc pull is in
-progress; the ESA archive has been degraded throughout (a `COUNT` that took
-28 s at 13:50 took 362 s at 14:40), and 5 concurrent anonymous jobs completed
-zero partitions in 45 minutes while 3 workers sustained ~200 s/partition. Every
-number is regenerable by re-running the numbered scripts against the full
-sample; the section headers mark which conclusions are sample-size dependent
-and which are not.
+**Status.** The full-sky 500 pc sample is complete: 4,809,840 rows downloaded
+across 192 HEALPix partitions with zero failures, **3,884,167 stars** after
+cuts, **3,321,566** in the fitted sample. Sections 1–3, 7b and 8 carry
+full-sample numbers. Sections 4–7 are being regenerated on the full sample and
+are marked where they still quote the 47,927-star validation subset.
 
-The validation sample is *not* representative: it is two contiguous sky
-patches with ~50% of stars at |b| < 10°, so its extinction systematics are
-worse than the full-sky sample's will be. It is adequate for establishing the
-structure of the result, which is what the interim conclusions rest on.
+The ESA archive was degraded for much of the run — an identical `COUNT` took
+28 s at 13:50 and 362 s at 14:40, and 5 concurrent anonymous jobs completed
+*zero* partitions in 45 minutes while 3 workers sustained ~200 s each. The pull
+took 252 minutes.
+
+Where the validation subset and the full sample can be compared, the fit
+quantities agree closely (σ 0.0963 → 0.0991 mag, slope 1.246 → 1.257) but the
+systematics do not: the subset was two contiguous sky patches with ~50% of
+stars at |b| < 10°. It was adequate for establishing the *structure* of the
+result and misleading about its *size*, which is the expected pattern.
 
 ---
 
@@ -304,27 +307,34 @@ Figure: `F6_injection_recovery.png`.
 
 ## 5. Spectral leverage and the flat-absorber question
 
-Answering the brief's question directly, using the measured `s = 1.246`:
+Answering the brief's question directly, using the full-sample `s = 1.2566`:
 
 | absorber `tau ∝ lambda^-alpha` | `dm_G/dm_Ks` | leverage |
 |---|---|---|
-| grey, `alpha` = 0 | 1.00 | **−0.246** |
-| `alpha` = 0.19 | 1.246 | **0.000 — blind spot** |
-| `alpha` = 0.5 | 1.81 | +0.313 |
-| `alpha` = 1 | 3.33 | +0.626 |
-| `alpha` = 2 (dust-like) | 11.6 | +0.893 |
+| grey, `alpha` = 0 | 1.00 | **−0.257** |
+| `alpha` = 0.193 | 1.257 | **0.000 — blind spot** |
+| `alpha` = 0.5 | 1.81 | +0.307 |
+| `alpha` = 1 | 3.33 | +0.623 |
+| `alpha` = 2 (dust-like) | 11.66 | +0.892 |
+| `alpha` = 4 | 165 | +0.992 |
 
-- **The test has leverage above `alpha ≈ 0.2`**, reaching 63% of the naive
+- **The test has leverage above `alpha ≈ 0.2`**, reaching 62% of the naive
   sensitivity at `alpha = 1` and 89% at `alpha = 2`.
 - A **grey absorber is not invisible** — it gives a residual of opposite sign,
   about a quarter the naive magnitude. A grey-absorbed population would appear
-  as an *over-luminous* tail.
-- The blind `alpha` varies across the sample (0.04–0.32 over the 16–84% slope
-  range), so there is no single blind wavelength dependence.
+  as an *over-luminous* tail, i.e. in the control side of §7b.
+- The blind `alpha` varies across the sample (0.05–0.33 over the 16–84% slope
+  range), so there is no single blind wavelength dependence for the population.
 - **Interstellar dust sits at `alpha ≈ 2`**, so under-corrected reddening
-  mimics the signal at 89% efficiency. This is why extinction dominates §3.
+  mimics the signal at 89% efficiency. This is why extinction carries so much
+  of §3.
 
-Analytic and SED-weighted numeric agree (0.189 vs 0.186). Figure:
+A subtlety that had to be fixed: `lambda_eff` is SED-dependent, and Gaia G spans
+400–950 nm. For a 4500 K photosphere the flux-weighted effective wavelength of
+G is **0.679 µm**, not the Vega-referenced catalogue value of 0.582 µm — a 17%
+difference that propagates to ~10% in `alpha_blind`. Using the SED-weighted
+value, the analytic estimate (0.198) agrees with the full numeric integration
+(0.193); using the catalogue value it does not (0.174). Figure:
 `F5_spectral_leverage.png`.
 
 ### Independent mass anchor
