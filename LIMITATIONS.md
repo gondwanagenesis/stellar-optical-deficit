@@ -139,6 +139,29 @@ Contributing pieces:
 
 ---
 
+## 4a. A units bug in the parallax zero point, found late
+
+`gaiadr3-zeropoint` returns the offset in milliarcseconds, not microarcseconds.
+An extra `/1000` in the first implementation reduced the correction from
+−39 µas to −0.04 µas: numerically present, physically absent. Nothing raised;
+the diagnostic line simply printed `median -0.0 uas`, which reads as
+"negligible here" rather than "broken".
+
+Impact had it survived: a 1.4% distance-scale error at the sample's median
+parallax, i.e. **−0.031 mag of distance modulus**, entering the residual through
+`(1 − s) ≈ −0.25` as ~0.008 mag — the same order as the measured floor, and
+distance-dependent, so it would have leaked straight into the near/far null
+split and been misread as an astrophysical result.
+
+It is guarded now (`parallax_zero_point()` raises outside −150 to −1 µas, with
+four tests). It is listed here because the *class* of error is the real
+limitation: a wrong constant that produces plausible-looking small numbers is
+invisible to every check except comparing against an external expectation, and
+there is no guarantee the remaining constants in `config.py` have all been
+checked that way.
+
+---
+
 ## 5. Metallicity control is partly circular
 
 GSP-Phot `[M/H]` is available for ~87% of the sample (GSP-Spec for 0.7%), but

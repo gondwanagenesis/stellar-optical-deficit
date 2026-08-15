@@ -195,12 +195,23 @@ def find_outliers(df: pd.DataFrame, resid: np.ndarray,
     r = np.asarray(resid, dtype=float)
     s = robust_sigma(r)
     med = float(np.median(r))
-    out = df.copy()
-    out["residual"] = r
-    out["residual_sigma"] = (r - med) / s
-    out["implied_f"] = fraction_from_delta(r - med)
-    pos = out[out["residual_sigma"] > n_sigma].copy()
-    neg = out[out["residual_sigma"] < -n_sigma].copy()
+    nsig = (r - med) / s
+
+    # Select first, copy second.  Copying the whole frame before filtering
+    # would duplicate a multi-million-row, ~100-column table for the sake of
+    # the few thousand rows that survive.
+    pos_mask = nsig > n_sigma
+    neg_mask = nsig < -n_sigma
+
+    def _take(mask):
+        sub = df.loc[mask].copy()
+        sub["residual"] = r[mask]
+        sub["residual_sigma"] = nsig[mask]
+        sub["implied_f"] = fraction_from_delta(r[mask] - med)
+        return sub
+
+    pos = _take(pos_mask)
+    neg = _take(neg_mask)
     pos["side"] = "positive (deficit-like)"
     neg["side"] = "negative (over-luminous control)"
     return pd.concat([pos, neg], ignore_index=True).sort_values(
