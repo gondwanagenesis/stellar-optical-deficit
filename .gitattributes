@@ -1,0 +1,8 @@
+# The repo is edited from Windows and run under WSL. Without this, a file
+# written by a Windows tool gets CRLF, Windows git (autocrlf) calls it clean,
+# and WSL git calls the whole file modified -- which tripped the
+# "working tree is dirty" guard in run_after_unblind.sh with a diff that was
+# 190 insertions and 190 deletions of identical lines.
+* text=auto eol=lf
+*.png binary
+*.parquet binary
