@@ -1,0 +1,16 @@
+{
+  "baseline": {
+    "n": 3321566.0,
+    "sigma": 0.09912799253680192,
+    "n_pos": 19844.0,
+    "pos_rate": 0.0059742904401116825,
+    "efficiency": 0.9859746878430234,
+    "p_ul": 0.00613050504278607,
+    "mean_f_ul": 0.003065252521393035
+  },
+  "best_cut": "C*<25pct AND RUWE<25pct",
+  "best_p_ul": 0.003159501448092672,
+  "best_mean_f_ul": 0.001579750724046336,
+  "gain": 1.9403393679363352,
+  "caveat": "conditional on optical greyness; a C* cut can remove signal from an absorber that is selective within the optical, and injection cannot test this"
+}

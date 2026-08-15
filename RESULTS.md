@@ -543,6 +543,57 @@ instead of 0.
 
 ---
 
+## 6b. A better limit from variant B, and why quality cuts do not help
+
+*(Both post-unblinding, declared. Neither changes any variant-A number.)*
+
+### Variant B gives a 3.2× better limit
+
+The exclusion was initially run only on variant A. Variant B has 3.6× smaller
+scatter, and running the same machinery on it gives:
+
+| | variant A | **variant B** |
+|---|---|---|
+| σ | 0.0991 mag | **0.0278 mag** |
+| 5σ threshold | 0.496 mag | **0.139 mag** |
+| per-star reach (eff > 0.99) | f ≳ 0.5 | **f ≳ 0.2** |
+| best limit on `f̄` | 3.07e-3 (at f=0.5) | **9.70e-4 (at f=0.2)** |
+| 5σ tail | 19,844 / 1,126 | 15,853 / 1,460 |
+
+Conditional on the absorber being **grey across the optical** — that is what
+buys the smaller scatter. For an absorber that reddens or blues the optical,
+variant A's weaker limit is the applicable one.
+
+### Cutting on the contamination proxies buys almost nothing
+
+`scripts/23_projected_gain.py` scans cuts on `C*`, RUWE and
+`astrometric_excess_noise`. Given that the tail rate varies **20×** across `C*`
+quartiles (§7b), a large gain looked likely. It does not materialise:
+
+| cut | N kept | σ | 5σ tail rate | `p_UL` | gain |
+|---|---|---|---|---|---|
+| none | 3,321,566 | 0.0991 | 0.00597 | 6.13e-3 | 1.0× |
+| `C*` < 50th pct | 1,660,783 | 0.0815 | 0.00310 | 3.19e-3 | 1.9× |
+| `C*` < 25th & RUWE < 25th | 255,576 | 0.0678 | 0.00297 | 3.16e-3 | **1.9×** |
+| `C*` < 10th & RUWE < 10th | 53,674 | 0.0610 | 0.00345 | 3.89e-3 | 1.6× |
+
+**Best achievable: 1.9×, and it saturates.** The reason is that the residual
+distribution is **scale-free, not a Gaussian core plus a removable contaminant
+population**. Cleaning the sample shrinks σ (0.099 → 0.061) and the tail
+*together*, so the 5σ threshold moves down in absolute magnitude and re-admits
+outliers that were previously inside it. The tail *fraction* barely moves.
+
+This refines §7b: the 20× `C*` dependence is real at *fixed* threshold, but it
+does not translate into a 20× better limit once σ is recomputed in the cleaned
+subsample. Measuring this rather than assuming it changes the improvement
+strategy completely — **filtering the existing observable cannot win; only
+changing the observable can.**
+
+Quality cuts do still help *per-star* reach, via the smaller σ: the 5σ
+threshold falls from 0.496 to 0.305 mag, i.e. from f ≈ 0.37 to f ≈ 0.25.
+
+---
+
 ## 7b. What the contaminating population actually is
 
 The 5-sigma tail on the full sample holds **19,844 positive** against **1,126

@@ -1,0 +1,16 @@
+{
+  "tag": "primary_optcol",
+  "state": "UNBLINDED",
+  "n_stars": 3321566,
+  "sigma_robust_mag": 0.027790020655156327,
+  "mean_residual_mag": 0.001261665401412542,
+  "median_residual_mag": -0.0007748838113252887,
+  "bowley_skew": 0.02155086029544354,
+  "n_pos_outliers": 15853,
+  "n_neg_outliers": 1460,
+  "k_sigma": 5.0,
+  "smallest_f_with_any_constraint": 0.001,
+  "best_mean_f_upper_limit": 0.0009695217914779298,
+  "f_at_best_limit": 0.2,
+  "note": "rows with p_upper_limit == 1 are unconstrained and excluded from the best-limit search"
+}
