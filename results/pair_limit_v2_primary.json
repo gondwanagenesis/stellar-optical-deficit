@@ -1,0 +1,107 @@
+{
+  "tag": "primary",
+  "p_dark_corrected": 0.0004894879195981954,
+  "f_dark": 0.5050790035456851,
+  "p_iso_suazo22": 0.00019,
+  "p_total_corrected": 0.0006794879195981954,
+  "one_in_n": 1471.6965102062952,
+  "superseded": "asymmetry-based limits in scripts 25 and 30 are void; see scripts/32 injection test",
+  "table": [
+    {
+      "estimator": "all clean pairs",
+      "k": 4,
+      "threshold_mag": 0.44834043890534797,
+      "f_detectable": 0.3382959017614747,
+      "observed": 146,
+      "predicted_background": 169.26677597253826,
+      "excess": -23.266775972538255,
+      "p_UL_conservative": 0.009469409733206226,
+      "p_UL_bkg_subtracted": 0.0016513011200785166,
+      "mean_f_UL": 0.000558628401496695
+    },
+    {
+      "estimator": "all clean pairs",
+      "k": 5,
+      "threshold_mag": 0.5604255486316849,
+      "f_detectable": 0.40319867242429086,
+      "observed": 33,
+      "predicted_background": 65.8460858522757,
+      "excess": -32.846085852275706,
+      "p_UL_conservative": 0.002494633774928599,
+      "p_UL_bkg_subtracted": 0.0009246277237016135,
+      "mean_f_UL": 0.0003728086706831846
+    },
+    {
+      "estimator": "all clean pairs",
+      "k": 6,
+      "threshold_mag": 0.6725106583580219,
+      "f_detectable": 0.46173550149641185,
+      "observed": 10,
+      "predicted_background": 32.03107209069457,
+      "excess": -22.031072090694572,
+      "p_UL_conservative": 0.0009589676184826947,
+      "p_UL_bkg_subtracted": 0.0006029376537092627,
+      "mean_f_UL": 0.00027839771990651634
+    },
+    {
+      "estimator": "all clean pairs",
+      "k": 7,
+      "threshold_mag": 0.7845957680843589,
+      "f_detectable": 0.5145307877811903,
+      "observed": 8,
+      "predicted_background": 18.3186846204471,
+      "excess": -10.318684620447101,
+      "p_UL_conservative": 0.0008160702009948163,
+      "p_UL_bkg_subtracted": 0.00047711081670146805,
+      "mean_f_UL": 0.00024548820437633343
+    },
+    {
+      "estimator": "clean + bare photosphere",
+      "k": 4,
+      "threshold_mag": 0.43637731621983394,
+      "f_detectable": 0.330964637361461,
+      "observed": 105,
+      "predicted_background": 136.8808682410646,
+      "excess": -31.880868241064604,
+      "p_UL_conservative": 0.009600682828679732,
+      "p_UL_bkg_subtracted": 0.001989107049087588,
+      "mean_f_UL": 0.0006583240931743994
+    },
+    {
+      "estimator": "clean + bare photosphere",
+      "k": 5,
+      "threshold_mag": 0.5454716452747924,
+      "f_detectable": 0.39492202903322393,
+      "observed": 20,
+      "predicted_background": 53.836168241124824,
+      "excess": -33.836168241124824,
+      "p_UL_conservative": 0.002259525644568031,
+      "p_UL_bkg_subtracted": 0.0010989855253249372,
+      "mean_f_UL": 0.0004340135935394677
+    },
+    {
+      "estimator": "clean + bare photosphere",
+      "k": 6,
+      "threshold_mag": 0.6545659743297509,
+      "f_detectable": 0.45276532244069934,
+      "observed": 4,
+      "predicted_background": 25.851273766651033,
+      "excess": -21.851273766651033,
+      "p_UL_conservative": 0.0007116715150550127,
+      "p_UL_bkg_subtracted": 0.00069877736820217,
+      "mean_f_UL": 0.0003163821604283188
+    },
+    {
+      "estimator": "clean + bare photosphere",
+      "k": 7,
+      "threshold_mag": 0.7636603033847094,
+      "f_detectable": 0.5050790035456851,
+      "observed": 2,
+      "predicted_background": 14.610074284238218,
+      "excess": -12.610074284238218,
+      "p_UL_conservative": 0.0004894879195981954,
+      "p_UL_bkg_subtracted": 0.0005212465390737963,
+      "mean_f_UL": 0.000247230070678307
+    }
+  ]
+}

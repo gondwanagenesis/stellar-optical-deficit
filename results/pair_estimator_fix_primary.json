@@ -1,0 +1,53 @@
+{
+  "tag": "primary",
+  "n_pairs": 8844,
+  "sigma_dr": 0.11208510972633699,
+  "injection_response_asymmetry_sigma": 0.023138288630988043,
+  "injection_response_twosided_sigma": 13.221424438958305,
+  "verdict": "ASYMMETRY ESTIMATOR IS BLIND -- limits must be rebuilt",
+  "corrected_best_p_UL": 0.0009589676184826947,
+  "corrected_best_f": 0.46173550149641185,
+  "corrected_best_mean_f_UL": 0.0004427893942389268,
+  "table": [
+    {
+      "k": 3,
+      "f_detectable": 0.2663348866794959,
+      "n_pos": 195,
+      "n_neg": 235,
+      "two_sided_total": 430,
+      "poisson_UL": 465.7070419585816,
+      "p_UL": 0.02632898247165206,
+      "mean_f_UL": 0.007012326562973885
+    },
+    {
+      "k": 4,
+      "f_detectable": 0.3382959017614747,
+      "n_pos": 75,
+      "n_neg": 71,
+      "two_sided_total": 146,
+      "poisson_UL": 167.49491936095174,
+      "p_UL": 0.009469409733206226,
+      "mean_f_UL": 0.003203462504843886
+    },
+    {
+      "k": 5,
+      "f_detectable": 0.40319867242429086,
+      "n_pos": 15,
+      "n_neg": 18,
+      "two_sided_total": 33,
+      "poisson_UL": 44.12508221093706,
+      "p_UL": 0.002494633774928599,
+      "mean_f_UL": 0.0010058330262360084
+    },
+    {
+      "k": 6,
+      "f_detectable": 0.46173550149641185,
+      "n_pos": 5,
+      "n_neg": 5,
+      "two_sided_total": 10,
+      "poisson_UL": 16.962219235721903,
+      "p_UL": 0.0009589676184826947,
+      "mean_f_UL": 0.0004427893942389268
+    }
+  ]
+}

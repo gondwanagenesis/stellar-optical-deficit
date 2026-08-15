@@ -32,8 +32,9 @@ survives where there is no dust.
 We report **zero candidates**. Of the 300 strongest optical-deficit outliers,
 none has measured-and-normal mid-infrared photometry. Our best constraint,
 from 8,844 co-natal wide pairs where the background is measurably symmetric,
-is a mean harvested fraction **f̄ < 2.1 × 10⁻⁴** and **p < 4.6 × 10⁻⁴** of
-stars intercepting ≥46% of their optical output.
+is **p < 4.8 × 10⁻⁴** of stars intercepting ≥52% of their optical output.
+(An earlier version used an asymmetry estimator that injection shows is blind
+to this signal; see §5.6.)
 
 This is *not* the strongest published limit — [Suazo et al.
 (2022)](https://doi.org/10.1093/mnras/stac1789) reach 1.9 × 10⁻⁴ at γ ≥ 0.5 by
@@ -526,6 +527,25 @@ of comparable angular resolution.
 
 ### 5.6 The best limit: clean wide pairs
 
+> **CORRECTION (self-caught, post-unblinding).** An earlier version of this
+> section built the limit on the *asymmetry* n_pos − n_neg of
+> Δr = r_prim − r_sec, justified by the measured symmetry of the background.
+> That justification is necessary but not sufficient: **the signal is symmetric
+> too.** Harvesting strikes either component with equal probability, so a
+> fraction p/2 of pairs shift by +Δ and p/2 by −Δ, and the asymmetry vanishes
+> for the signal as well as the background.
+>
+> Injection confirms it (`scripts/32_pair_estimator_fix.py`): against an
+> injected p = 2 × 10⁻² at f = 0.5, the asymmetry estimator responds at
+> **0.02σ** while a two-sided count responds at **13.2σ**. The asymmetry
+> estimator has essentially no sensitivity and the limits derived from it were
+> void. Everything below uses two-sided counting.
+>
+> This is the kind of error that survives peer review when the estimator is
+> validated only against the background and never against an injected signal.
+> Our own injection framework existed and we had not pointed it at this
+> estimator.
+
 17,268 co-natal pairs from a self-join of the analysis sample (chance-alignment
 contamination 0.02% by scramble test). Common-mode cancellation is real but
 partial: σ(Δr) = 0.1138 against 0.1402 for none at all, so **only 34% of the
@@ -633,6 +653,49 @@ El-Badry, Rix & Heintz (2021) catalogue ~1.3 × 10⁶ wide pairs. We use 6,431.
 **A 10× increase — well within that catalogue — makes β a measured quantity
 rather than a rhetorical one.** That is the single most valuable follow-up
 this work identifies, and it requires no new observations.
+
+### 5.8b Corrected limits, and a background prediction that tightens them
+
+Two-sided counting is correct but conservative: every pair in either tail is
+allowed to be signal. We can do better without circularity by *predicting* the
+pair background from an independent measurement.
+
+The pair tails are populated by per-star events — blends, activity, unresolved
+tertiaries — which do **not** cancel in the difference. If a single star
+exceeds |r| > T with probability q(T), a pair exceeds |Δr| > T when either
+component does, so to first order
+
+> **E[pair tail] = 2 · q(T) · N_pairs**
+
+with q(T) measured on the 3.3M single-star sample at the same *absolute*
+threshold in magnitudes. That prediction never touches the pair data, so
+subtracting it is legitimate.
+
+| threshold | f detectable | observed | predicted | excess |
+|---|---|---|---|---|
+| 0.448 mag | 0.338 | 146 | 169.3 | −23.3 |
+| 0.560 mag | 0.403 | 33 | 65.8 | −32.8 |
+| 0.673 mag | 0.462 | 10 | 32.0 | −22.0 |
+| 0.785 mag | 0.515 | 8 | 18.3 | −10.3 |
+
+**Observed counts sit consistently and substantially below prediction** — 10
+against 32 at the 0.67 mag threshold. That is common-mode cancellation
+removing roughly two thirds of the tail, measured rather than assumed, and it
+is the quantitative justification for the pair estimator. Every excess is
+negative: no signal anywhere.
+
+**Corrected limits:**
+
+| | limit | at |
+|---|---|---|
+| all clean pairs | **p < 4.8 × 10⁻⁴** | f ≥ 0.515 |
+| **beamed class** (both components bare) | **p < 4.9 × 10⁻⁴** | f ≥ 0.505 |
+| single stars, same threshold | p ≈ 2.9 × 10⁻³ | — |
+
+The pair sample's background rate is **5.2× cleaner** than the single-star
+sample at matched threshold. The joint constraint of §5.8 is unchanged at
+p_total < 6.8 × 10⁻⁴ because the corrected p_dark is numerically almost
+identical to the (invalid) asymmetry value — a coincidence, not a vindication.
 
 ### 5.9 Deficit spectral type
 
@@ -821,6 +884,12 @@ judge the pipeline's reliability.
   scale-free. Trusting the 20× would have been wrong by an order of magnitude.
 - We expected wide-binary common-mode cancellation to be large. It is **34%**.
 - The blinding scheme did not blind the primary statistic (§5.2).
+- **The wide-pair limit was built on an estimator with no sensitivity.** We
+  validated the asymmetry statistic against the *background* (measuring it to be
+  symmetric) and never against an injected *signal*, which is also symmetric.
+  Injection response: 0.02σ. Caught only by asking, late, whether the estimator
+  responds at all. The injection machinery to catch it existed from §5.1 and we
+  had not pointed it here. Corrected in §5.6 and §5.8b.
 - **We initially framed this as the first stellar optical-deficit search and as
   setting the best limit. Both were wrong** — Zackrisson et al. (2018) precedes
   it methodologically and Suazo et al. (2022) already had a stronger limit at
