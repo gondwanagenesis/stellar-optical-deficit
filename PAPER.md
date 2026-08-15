@@ -111,6 +111,76 @@ f̄ ~ 10⁻⁵ (decisive).
 **The purpose of this paper is to show that this scaling fails, to measure
 where and why, and to report what the channel actually delivers.**
 
+### 1.3 This is not the first stellar optical-deficit search, and not the best limit
+
+We state this plainly because we initially framed the work as more novel than
+it is, and a reader deserves the correction up front.
+
+**[Zackrisson et al. (2018)](https://doi.org/10.3847/1538-4357/aac386)** is the
+direct methodological ancestor. They search for optically underluminous stars
+by comparing spectrophotometric to trigonometric distance, since a dimmed star
+has its spectrophotometric distance overestimated while its parallax does not
+move: f_cov = 1 − (D_trig/D_spec)². On ~230,000 Gaia DR1 × RAVE DR5 stars
+(8,441 after cuts) they find 75 stars at f_cov > 0.9, reducing to six
+unexplained outliers after vetting.
+
+Their method is sensitive **only to nearly complete spheres** — it takes
+f_cov > 0.75 to produce the factor-of-two distance discrepancy the method
+needs, and a 10% covering fraction gives a ~5% distance disagreement that is
+undetectable. That is the same sensitivity regime we reach, from a different
+observable.
+
+Their prime candidate, TYC 6111-1162-1 (f_cov ≈ 0.77, and notably *without*
+mid-infrared excess), resolved to a **single-lined spectroscopic binary** whose
+unseen ~1 M☉ white-dwarf companion perturbed the Gaia parallax. We regard this
+as important independent corroboration: their one candidate died of binarity,
+and we find binarity to be the dominant contaminant by a completely different
+route (§5.5). Two methods, two different observables, the same false-positive
+population.
+
+**[Suazo et al. (2022)](https://doi.org/10.1093/mnras/stac1789)** (Hephaistos I)
+already set upper limits on partial Dyson spheres using Gaia DR2 × AllWISE with
+the AGENT formalism, modelling the system as
+L_ν = (1−γ)L_ν,⋆ + γ·BB_ν(T_DS) — that is, **using the optical obscuration and
+the infrared re-emission together**. Within 100 pc at T_DS = 300 K they obtain
+
+| covering fraction | upper limit on fraction of stars |
+|---|---|
+| γ ≥ 0.1 | 6.6 × 10⁻³ |
+| γ ≥ 0.5 | **1.9 × 10⁻⁴** |
+| γ ≥ 0.9 | 1.8 × 10⁻⁵ |
+
+**Their limit at γ ≥ 0.5 is roughly 2.4× stronger than our best
+(4.6 × 10⁻⁴ at f ≥ 0.46).** We do not set a record and we do not claim one.
+
+### 1.4 What is actually new here
+
+Given the above, the contribution of this work is not the limit. It is:
+
+1. **A measurement of the systematic floor of the deficit channel.** No prior
+   work quantifies where σ/√N stops applying. We find it stops **957–1376×**
+   above the naive value, and we identify what sets it.
+2. **Identification and localisation of the dominant contaminant** as
+   Gaia/2MASS aperture mismatch, pinned to θ ≲ 6.5″ (§5.5). This is structural
+   and limits any 2MASS-anchored search, including future ones.
+3. **Three methodological corrections** that we believe are not stated
+   correctly elsewhere: a uniform deficit is unmeasurable by a self-calibrated
+   relation (§3.2); unresolved companions mimic rather than suppress the signal
+   because dM_G/dM_Ks > 1 (§5.5); and the spectral blind spot lies at α ≈ 0.19
+   rather than at a grey absorber (§3.3). The last bears directly on Hephaistos'
+   choice to model obscuration as grey.
+4. **A differential wide-pair technique** with a *measured* symmetric
+   background, which is the only estimator here that permits background
+   subtraction (§5.6).
+
+A note on method complementarity: our estimator regresses against an empirical
+main-sequence relation, which is why a uniform or grey deficit is invisible to
+it. Zackrisson et al. and Suazo et al. use absolute SED fitting against a
+parallax, which does **not** share that blind spot — a grey absorber makes a
+star underluminous in every band and is directly detectable that way. Our blind
+spots and theirs are different, which is an argument for running both rather
+than for preferring either.
+
 ### 1.3 Related approaches
 
 Other lines of attack share our motivation of looking for absence rather than
@@ -509,13 +579,44 @@ intrinsic width of the scaling relation regressed against — Tully–Fisher for
 them, the main sequence for us — rather than by photon noise. Our relation is
 several times tighter per object; our limiting factor is contamination.
 
-Against [Suazo et al. (2024)](https://doi.org/10.1093/mnras/stae1186): they
-reach covering fractions ~10⁻⁴ **for objects with detectable warm dust**,
-because infrared excess is measured against a near-zero photospheric
-background. We reach f ≳ 0.2–0.46 per star, because a deficit is measured
-against a 0.089 mag main-sequence width. The optical channel's advantage is
-geometric completeness; its cost is roughly **three orders of magnitude in
-per-object sensitivity**. That trade is the central quantitative result here.
+Against [Suazo et al. (2022)](https://doi.org/10.1093/mnras/stac1789),
+Hephaistos I — the direct numerical comparison:
+
+| | covering fraction | limit on p |
+|---|---|---|
+| Suazo+22, 100 pc, 300 K | γ ≥ 0.5 | **1.9 × 10⁻⁴** |
+| **This work, clean pairs, 500 pc** | f ≥ 0.46 | 4.6 × 10⁻⁴ |
+| Suazo+22, 100 pc, 300 K | γ ≥ 0.9 | 1.8 × 10⁻⁵ |
+
+**Their limit is ~2.4× stronger at comparable covering fraction, from ~12×
+fewer stars.** The reason is instructive: their estimator uses the infrared
+re-emission as well as the obscuration, and infrared excess is measured against
+a near-zero photospheric background whereas a deficit is measured against a
+0.089 mag main-sequence width. Adding a second, near-background-free channel is
+worth more than adding an order of magnitude in N — which is the same lesson
+§4.2 teaches from the other direction.
+
+The compensating argument for the deficit channel is coverage, not depth. A
+limit derived from a model that includes γ·BB(T_DS) constrains spheres that
+re-radiate into 4π at the assumed temperature. A beamed radiator, a sphere cold
+enough to fall outside WISE, or one that exports its energy non-thermally is
+weighted differently by that estimator and not at all by ours. We cannot
+quantify how much of that class Hephaistos retains without re-running their
+pipeline with the re-emission term suppressed, and we do not claim a number
+for it.
+
+Against [Zackrisson et al. (2018)](https://doi.org/10.3847/1538-4357/aac386):
+comparable per-object sensitivity (their f_cov > 0.75, our f ≳ 0.46) from a
+different observable, on 400× fewer stars. Their single candidate was killed by
+an unseen binary companion; we find binarity to be the dominant contaminant
+from an independent direction. The agreement on the *failure mode* is stronger
+evidence than either limit.
+
+Against [Zackrisson et al. (2015)](https://doi.org/10.1088/0004-637X/810/1/23):
+their <3% is a limit on the fraction of *galaxies*, ours on the fraction of
+*stars*. Not directly comparable, but both are limited by the intrinsic width
+of the scaling relation regressed against — Tully–Fisher for them, the main
+sequence for us — rather than by photon noise.
 
 ### 6.3 What this does and does not constrain
 
@@ -573,15 +674,25 @@ judge the pipeline's reliability.
   scale-free. Trusting the 20× would have been wrong by an order of magnitude.
 - We expected wide-binary common-mode cancellation to be large. It is **34%**.
 - The blinding scheme did not blind the primary statistic (§5.2).
+- **We initially framed this as the first stellar optical-deficit search and as
+  setting the best limit. Both were wrong** — Zackrisson et al. (2018) precedes
+  it methodologically and Suazo et al. (2022) already had a stronger limit at
+  comparable covering fraction. The literature review that found this was done
+  after the analysis rather than before it, which is the wrong order and is
+  exactly how a novelty claim gets overstated. §1.3 and §6.2 carry the
+  correction.
 
 ---
 
 ## 7. Conclusions
 
 1. The optical-deficit channel is **background-limited, not statistics-limited**.
-   The naive σ/√N sensitivity overstates the truth by **957–1376×**.
-2. Best constraint: **f̄ < 2.1 × 10⁻⁴**, **p < 4.6 × 10⁻⁴** at f ≥ 0.46, from
-   clean wide pairs. **Zero candidates.**
+   The naive σ/√N sensitivity overstates the truth by **957–1376×**. This is
+   the main result and we believe it is new.
+2. Our constraint is **f̄ < 2.1 × 10⁻⁴**, **p < 4.6 × 10⁻⁴** at f ≥ 0.46, from
+   clean wide pairs, with **zero candidates**. This is *not* the strongest
+   published limit: Suazo et al. (2022) reach 1.9 × 10⁻⁴ at γ ≥ 0.5 using the
+   infrared re-emission as well.
 3. **A uniform deficit is unmeasurable** by any self-calibrated version of this
    method.
 4. **Unresolved companions mimic the signal**, because dM_G/dM_Ks = 1.26 > 1.
@@ -619,9 +730,10 @@ wsl -d kali-linux bash run_after_unblind.sh
 - Lindegren L. et al., 2021, A&A, 649, A4
 - Riello M. et al., 2021, A&A, 649, A3
 - Skrutskie M. F. et al., 2006, AJ, 131, 1163
-- Suazo M. et al., 2022, MNRAS, 512, 2988
-- Suazo M. et al., 2024, MNRAS, 531, 695
-- Villarroel B. et al., 2020, AJ, 159, 8
+- Suazo M., Zackrisson E., Wright J. T., Korn A. J., Huston M., 2022, MNRAS, 512, 2988 — *Project Hephaistos I: upper limits on partial Dyson spheres*
+- Suazo M. et al., 2024, MNRAS, 531, 695 — *Project Hephaistos II*
+- Villarroel B. et al., 2020, AJ, 159, 8 — *VASCO I*
+- Zackrisson E., Korn A. J., Wehrhahn A., Reiter J., 2018, ApJ, 862, 21 — *SETI with Gaia: nearly complete Dyson spheres*
 - Wang S., Chen X., 2019, ApJ, 877, 116
 - Wright J. T. et al., 2014a, ApJ, 792, 26
 - Wright J. T. et al., 2014b, ApJ, 792, 27

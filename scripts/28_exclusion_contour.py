@@ -67,20 +67,30 @@ def main() -> int:
             bbox=dict(boxstyle="round,pad=0.4", fc="white", ec="#888888",
                       alpha=0.85))
 
-    # --- prior work -------------------------------------------------------
-    # Zackrisson et al. 2015: <3% of local disc galaxies host galaxy-scale
-    # astroengineering dimming the Tully-Fisher relation. Not the same axis
-    # (galaxies, not stars) -- drawn as an annotation, not a curve.
-    ax.axhline(0.03, color="#7f8c8d", ls=":", lw=1.4)
-    ax.text(0.62, 0.036, "Zackrisson+15: <3% of disc galaxies\n"
-                          "(galaxy-scale, different population)",
-            fontsize=7.5, color="#555555")
+    # --- PRIOR WORK, on the same axes -------------------------------------
+    # Suazo et al. 2022 (Hephaistos I), MNRAS 512, 2988: upper limits on the
+    # fraction of stars with a partial Dyson sphere, within 100 pc, T_DS=300 K,
+    # from ~2.7e5 stars. These are DIRECTLY comparable to ours and they are
+    # BETTER. Their model is (1-gamma)L_star + gamma*BB(T_DS), i.e. it uses the
+    # optical obscuration AND the infrared re-emission together.
+    suazo_g = np.array([0.1, 0.5, 0.9])
+    suazo_p = np.array([6.6e-3, 1.9e-4, 1.8e-5])
+    ax.plot(suazo_g, suazo_p, color="#16a085", lw=2.2, marker="*", ms=13,
+            label="Suazo+22 (Hephaistos I), 100 pc, $T_{DS}$=300 K")
 
-    # Suazo et al. 2024 (Hephaistos II): 7 candidates in ~5e6 sources, i.e.
-    # a rate <~1.4e-6, but ONLY for objects with detectable warm dust
-    # re-emission. Drawn as a point with an arrow to mark the different regime.
-    ax.plot([0.5], [1.4e-6], marker="*", ms=15, color="#16a085", ls="none",
-            label="Hephaistos II (IR excess; requires warm re-emission)")
+    # Zackrisson et al. 2018, ApJ 862, 21: the direct methodological ancestor
+    # of this work -- Gaia optical underluminosity, via spectrophotometric vs
+    # parallax distance. Sensitive only above f_cov ~ 0.75. 6 unexplained
+    # outliers in 8,365 vetted stars gives a conservative p < 7.2e-4.
+    ax.plot([0.75, 0.95], [7.2e-4, 7.2e-4], color="#8e44ad", lw=2.0, ls="-.",
+            marker="v", ms=6,
+            label="Zackrisson+18 (Gaia $D_{spec}$ vs $D_{trig}$), $f>0.75$ only")
+
+    # Zackrisson et al. 2015: galaxy-scale, a different population entirely.
+    ax.axhline(0.03, color="#7f8c8d", ls=":", lw=1.2)
+    ax.text(0.0012, 0.036, "Zackrisson+15: <3% of disc GALAXIES "
+                           "(different population, shown for scale)",
+            fontsize=6.5, color="#666666")
 
     ax.set_xscale("log"); ax.set_yscale("log")
     ax.set_xlim(1e-3, 1.0)
