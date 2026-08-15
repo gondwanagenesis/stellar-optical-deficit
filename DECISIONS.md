@@ -137,6 +137,33 @@ together, so it enters the residual only through `(1 − dM_G/dM_Ks)`. On the
 lower main sequence `dM_G/dM_Ks ≈ 1.1–1.4`, so the cancellation is strong but
 incomplete, and the sign of the leakage flips across the colour range.
 
+### D8a. The zero point was applied 1000× too small (found and fixed)
+
+`gaiadr3-zeropoint`'s `zpt.get_zpt()` returns the offset in **milliarcseconds**
+— the same units as `parallax` — not microarcseconds. The first implementation
+divided by 1000, reducing the correction to −0.04 µas: numerically present,
+physically absent.
+
+The failure mode is the dangerous kind. Nothing raised, no NaNs appeared, and
+the diagnostic line printed `median -0.0 uas`, which reads as "the zero point
+is negligible here" rather than as "this is broken". It was caught only because
+that printed value contradicted the literature figure quoted two lines above it
+in the same docstring.
+
+Impact: a 1.4% distance-scale error at the sample's median parallax of 3.05 mas,
+i.e. **−0.031 mag of distance modulus**, entering the residual through
+`(1 − s) ≈ −0.25` as ~0.008 mag — the same order as the measured systematic
+floor, and distance-dependent, so it would have leaked directly into the
+near/far null split.
+
+Guarded now: `parallax_zero_point()` raises if the median falls outside
+(−150, −1) µas, and `tests/test_zeropoint.py` checks the magnitude, the units
+ratio against the parallax, the sign of the distance-modulus shift, and that a
+deliberately rescaled package is rejected.
+
+**All interim (validation-sample) numbers in this repository's history were
+computed with the buggy value.** The full-sample results use the fix.
+
 ---
 
 ## D9. Fiducial: cubic B-spline at quantile knots, not a GP

@@ -76,6 +76,15 @@ def main() -> int:
                   "difference", "difference_err", "n_sigma"]].to_string(
         index=False, float_format=lambda v: f"{v:9.5f}"))
 
+    # ---- A2. extinction slope, expressed as a physical error ------------
+    exs = nulls.extinction_residual_slope(d, resid)
+    if exs:
+        print("\n=== A2. residual vs A_0 ===")
+        for k, v in exs.items():
+            print(f"  {k:38s} {v}")
+        (cfg.RESULT_DIR / f"nulls_{args.tag}_extslope.json").write_text(
+            json.dumps(exs, indent=2))
+
     # ---- B. extinction-treatment paired tests --------------------------
     print("\n=== B. paired extinction-treatment differences ===")
     paired = []

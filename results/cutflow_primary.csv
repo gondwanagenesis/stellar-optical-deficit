@@ -1,0 +1,14 @@
+cut,n_before,n_after,n_removed,frac_removed,note
+0. raw joined rows,4879956,4879956,0,0.0,after server-side ADQL cuts
+1. 2MASS Ks ph_qual == 'A',4879956,4865655,14301,0.00293055920996009,SNR>10 and good profile fit
+2. not photometrically variable,4879956,4497637,382319,0.07834476376426344,Gaia phot_variable_flag
+3. non_single_star == 0,4879956,4497475,382481,0.07837796078489233,astrometric/spectro/eclipsing binary flags
+4. not QSO/galaxy candidate,4879956,4497459,382497,0.07838123950297912,
+5. DSC star probability > 0.5,4879956,4323603,556353,0.11400779023417425,extragalactic/contaminant rejection
+6. |C*| < 3 sigma_C*(G),4879956,4289991,589965,0.12089555725502443,Riello+2021 BP/RP excess locus
+7. dust map coverage,4289991,4275099,14892,0.0034713359538516516,"finite A_0 at this l,b,d"
+8. 10 < d < 500 pc,4289991,4275099,14892,0.0034713359538516516,zero-point-corrected distance
+9. A_G < 0.5,4289991,3925746,364245,0.08490577252959272,extinction-law error stays sub-threshold
+"10. finite M_G, M_Ks, (BP-RP)_0",4289991,3925746,364245,0.08490577252959272,
+11. 3.0 < M_Ks < 8.0,4289991,3885617,404374,0.09425987140765564,lower main sequence box
+12. 0.7 < (BP-RP)_0 < 3.6,4289991,3884167,405824,0.09459786745473359,

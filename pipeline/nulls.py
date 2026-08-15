@@ -127,6 +127,51 @@ def standard_splits(df: pd.DataFrame, resid: np.ndarray) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def extinction_residual_slope(df: pd.DataFrame, resid: np.ndarray,
+                              leverage: float = 0.89) -> dict:
+    """Regress the residual on A_0 and turn the slope into a physical error.
+
+    If the extinction correction is wrong by a fixed *fraction* eps of A_0,
+    the leftover reddening acts like a dust-like absorber (alpha ~ 2), whose
+    leverage into the residual is ~0.89 (see pipeline/anchor.py).  So
+
+        d(residual)/d(A_0)  =  leverage * eps * (A_G/A_0)
+
+    and the fitted slope converts directly into "the extinction correction is
+    wrong by eps of itself".  That is a far more useful statement than a
+    significance, because it can be compared against the known ~5% uncertainty
+    of the band law and the map-to-map spread.
+    """
+    a0 = df["A_0"].to_numpy(dtype=float)
+    r = np.asarray(resid, dtype=float)
+    ok = np.isfinite(a0) & np.isfinite(r)
+    a0, r = a0[ok], r[ok]
+    if len(a0) < 100:
+        return {}
+    A = np.vstack([np.ones_like(a0), a0]).T
+    coef, *_ = np.linalg.lstsq(A, r, rcond=None)
+    pred = A @ coef
+    dof = max(len(a0) - 2, 1)
+    s2 = float(np.sum((r - pred) ** 2) / dof)
+    cov = s2 * np.linalg.inv(A.T @ A)
+    slope, slope_err = float(coef[1]), float(np.sqrt(cov[1, 1]))
+
+    ag_over_a0 = float(np.nanmedian(
+        df["A_G"].to_numpy(dtype=float)[ok] / np.maximum(a0, 1e-6)))
+    eps = slope / (leverage * ag_over_a0) if ag_over_a0 > 0 else np.nan
+    return {
+        "slope_resid_per_A0": slope,
+        "slope_err": slope_err,
+        "n_sigma": slope / slope_err if slope_err > 0 else np.nan,
+        "median_A_G_over_A_0": ag_over_a0,
+        "implied_fractional_extinction_error": eps,
+        "interpretation": (
+            f"the extinction correction appears to be "
+            f"{'under' if eps > 0 else 'over'}-correcting by "
+            f"{abs(eps) * 100:.1f}% of A_G"),
+    }
+
+
 def dust_map_paired_test(df: pd.DataFrame, resid_a: np.ndarray,
                          resid_b: np.ndarray, label_a: str,
                          label_b: str) -> dict:
