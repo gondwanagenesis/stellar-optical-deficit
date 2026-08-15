@@ -1,0 +1,15 @@
+{
+  "tag": "primary",
+  "n_stars": 3321566,
+  "n_pairs": 17222,
+  "chance_contamination_frac": 0.0002316423442205235,
+  "median_sep_au": 3049.9002086086734,
+  "sigma_single_mag": 0.09912799253680192,
+  "sigma_dr_mag": 0.11384328388907647,
+  "sqrt2_sigma_single_mag": 0.14018815145636424,
+  "sigma_individual_mag": 0.0804993580305112,
+  "common_mode_variance_fraction": 0.3405343010178027,
+  "f_threshold_single": 0.36650379883875606,
+  "f_threshold_paired": 0.30975815554645303,
+  "verdict": "common-mode cancellation WORKS; paired test reaches lower f"
+}

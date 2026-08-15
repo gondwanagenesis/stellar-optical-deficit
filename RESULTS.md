@@ -594,6 +594,53 @@ threshold falls from 0.496 to 0.305 mag, i.e. from f ≈ 0.37 to f ≈ 0.25.
 
 ---
 
+## 6c. Wide-binary differential: the strongest limit, from 188× fewer stars
+
+*(Post-unblinding, declared. The separation cut below was chosen after seeing
+the asymmetry and is post-hoc.)*
+
+17,268 co-natal pairs were found by self-joining the analysis sample (resolved
+pairs have both components in it already). A scramble test puts chance
+alignment at **0.02%** — the selection is clean.
+
+**Common-mode cancellation is real but partial.** σ(Δr) = 0.1138 mag against
+0.1402 for no cancellation at all: only **34% of the main-sequence variance is
+common-mode**. Two thirds of the scatter is genuinely per-star — activity,
+rotation, blending — not age or metallicity. That kills the hope of a large
+σ gain: per-star reach improves only from f = 0.367 to f = 0.310.
+
+**But the tail asymmetry is confined to the 2MASS beam**, which is worth more:
+
+| separation | n_pos | n_neg | neg/pos |
+|---|---|---|---|
+| 3.0–6.5″ | 3 | 152 | **50.7** |
+| 6.5–10.3″ | 3 | 8 | 2.7 |
+| 10.3–19.3″ | 8 | 11 | 1.4 |
+| 19.3–120″ | 7 | 4 | 0.57 |
+
+Below ~6.5″ the brighter primary leaks into the secondary's `Ks` aperture and
+the secondary looks under-luminous in `G` — §7b's mechanism, caught in the act
+and localised to the beam scale. **Beyond 10″ the tails balance.**
+
+That symmetry is *measured*, not assumed, so on the θ > 10″ subsample the
+background can legitimately be subtracted — which the single-star test can
+never do, because there the contaminants are one-sided.
+
+| | single-star | **clean pairs (θ > 10″)** |
+|---|---|---|
+| stars | 3,321,566 | **17,688** |
+| statistic | raw positive count | **positive − negative asymmetry** |
+| measured asymmetry at 5σ | 19,844 vs 1,126 | **15 vs 18 (−3 ± 5.7)** |
+| `p_UL` | 5.9e-3 | **4.6e-4** |
+| **mean `f̄` limit** | 2.95e-3 | **2.14e-4** |
+
+**13.8× better, from 188× fewer stars.** The gain is not statistical — it is
+that the background is measurably symmetric here and therefore subtractable.
+Every asymmetry is consistent with zero: −40 ± 20.7 (3σ), +4 ± 12.1 (4σ),
+−3 ± 5.7 (5σ), 0 ± 3.2 (6σ).
+
+---
+
 ## 7b. What the contaminating population actually is
 
 The 5-sigma tail on the full sample holds **19,844 positive** against **1,126

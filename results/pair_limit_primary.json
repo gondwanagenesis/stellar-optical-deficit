@@ -1,0 +1,65 @@
+{
+  "tag": "primary",
+  "clean_sep_arcsec": 10.0,
+  "n_pairs": 8844,
+  "n_stars": 17688,
+  "median_sep_au": 5650.766230060735,
+  "sigma_dr_mag": 0.11208510972633699,
+  "sigma_individual_mag": 0.07925614115753114,
+  "table": [
+    {
+      "k": 3,
+      "threshold_mag": 0.33625532917901096,
+      "f_detectable": 0.2663348866794959,
+      "n_pos": 195,
+      "n_neg": 235,
+      "asymmetry": -40,
+      "asym_err": 20.73644135332772,
+      "excess_UL_95": 37.10717829977809,
+      "p_UL": 0.0020978730382054554,
+      "mean_f_UL": 0.0005587367778984197
+    },
+    {
+      "k": 4,
+      "threshold_mag": 0.44834043890534797,
+      "f_detectable": 0.3382959017614747,
+      "n_pos": 75,
+      "n_neg": 71,
+      "asymmetry": 4,
+      "asym_err": 12.083045973594572,
+      "excess_UL_95": 29.030129653200646,
+      "p_UL": 0.0016412330197422347,
+      "mean_f_UL": 0.0005552224044144075
+    },
+    {
+      "k": 5,
+      "threshold_mag": 0.5604255486316849,
+      "f_detectable": 0.40319867242429086,
+      "n_pos": 15,
+      "n_neg": 18,
+      "asymmetry": -3,
+      "asym_err": 5.744562646538029,
+      "excess_UL_95": 12.445537827109046,
+      "p_UL": 0.000703614757299245,
+      "mean_f_UL": 0.0002836965360411952
+    },
+    {
+      "k": 6,
+      "threshold_mag": 0.6725106583580219,
+      "f_detectable": 0.46173550149641185,
+      "n_pos": 5,
+      "n_neg": 5,
+      "asymmetry": 0,
+      "asym_err": 3.1622776601683795,
+      "excess_UL_95": 8.197679024530974,
+      "p_UL": 0.0004634599177143246,
+      "mean_f_UL": 0.00021399589752930945
+    }
+  ],
+  "best_k": 6.0,
+  "best_p_UL": 0.0004634599177143246,
+  "best_mean_f_UL": 0.00021399589752930945,
+  "f_detectable_at_best": 0.46173550149641185,
+  "gain_over_single_star": 13.796510549278011,
+  "caveat": "separation cut chosen after seeing the asymmetry; post-hoc and post-unblinding, declared in RESULTS.md"
+}
