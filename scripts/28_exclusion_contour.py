@@ -86,6 +86,17 @@ def main() -> int:
             marker="v", ms=6,
             label="Zackrisson+18 (Gaia $D_{spec}$ vs $D_{trig}$), $f>0.75$ only")
 
+    # This work, dynamical-mass channel (scripts/37). Higher f threshold, but
+    # it is the ONLY curve here valid for an absorber of any spectral slope --
+    # the M_G-vs-M_Ks curves are blind to grey and to alpha ~ 0.19.
+    dyn = json.loads((R / "dynamical_mass_search.json").read_text())
+    ax.plot([dyn["best_MG_f"]], [dyn["best_MG_p_UL"]], marker="P", ms=13,
+            color="#8e44ad", ls="none",
+            label="This work: dynamical mass (ANY spectral slope)")
+    ax.annotate("", xy=(0.98, dyn["best_MG_p_UL"]),
+                xytext=(dyn["best_MG_f"], dyn["best_MG_p_UL"]),
+                arrowprops=dict(arrowstyle="->", color="#8e44ad", lw=1.4))
+
     # Zackrisson et al. 2015: galaxy-scale, a different population entirely.
     ax.axhline(0.03, color="#7f8c8d", ls=":", lw=1.2)
     ax.text(0.0012, 0.036, "Zackrisson+15: <3% of disc GALAXIES "
