@@ -1,0 +1,8 @@
+{
+  "single_star_variantA_best_mean_f": 0.0029523966577653,
+  "single_star_variantB_best_mean_f": 0.0009695217914779,
+  "pair_best_mean_f": 0.00021399589752930945,
+  "pair_best_p": 0.0004634599177143246,
+  "pair_f_at_best": 0.46173550149641185,
+  "blind_below_f": 0.1
+}
