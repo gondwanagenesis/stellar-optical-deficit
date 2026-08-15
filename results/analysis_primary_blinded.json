@@ -1,0 +1,16 @@
+{
+  "tag": "primary",
+  "state": "BLINDED",
+  "n_stars": 3321566,
+  "sigma_robust_mag": 0.09912799253680192,
+  "mean_residual_mag": 0.04270055510349237,
+  "median_residual_mag": 0.03105185232593903,
+  "bowley_skew": 0.04716444353938571,
+  "n_pos_outliers": 19844,
+  "n_neg_outliers": 1126,
+  "k_sigma": 5.0,
+  "smallest_f_with_any_constraint": 0.003,
+  "best_mean_f_upper_limit": 0.002952396657765334,
+  "f_at_best_limit": 0.003,
+  "note": "rows with p_upper_limit == 1 are unconstrained and excluded from the best-limit search"
+}

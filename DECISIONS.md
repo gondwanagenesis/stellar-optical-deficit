@@ -282,6 +282,38 @@ reported alongside as an explicit control.
 
 ---
 
+## D12a. The blinding was ineffective for the primary statistic **[MATERIAL]**
+
+Owning this rather than burying it.
+
+The blind adds an unknown constant to every residual. That correctly hides the
+*mean* residual and the model-anchored offset. It does **not** hide the tail
+statistics, and the tail is the primary result.
+
+The reason is structural: the tail counts are defined relative to the sample
+median (`r > median + k*sigma`), so a constant offset shifts the residuals and
+the median together and the counts are *identical* blinded and unblinded. The
+exclusion curve computed under the blind is bit-for-bit the exclusion curve
+after unblinding. There was no moment at which the tail answer was hidden.
+
+A blind that would have worked for a shape statistic would need to perturb the
+shape — injecting an unknown number of synthetic outliers, or randomly
+reassigning a hidden fraction of stars between the positive and negative
+tails — not add a constant.
+
+**What actually provides the protection here is pre-registration, not
+blinding.** The 5-sigma threshold, the conservative no-background-subtraction
+limit, the colour-box boundaries and the null-test battery were all fixed in
+this file and in `pipeline/config.py` before the full sample existed — most of
+them before any data had been downloaded. That is a weaker guarantee than a
+working blind, and it is the guarantee this result actually rests on.
+
+The blind is still executed and unblinded as specified, because the
+model-anchored analysis genuinely was blinded and because the commitment file
+records that no offset was redrawn.
+
+---
+
 ## D13. Boundaries chosen by inspection
 
 - Main-sequence box `3.0 < M_Ks < 8.0`: brighter than 3.0 the turnoff and

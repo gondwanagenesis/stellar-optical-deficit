@@ -1,0 +1,4 @@
+f,p_min_recoverable,mean_f_min
+0.1,,
+0.3,1e-05,3e-06
+0.5,1e-05,5e-06
