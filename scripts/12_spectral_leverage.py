@@ -58,13 +58,26 @@ def main() -> int:
         "residual_mag": "residual(mag)"})
     print(tab_disp.to_string(index=False, float_format=lambda v: f"{v:10.4f}"))
 
-    a_blind_an = anchor.blind_slope_analytic(slope)
+    a_blind_an = anchor.blind_slope_analytic(slope)          # SED-weighted
+    a_blind_vega = anchor.blind_slope_analytic(slope, teff=None)
     a_blind_num = anchor.blind_slope_numeric(slope)
     grey_lev = anchor.leverage(0.0, slope)
     dust_lev = anchor.leverage(2.0, slope)
 
-    print(f"\nblind spot (thin-absorber analytic) : alpha = {a_blind_an:.3f}")
-    print(f"blind spot (SED-weighted numeric)   : alpha = {a_blind_num:.3f}")
+    lam_g_sed = anchor.effective_wavelength("G")
+    lam_ks_sed = anchor.effective_wavelength("Ks")
+    print(f"\neffective wavelengths for a 4500 K photosphere:")
+    print(f"  G  : {lam_g_sed:.4f} um   (Vega-referenced catalogue value "
+          f"{anchor.LAM_G_VEGA:.4f} um)")
+    print(f"  Ks : {lam_ks_sed:.4f} um   (catalogue {anchor.LAM_KS:.4f} um)")
+    print("  G is 400-950 nm wide, so a cool star's flux weighting pushes its "
+          "effective\n  wavelength far to the red of the Vega value. Using the "
+          "catalogue number here\n  would be wrong by ~10% in alpha_blind.")
+
+    print(f"\nblind spot (analytic, SED-weighted) : alpha = {a_blind_an:.3f}")
+    print(f"blind spot (analytic, Vega lambdas) : alpha = {a_blind_vega:.3f}  "
+          f"<- not the right choice, shown for contrast")
+    print(f"blind spot (full numeric)           : alpha = {a_blind_num:.3f}")
     print(f"leverage for a GREY absorber (a=0)  : {grey_lev:+.3f}")
     print(f"leverage for dust-like (a=2)        : {dust_lev:+.3f}")
 
@@ -76,12 +89,15 @@ def main() -> int:
 
     out = {
         "slope_dMG_dMKs": float(slope),
-        "alpha_blind_analytic": float(a_blind_an),
+        "alpha_blind_analytic_sed": float(a_blind_an),
+        "alpha_blind_analytic_vega": float(a_blind_vega),
         "alpha_blind_numeric": float(a_blind_num),
         "leverage_grey_alpha0": float(grey_lev),
         "leverage_dustlike_alpha2": float(dust_lev),
-        "lambda_eff_G_um": anchor.LAM_G,
-        "lambda_eff_Ks_um": anchor.LAM_KS,
+        "lambda_eff_G_um_sed_4500K": float(lam_g_sed),
+        "lambda_eff_Ks_um_sed_4500K": float(lam_ks_sed),
+        "lambda_eff_G_um_vega": anchor.LAM_G_VEGA,
+        "lambda_eff_Ks_um_vega": anchor.LAM_KS,
         "interpretation": {
             "flat_absorber": ("NOT invisible: leverage is negative, so a grey "
                               "absorber makes a star look OVER-luminous in G "

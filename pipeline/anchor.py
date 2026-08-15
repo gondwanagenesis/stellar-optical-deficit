@@ -48,8 +48,11 @@ import pandas as pd
 
 from . import config as cfg
 
-# Band effective wavelengths, micron (config.LAMBDA_EFF_UM, cited there).
-LAM_G = cfg.LAMBDA_EFF_UM["G"]
+# Vega-referenced effective wavelengths, micron (config.LAMBDA_EFF_UM).
+# These are NOT the right numbers for this sample -- see effective_wavelength()
+# below and the caveat in config.py -- and are kept only so the Vega-based
+# analytic estimate can be reported alongside the SED-weighted one.
+LAM_G_VEGA = cfg.LAMBDA_EFF_UM["G"]
 LAM_KS = cfg.LAMBDA_EFF_UM["Ks"]
 
 # Approximate rectangular band limits, micron, used for the SED-weighted
@@ -68,8 +71,12 @@ BAND_LIMITS_UM = {
 # --------------------------------------------------------------------------
 
 def tau_of_lambda(lam_um, alpha: float, tau_ref: float,
-                  lam_ref_um: float = LAM_G) -> np.ndarray:
-    """Power-law optical depth, normalised to tau_ref at lam_ref."""
+                  lam_ref_um: float = LAM_G_VEGA) -> np.ndarray:
+    """Power-law optical depth, normalised to tau_ref at lam_ref.
+
+    The reference wavelength only sets the normalisation of tau; every
+    quantity reported here is a *ratio* between bands, so the choice cancels.
+    """
     return tau_ref * (np.asarray(lam_um, dtype=float) / lam_ref_um) ** (-alpha)
 
 
@@ -123,9 +130,38 @@ def leverage(alpha: float, slope: float, tau_ref: float = 0.05,
     return (dg - slope * dk) / dg if dg != 0 else np.nan
 
 
-def blind_slope_analytic(slope: float) -> float:
-    """alpha at which the test has exactly zero leverage (thin-absorber limit)."""
-    return float(np.log(slope) / np.log(LAM_KS / LAM_G))
+def effective_wavelength(band: str, teff: float = 4500.0,
+                         n_grid: int = 2000) -> float:
+    """Flux-weighted effective wavelength of a band for a blackbody of ``teff``.
+
+    lambda_eff = int(lambda * B_lambda * R) / int(B_lambda * R)
+
+    This is the wavelength at which the band actually samples the absorber's
+    optical depth *for these stars*, and it differs substantially from the
+    Vega-referenced catalogue value because Gaia G spans 400-950 nm and the
+    sample is dominated by K and M dwarfs.  At 4500 K the G band's effective
+    wavelength lands near 0.67 um rather than the Vega value of 0.582 um.
+    """
+    lo, hi = BAND_LIMITS_UM[band]
+    lam = np.linspace(lo, hi, n_grid)
+    w = _planck_lambda(lam, teff)
+    return float(np.trapezoid(lam * w, lam) / np.trapezoid(w, lam))
+
+
+def blind_slope_analytic(slope: float, teff: float | None = 4500.0) -> float:
+    """alpha at which the test has exactly zero leverage (thin-absorber limit).
+
+    With ``teff`` given, the SED-weighted effective wavelengths are used, which
+    is the physically correct choice.  Pass ``teff=None`` to use the
+    Vega-referenced catalogue values instead; the two differ by ~10% in the
+    resulting alpha, and the difference is entirely the broadness of G.
+    """
+    if teff is None:
+        lam_g, lam_ks = LAM_G_VEGA, LAM_KS
+    else:
+        lam_g = effective_wavelength("G", teff)
+        lam_ks = effective_wavelength("Ks", teff)
+    return float(np.log(slope) / np.log(lam_ks / lam_g))
 
 
 def blind_slope_numeric(slope: float, tau_ref: float = 0.05,

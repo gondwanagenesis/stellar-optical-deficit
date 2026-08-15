@@ -161,16 +161,39 @@ CUTS = SampleCuts()
 # Empirical constants.  Every one of these is somebody's measurement.
 # --------------------------------------------------------------------------
 
-# Band effective wavelengths (micron).
-# Gaia EDR3 revised passbands: Riello et al. 2021, A&A 649, A3, Table 1.
+# Band effective wavelengths (micron), Vega-referenced.
+#
+# Gaia DR3 passbands from the SVO Filter Profile Service (Rodrigo & Solano
+# 2020), GAIA/GAIA3 set, which tabulates the Riello et al. 2021 (A&A 649, A3)
+# revised response curves.  NOTE these are the DR3 values; the DR2-era numbers
+# (G = 0.673, BP = 0.532, RP = 0.797) are still widely quoted and are NOT the
+# same.
+#
 # 2MASS: Cohen, Wheaton & Megeath 2003, AJ 126, 1090, Table 2.
+#
+# CAVEAT that matters for pipeline/anchor.py: lambda_eff is SED-dependent, and
+# these are Vega-referenced.  The Gaia G band is extraordinarily broad
+# (400-950 nm), so for the K and M dwarfs that dominate this sample the
+# flux-weighted effective wavelength is far redder than the Vega value -- close
+# to the old DR2 number, by coincidence.  Anything that needs a wavelength for
+# THESE stars must integrate the actual SED through the band rather than use
+# this constant; see anchor.effective_wavelength().
 LAMBDA_EFF_UM = {
-    "G": 0.6730,
-    "BP": 0.5320,
-    "RP": 0.7970,
+    "G": 0.58224,
+    "BP": 0.50358,
+    "RP": 0.76200,
     "J": 1.235,
     "H": 1.662,
     "Ks": 2.159,
+}
+
+# Pivot wavelengths, same sources. Included because the pivot wavelength is
+# SED-independent and is the right choice when a single number must stand in
+# for a band irrespective of the source spectrum.
+LAMBDA_PIVOT_UM = {
+    "G": 0.62176,
+    "BP": 0.51097,
+    "RP": 0.77690,
 }
 
 # Extinction law A -- constant ratios A_band / A_V for R_V = 3.1.

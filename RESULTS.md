@@ -37,25 +37,33 @@ Three structural findings, none of which depend on sample size:
 
 ## 1. Sample
 
-| stage | stars |
-|---|---|
-| raw joined rows (after server-side ADQL cuts) | 224,662 |
-| 2MASS Ks `ph_qual` = 'A' | 224,335 |
-| not photometrically variable | 209,953 |
-| `non_single_star` = 0 | 209,951 |
-| not QSO/galaxy candidate | 209,951 |
-| DSC star probability > 0.5 | 207,475 |
-| `abs(C*)` < 3 sigma (Riello+2021) | 206,620 |
-| dust-map coverage | 205,958 |
-| 10 < d < 500 pc | 57,336 |
-| `A_G` < 0.5 | 55,538 |
-| finite `M_G`, `M_Ks`, `(BP-RP)_0` | 55,538 |
-| 3.0 < `M_Ks` < 8.0 | 54,911 |
-| 0.7 < `(BP-RP)_0` < 3.6 | **54,885** |
-| with GSP-Phot `[M/H]` (fitted sample) | **47,927** |
+Full-sky 500 pc pull: **192 HEALPix partitions, 4,809,840 rows downloaded,
+0 failures**, in 252 minutes at 3 concurrent workers. (8 duplicate `source_id`
+rows were dropped — a source can appear twice when `tmass_psc_xsc_join` maps
+one cleaned 2MASS identifier to both a PSC and an XSC entry.)
 
-Full-sky projection from measured partition counts: **5.42M** stars at 500 pc,
-17.3M at 1250 pc. Figure: `F1_sample_and_fiducial.png`, `F8_cutflow.png`.
+| stage | stars | removed |
+|---|---|---|
+| raw joined rows (after server-side ADQL cuts) | 4,879,956 | — |
+| 2MASS Ks `ph_qual` = 'A' | 4,865,655 | 0.29% |
+| not photometrically variable | 4,497,637 | 7.83% |
+| `non_single_star` = 0 | 4,497,475 | 7.84% |
+| not QSO/galaxy candidate | 4,497,459 | 7.84% |
+| DSC star probability > 0.5 | 4,323,603 | 11.40% |
+| `abs(C*)` < 3 sigma (Riello+2021) | 4,289,991 | 12.09% |
+| dust-map coverage | 4,275,099 | 0.35% |
+| 10 < d < 500 pc | 4,275,099 | 0.35% |
+| `A_G` < 0.5 | 3,925,746 | 8.49% |
+| finite `M_G`, `M_Ks`, `(BP-RP)_0` | 3,925,746 | 8.49% |
+| 3.0 < `M_Ks` < 8.0 | 3,885,617 | 9.43% |
+| 0.7 < `(BP-RP)_0` < 3.6 | **3,884,167** | 9.46% |
+| with GSP-Phot `[M/H]` (fitted sample, 85.5%) | **3,320,963** | |
+
+The pre-pull projection from three probe partitions was 5.42M at 500 pc; the
+realised 4.88M reflects the true sky-density variation the equal-area
+extrapolation could not capture.
+
+Figures: `F1_sample_and_fiducial.png`, `F8_cutflow.png`.
 
 ---
 
