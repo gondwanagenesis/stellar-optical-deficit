@@ -96,7 +96,20 @@ def parallax_zero_point(df: pd.DataFrame) -> np.ndarray:
     zp = np.asarray(zp, dtype=float)
     # Sources with astrometric_params_solved not in {31, 95} get no correction.
     zp = np.where(np.isfinite(zp), zp, 0.0)
-    return zp / 1000.0            # uas -> mas
+
+    # gaiadr3-zeropoint returns the offset in MILLIarcseconds, the same units
+    # as `parallax` -- not microarcseconds.  Dividing by 1000 here silently
+    # reduced the correction by three orders of magnitude, which looked like
+    # "the zero point is negligible" instead of like a bug.  Typical values are
+    # -0.02 to -0.05 mas, i.e. -20 to -50 uas, matching Lindegren et al. 2021.
+    med_uas = float(np.median(zp)) * 1000.0
+    if not (-150.0 < med_uas < -1.0):
+        raise ValueError(
+            f"parallax zero point median {med_uas:.2f} uas is outside the "
+            f"plausible range (-150, -1); the units returned by "
+            f"gaiadr3-zeropoint have probably changed. Refusing to continue "
+            f"with a silently wrong distance scale.")
+    return zp
 
 
 # --------------------------------------------------------------------------
