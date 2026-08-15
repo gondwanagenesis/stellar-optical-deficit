@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+﻿#!/usr/bin/env python
 """Itemise the systematic budget from the null-test outputs.
 
     run.sh scripts/22_systematic_budget.py --tag primary
@@ -50,9 +50,19 @@ def main() -> int:
     slope = float(fid.get("slope_dMG_dMKs_median", np.nan))
     n = int(floor.get("n_stars", len(d)))
 
-    def split(name_contains: str) -> float:
-        m = splits["test"].str.contains(name_contains, case=False, regex=False)
-        return float(splits.loc[m, "difference"].abs().max()) if m.any() else np.nan
+    def split(exact_name: str) -> float:
+        """Look a split up by its EXACT name.
+
+        Substring matching is wrong here and was wrong: 'extinction quartile'
+        also matches 'colour split WITHIN lowest-extinction quartile', so the
+        extinction term silently reported the (larger) colour value instead of
+        its own. Exact names only.
+        """
+        m = splits["test"] == exact_name
+        if not m.any():
+            raise KeyError(f"no split named {exact_name!r}; have "
+                           f"{list(splits['test'])}")
+        return float(splits.loc[m, "difference"].abs().max())
 
     rows = []
 
@@ -70,7 +80,7 @@ def main() -> int:
     })
     rows.append({
         "term": "extinction: low vs high A_0 split",
-        "value_mag": split("extinction quartile"),
+        "value_mag": split("extinction quartile (low vs high A_0)"),
         "how": "two-sided null split that must return zero",
     })
     if extslope:
@@ -84,7 +94,7 @@ def main() -> int:
 
     rows.append({
         "term": "astrophysical: main-sequence structure vs colour",
-        "value_mag": split("colour split WITHIN"),
+        "value_mag": split("colour split WITHIN lowest-extinction quartile"),
         "how": ("colour split inside the lowest-extinction quartile; survives "
                 "where there is no dust, so it is not an extinction error"),
     })
@@ -102,12 +112,12 @@ def main() -> int:
 
     rows.append({
         "term": "photometric: bright vs faint G split",
-        "value_mag": split("apparent G"),
+        "value_mag": split("apparent G (bright vs faint)"),
         "how": "two-sided null split",
     })
     rows.append({
         "term": "crowding: sparse vs crowded split",
-        "value_mag": split("crowding"),
+        "value_mag": split("crowding (sparse vs crowded)"),
         "how": "two-sided null split",
     })
     rows.append({
@@ -117,7 +127,7 @@ def main() -> int:
     })
     rows.append({
         "term": "metallicity calibration",
-        "value_mag": split("metallicity"),
+        "value_mag": split("metallicity (metal-poor vs metal-rich)"),
         "how": "metal-poor vs metal-rich split; GSP-Phot [M/H] is not "
                "independent of the BP/RP photometry",
     })

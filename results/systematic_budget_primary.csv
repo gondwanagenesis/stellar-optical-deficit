@@ -1,0 +1,11 @@
+term,value_mag,how
+extinction: map vs Gaia per-star A_G,0.0070239604268791,"paired mean shift, same stars, two extinction treatments"
+extinction: band law (Fitz19 vs Wang&Chen19),5.12056007999069e-05,paired mean shift between band laws
+extinction: low vs high A_0 split,0.0445616669142216,two-sided null split that must return zero
+extinction: implied fractional error x median A_G,0.01314166064298617,residual-vs-A_0 slope implies the correction is off by 19.0% of A_G
+astrophysical: main-sequence structure vs colour,0.06778720160181,"colour split inside the lowest-extinction quartile; survives where there is no dust, so it is not an extinction error"
+parallax zero-point residual,0.0019467161492405973,"10 uas residual (Lindegren+2021) at median parallax 2.86 mas, x |1-s| = 0.26"
+photometric: bright vs faint G split,0.0281844032320283,two-sided null split
+crowding: sparse vs crowded split,0.0261150533984394,two-sided null split
+spatial coherence plateau,0.01693921492749784,plateau of sky-patch mean-residual scatter at large N
+metallicity calibration,0.0009886824334112,metal-poor vs metal-rich split; GSP-Phot [M/H] is not independent of the BP/RP photometry

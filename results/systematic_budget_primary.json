@@ -1,0 +1,10 @@
+{
+  "tag": "primary",
+  "n_stars": 3321566,
+  "quadrature_sum_mag": 0.09257942289923024,
+  "largest_term_mag": 0.06778720160181,
+  "largest_term": "astrophysical: main-sequence structure vs colour",
+  "naive_sigma_over_sqrtN_mag": 5.439072754496357e-05,
+  "ratio_largest_to_naive": 1246.3006961208941,
+  "implied_uniform_f": 0.060525234474230305
+}

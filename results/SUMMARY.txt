@@ -1,0 +1,366 @@
+
+==============================================================================
+1. SAMPLE
+==============================================================================
+                            cut  n_after  frac_removed
+             0. raw joined rows  4879956       0.00000
+     1. 2MASS Ks ph_qual == 'A'  4865655       0.00293
+2. not photometrically variable  4497637       0.07834
+        3. non_single_star == 0  4497475       0.07838
+    4. not QSO/galaxy candidate  4497459       0.07838
+  5. DSC star probability > 0.5  4323603       0.11401
+        6. |C*| < 3 sigma_C*(G)  4289991       0.12090
+           7. dust map coverage  4275099       0.00347
+             8. 10 < d < 500 pc  4275099       0.00347
+                   9. A_G < 0.5  3925746       0.08491
+10. finite M_G, M_Ks, (BP-RP)_0  3925746       0.08491
+           11. 3.0 < M_Ks < 8.0  3885617       0.09426
+      12. 0.7 < (BP-RP)_0 < 3.6  3884167       0.09460
+
+==============================================================================
+2. FIDUCIAL FIT  [primary]
+==============================================================================
+  n_stars_total                3884167
+  n_stars_fitted               3321566
+  nir_control                  True
+  optical_colour_control       False
+  sensitive_to                 any optically selective absorber
+  n_interior_knots             6
+  mh_degree                    1
+  n_params                     30
+  converged                    True
+  sigma_observed_mag           0.09912799253680192
+  sigma_measurement_mag        0.04436476158221365
+  sigma_intrinsic_mag          0.08864607624779337
+  sigma_intrinsic_note         None
+  sigma_observed_bare_mag      0.17522257179265305
+  slope_dMG_dMKs_median        1.2565605176464434
+  slope_dMG_dMKs_p16           1.0596860822963539
+  slope_dMG_dMKs_p84           1.4566728781246319
+  mean_residual                0.006297381371290734
+  median_residual              -0.005351321406262599
+  bowley_skew                  0.04716444353938571
+  naive_sigma_over_sqrtN       5.439072754496357e-05
+
+==============================================================================
+3. SYSTEMATIC FLOOR  [primary]
+==============================================================================
+  tag                              primary
+  n_stars                          3321566
+  sigma_mag                        0.09912799253680192
+  naive_sigma_over_sqrtN_mag       5.439072754496357e-05
+  floor_spatial_mag                0.01693921492749784
+  floor_all_axes_mag               0.015987726762783126
+  worst_split_test                 colour (blue vs red half)
+  worst_split_difference_mag       -0.05204875474055956
+  worst_split_n_sigma              -353.3051771307937
+  max_paired_rms_mag               0.11171078686225537
+  max_paired_mean_shift_mag        0.007023960426879168
+  floor_total_mag                  0.05204875474055956
+  floor_implied_f                  0.04680775992410402
+  RATIO floor/naive                956.9x
+
+  -- split tests
+                                            test     n_a     n_b     mean_a     mean_b  difference  difference_err    n_sigma
+                    galactic hemisphere (N vs S) 1602393 1719173    0.00345    0.00895    -0.00550         0.00015  -36.65231
+           extinction quartile (low vs high A_0)  830392  830392   -0.01258    0.03198    -0.04456         0.00021 -212.35860
+                    apparent G (bright vs faint) 1660784 1660782   -0.00779    0.02039    -0.02818         0.00015 -188.82351
+                          distance (near vs far) 1660783 1660783    0.00577    0.00683    -0.00106         0.00015   -7.07604
+                    crowding (sparse vs crowded) 1695349 1626217   -0.00649    0.01963    -0.02612         0.00015 -174.42823
+          metallicity (metal-poor vs metal-rich) 1660853 1660713    0.00580    0.00679    -0.00099         0.00015   -6.58859
+           galactic latitude (|b|<20 vs |b|>=20) 1279068 2042498    0.02308   -0.00422     0.02730         0.00016  172.77376
+                       colour (blue vs red half) 1660783 1660783   -0.01973    0.03232    -0.05205         0.00015 -353.30518
+  colour split WITHIN lowest-extinction quartile  415196  415196   -0.04647    0.02132    -0.06779         0.00026 -258.55862
+distance split WITHIN lowest-extinction quartile  415196  415196   -0.00742   -0.01773     0.01031         0.00027   37.84884
+
+  -- residual vs A_0
+     slope_resid_per_A0                     0.1253393919440839
+     slope_err                              0.0005081162584505985
+     n_sigma                                246.67463372709614
+     median_A_G_over_A_0                    0.7419210480044118
+     implied_fractional_extinction_error    0.18981908903118938
+     interpretation                         the extinction correction appears to be under-correcting by 19.0% of A_G
+
+  -- paired extinction treatments
+                                               test  mean_difference  std_difference  err_of_mean       n        rms
+paired: edenhofer23/fitz19 - edenhofer23/wangchen19          0.00005         0.02849      0.00002 3321566    0.02849
+ paired: edenhofer23/fitz19 - GSP-Phot per-star A_G          0.00702         0.11149      0.00006 3321566    0.11171
+
+  -- plateau per axis (groups with >=1% of the sample)
+axis
+A_0                0.018336
+dist_pc            0.003407
+phot_g_mean_mag    0.022870
+sky (HEALPix)      0.016939
+sky_density        0.015336
+
+  -- random-subsample control
+            axis       n  rms_of_means  sigma_over_sqrt_n
+random subsample     100      0.012660           0.013675
+random subsample     300      0.007890           0.007895
+random subsample    1000      0.004247           0.004324
+random subsample    3000      0.002593           0.002497
+random subsample   10000      0.001361           0.001367
+random subsample   30000      0.000819           0.000789
+random subsample  100000      0.000434           0.000432
+random subsample  300000      0.000260           0.000250
+random subsample 1000000      0.000132           0.000137
+random subsample 3000000      0.000080           0.000079
+
+==============================================================================
+2. FIDUCIAL FIT  [primary_optcol]
+==============================================================================
+  n_stars_total                3884167
+  n_stars_fitted               3321566
+  nir_control                  True
+  optical_colour_control       True
+  sensitive_to                 absorbers grey across the optical only
+  n_interior_knots             6
+  mh_degree                    1
+  n_params                     50
+  converged                    True
+  sigma_observed_mag           0.027790020655156327
+  sigma_measurement_mag        0.03135461785852331
+  sigma_intrinsic_mag          None
+  sigma_intrinsic_note         undefined for the optical-colour variant: the error model omits correlated BP/RP terms and over-predicts sigma_measurement
+  sigma_observed_bare_mag      0.17522257179265305
+  slope_dMG_dMKs_median        0.9695525546965733
+  slope_dMG_dMKs_p16           0.9584730938910635
+  slope_dMG_dMKs_p84           0.9886049607579572
+  mean_residual                0.001261665401412542
+  median_residual              -0.0007748838113252887
+  bowley_skew                  0.02155086029544354
+  naive_sigma_over_sqrtN       1.5248159508146563e-05
+
+==============================================================================
+3. SYSTEMATIC FLOOR  [primary_optcol]
+==============================================================================
+  tag                              primary_optcol
+  n_stars                          3321566
+  sigma_mag                        0.027790020655156327
+  naive_sigma_over_sqrtN_mag       1.5248159508146563e-05
+  floor_spatial_mag                0.009178237322702447
+  floor_all_axes_mag               0.005530643749863538
+  worst_split_test                 extinction quartile (low vs high A_0)
+  worst_split_difference_mag       -0.020977700350193817
+  worst_split_n_sigma              -351.0792325383776
+  max_paired_rms_mag               0.12732189829595852
+  max_paired_mean_shift_mag        0.009698846844790707
+  floor_total_mag                  0.020977700350193817
+  floor_implied_f                  0.019135718462966134
+  RATIO floor/naive                1375.8x
+
+  -- split tests
+                                            test     n_a     n_b     mean_a     mean_b  difference  difference_err    n_sigma
+                    galactic hemisphere (N vs S) 1602393 1719173    0.00074    0.00175    -0.00101         0.00004  -24.64595
+           extinction quartile (low vs high A_0)  830392  830392   -0.00677    0.01421    -0.02098         0.00006 -351.07923
+                    apparent G (bright vs faint) 1660784 1660782    0.00025    0.00227    -0.00202         0.00004  -49.51321
+                          distance (near vs far) 1660783 1660783    0.00265   -0.00012     0.00277         0.00004   67.77235
+                    crowding (sparse vs crowded) 1695349 1626217   -0.00351    0.00623    -0.00974         0.00004 -239.24727
+          metallicity (metal-poor vs metal-rich) 1660853 1660713    0.00227    0.00026     0.00201         0.00004   49.12044
+           galactic latitude (|b|<20 vs |b|>=20) 1279068 2042498    0.00772   -0.00279     0.01051         0.00004  242.02126
+                       colour (blue vs red half) 1660783 1660783    0.00079    0.00174    -0.00095         0.00004  -23.20411
+  colour split WITHIN lowest-extinction quartile  415196  415196   -0.00692   -0.00662    -0.00030         0.00007   -3.99176
+distance split WITHIN lowest-extinction quartile  415196  415196   -0.00376   -0.00978     0.00602         0.00007   81.24616
+
+  -- residual vs A_0
+     slope_resid_per_A0                     0.0611103643530165
+     slope_err                              0.00013570071569808854
+     n_sigma                                450.331923738537
+     median_A_G_over_A_0                    0.7419210480044118
+     implied_fractional_extinction_error    0.09254802909071545
+     interpretation                         the extinction correction appears to be under-correcting by 9.3% of A_G
+     caveat                                 this is an UPPER BOUND on the extinction error. A_0 correlates with distance and galactic latitude, which correlate with stellar population (age, alpha-enhancement, thin vs thick disc), so some of the fitted slope is astrophysical rather than an extinction-correction failure. The two are not separable with this diagnostic alone -- but the colour-split-at-low-extinction test shows a large population term does exist.
+
+  -- paired extinction treatments
+                                               test  mean_difference  std_difference  err_of_mean       n        rms
+paired: edenhofer23/fitz19 - edenhofer23/wangchen19          0.00107         0.02279      0.00001 3321566    0.02282
+ paired: edenhofer23/fitz19 - GSP-Phot per-star A_G          0.00970         0.12695      0.00007 3321566    0.12732
+
+  -- plateau per axis (groups with >=1% of the sample)
+axis
+A_0                0.008895
+dist_pc            0.001602
+phot_g_mean_mag    0.003112
+sky (HEALPix)      0.009178
+sky_density        0.005537
+
+  -- random-subsample control
+            axis       n  rms_of_means  sigma_over_sqrt_n
+random subsample     100      0.003742           0.003728
+random subsample     300      0.002247           0.002152
+random subsample    1000      0.001347           0.001179
+random subsample    3000      0.000687           0.000681
+random subsample   10000      0.000354           0.000373
+random subsample   30000      0.000221           0.000215
+random subsample  100000      0.000118           0.000118
+random subsample  300000      0.000070           0.000068
+random subsample 1000000      0.000040           0.000037
+random subsample 3000000      0.000023           0.000022
+
+==============================================================================
+4. INJECTION-RECOVERY
+==============================================================================
+  -- uniform
+   f_injected  delta_injected  n_stars  mean_residual    n_pos_5sig    anchored_f
+    0.0000100       0.0000109   800000      0.0062914  4846.0000000     0.0057962
+    0.0001000       0.0001086   800000      0.0062914  4846.0000000     0.0058857
+    0.0010000       0.0010863   800000      0.0062914  4846.0000000     0.0067804
+    0.0100000       0.0109120   800000      0.0062914  4846.0000000     0.0157284
+    0.1000000       0.1143937   800000      0.0062914  4846.0000000     0.1052076
+
+  -- sparse
+   f_injected    p_injected   p_recovered  p_recovered_std  p_recovered_over_injected    n_pos_5sig
+    0.1000000     0.0000100     0.0001467        0.0000602                 14.6654934  4845.8333333
+    0.1000000     0.0001000     0.0000800        0.0000506                  0.7999360  4845.0000000
+    0.1000000     0.0010000    -0.0012399        0.0001314                 -1.2399008  4828.5000000
+    0.1000000     0.0100000    -0.0087593        0.0002008                 -0.8759299  4734.5000000
+    0.3000000     0.0000100     0.0000208        0.0000055                  2.0849277  4846.8333333
+    0.3000000     0.0001000     0.0000589        0.0000246                  0.5886855  4852.0000000
+    0.3000000     0.0010000     0.0006230        0.0000353                  0.6230255  4928.6666667
+    0.3000000     0.0100000     0.0063811        0.0002316                  0.6381105  5711.1666667
+    0.5000000     0.0000100     0.0000114        0.0000011                  1.1406569  4853.0000000
+    0.5000000     0.0001000     0.0000984        0.0000090                  0.9843447  4921.6666667
+    0.5000000     0.0010000     0.0009681        0.0000427                  0.9680798  5607.8333333
+    0.5000000     0.0100000     0.0094763        0.0001325                  0.9476324 12321.0000000
+
+  -- smallest recoverable p (>3 sigma)
+  f  p_min_recoverable  mean_f_min
+0.1                NaN         NaN
+0.3            0.00001    0.000003
+0.5            0.00001    0.000005
+
+==============================================================================
+5. SPECTRAL LEVERAGE
+==============================================================================
+  slope_dMG_dMKs               1.2565605176464434
+  alpha_blind_analytic_sed     0.19801565804881663
+  alpha_blind_analytic_vega    0.17426566698900123
+  alpha_blind_numeric          0.1930777374700785
+  leverage_grey_alpha0         -0.2565605176464403
+  leverage_dustlike_alpha2     0.8922636352716762
+  lambda_eff_G_um_sed_4500K    0.6787682770582165
+  lambda_eff_Ks_um_sed_4500K   2.15084065845601
+  lambda_eff_G_um_vega         0.58224
+  lambda_eff_Ks_um_vega        2.159
+
+     alpha       dm_G      dm_Ks  ratio_dmG_dmKs  residual_per_dmG  residual_mag
+    0.0000     0.0543     0.0543          1.0000           -0.2566       -0.0139
+    0.2500     0.0527     0.0392          1.3445            0.0654        0.0034
+    0.5000     0.0512     0.0283          1.8134            0.3071        0.0157
+    0.7500     0.0500     0.0204          2.4534            0.4878        0.0244
+    1.0000     0.0490     0.0147          3.3298            0.6226        0.0305
+    1.5000     0.0475     0.0077          6.1925            0.7971        0.0378
+    2.0000     0.0466     0.0040         11.6633            0.8923        0.0416
+    3.0000     0.0466     0.0011         42.9245            0.9707        0.0452
+    4.0000     0.0488     0.0003        165.2324            0.9924        0.0484
+
+==============================================================================
+6. MASS ANCHOR
+==============================================================================
+          subset  n_systems  poly_degree  scatter_M_Ks_about_mass_relation_mag  median_relative_mass_error  dMKs_dlog10M  scatter_attributable_to_mass_error_mag  residual_M_Ks_scatter_mag  flat_absorber_bound_frac
+     all systems      95777            3                                0.2772                      0.0633       -9.0451                                  0.2488                     0.1222                    0.1064
+fluxratio < 0.30      15825            2                                0.3033                      0.0584       -8.5027                                  0.2158                     0.2131                    0.1782
+fluxratio < 0.10      14149            1                                0.2962                      0.0580       -8.4567                                  0.2128                     0.2060                    0.1728
+
+  best: all systems  flat-absorber bound f < 0.1064
+
+==============================================================================
+7. BLINDED / UNBLINDED ANALYSIS
+==============================================================================
+  -- BLINDED
+     tag                                primary
+     state                              BLINDED
+     n_stars                            3321566
+     sigma_robust_mag                   0.09912799253680192
+     mean_residual_mag                  0.04270055510349237
+     median_residual_mag                0.03105185232593903
+     bowley_skew                        0.04716444353938571
+     n_pos_outliers                     19844
+     n_neg_outliers                     1126
+     k_sigma                            5.0
+     smallest_f_with_any_constraint     0.003
+     best_mean_f_upper_limit            0.002952396657765334
+     f_at_best_limit                    0.003
+     note                               rows with p_upper_limit == 1 are unconstrained and excluded from the best-limit search
+  -- UNBLINDED
+     tag                                primary
+     state                              UNBLINDED
+     n_stars                            3321566
+     sigma_robust_mag                   0.09912799253680192
+     mean_residual_mag                  0.006297381371290734
+     median_residual_mag                -0.005351321406262599
+     bowley_skew                        0.04716444353938571
+     n_pos_outliers                     19844
+     n_neg_outliers                     1126
+     k_sigma                            5.0
+     smallest_f_with_any_constraint     0.003
+     best_mean_f_upper_limit            0.002952396657765334
+     f_at_best_limit                    0.003
+     note                               rows with p_upper_limit == 1 are unconstrained and excluded from the best-limit search
+
+  -- exclusion curve
+            f     delta_mag  delta_over_sigma    efficiency  n_pos_observed  n_neg_observed  p_upper_limit  mean_f_upper_limit
+        0.001    0.00108628         0.0109584    0.00602999           19844            1126              1               0.001
+        0.003     0.0032621          0.032908    0.00614198           19844            1126       0.984132           0.0029524
+         0.01      0.010912           0.11008    0.00652794           19844            1126       0.925946          0.00925946
+         0.03     0.0330707          0.333616     0.0078457           19844            1126       0.770425           0.0231128
+         0.05      0.055691          0.561809    0.00948649           19844            1126       0.637172           0.0318586
+          0.1      0.114394             1.154     0.0155981           19844            1126       0.387517           0.0387517
+          0.2      0.242275           2.44406     0.0453349           19844            1126        0.13333           0.0266661
+          0.3      0.387255           3.90661      0.168723           19844            1126       0.035825           0.0107475
+          0.5      0.752575           7.59195      0.985975           19844            1126     0.00613051          0.00306525
+          0.7        1.3072            13.187      0.999986           19844            1126      0.0060446          0.00423122
+          0.9           2.5           25.2199      0.999998           19844            1126     0.00604453          0.00544008
+
+==============================================================================
+8. OUTLIER FOLLOW-UP
+==============================================================================
+  negative (over-luminous control): n=300
+     ir_measured                213
+     any_ir_excess              213
+     ir_no_excess_measured      0
+     ir_unknown                 87
+     known_contaminant          5
+     clean_candidate            0
+  positive (deficit-like): n=300
+     ir_measured                22
+     any_ir_excess              22
+     ir_no_excess_measured      0
+     ir_unknown                 278
+     known_contaminant          8
+     clean_candidate            0
+
+  SIMBAD types (positive side):
+simbad_otype
+NaN    279
+*       11
+Em*      5
+HV*      1
+EB?      1
+Y*?      1
+PM*      1
+Y*O      1
+
+==============================================================================
+9. DISTANCE TRADE STUDY
+==============================================================================
+ distance_max_pc  n_stars   median_A_0      p90_A_0    sigma_mag  naive_sigma_over_sqrtN  spatial_plateau_mag                           worst_split  worst_split_mag    floor_mag  floor_over_naive  floor_implied_f
+             200    67061     0.032522      0.10897     0.085043               0.0003284             0.015392             colour (blue vs red half)        -0.048945     0.048945            149.04         0.044079
+             300   172126     0.061102      0.26445     0.097523              0.00023506             0.015735             colour (blue vs red half)        -0.067491     0.067491            287.12         0.060269
+             500   480700      0.10992      0.36218     0.098318              0.00014181             0.022727             colour (blue vs red half)        -0.048881     0.048881             344.7         0.044023
+             750   945934      0.14433      0.39711     0.091499              9.4077e-05             0.023004             colour (blue vs red half)        -0.031938     0.031938            339.49         0.028988
+            1000  1265254      0.16025      0.41117     0.089055              7.9171e-05             0.023102             colour (blue vs red half)        -0.027853     0.027853            351.81         0.025328
+            1250  1383542      0.16584      0.41317     0.088312               7.508e-05             0.023458 extinction quartile (low vs high A_0)        -0.040256     0.040256            536.18         0.036398
+
+==============================================================================
+BLIND STATE
+==============================================================================
+  commitment_sha256        65b0d4a4da739c8b4d467d1ee15e74f2e312966721a7341fa27917085589e1a9
+  salt                     fbf157a5a6f6cf48e89ada5a5db530f3
+  scale_mag                0.05
+  distribution             uniform(-scale, +scale)
+  created_utc              2026-08-15T13:06:18.199447+00:00
+  unblinded                True
+  unblinded_utc            2026-08-15T18:35:28.826890+00:00
+  revealed_offset_mag      0.03640317373220163

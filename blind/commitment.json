@@ -4,6 +4,8 @@
   "scale_mag": 0.05,
   "distribution": "uniform(-scale, +scale)",
   "created_utc": "2026-08-15T13:06:18.199447+00:00",
-  "unblinded": false,
-  "note": "SHA-256 of 'salt:repr(offset)'. Verify after unblinding with pipeline.blind.verify()."
+  "unblinded": true,
+  "note": "SHA-256 of 'salt:repr(offset)'. Verify after unblinding with pipeline.blind.verify().",
+  "unblinded_utc": "2026-08-15T18:35:28.826890+00:00",
+  "revealed_offset_mag": 0.03640317373220163
 }

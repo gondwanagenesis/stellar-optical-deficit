@@ -297,15 +297,28 @@ check that the trade study's subset is not pathological.
 
 ## 4. Injection–recovery (step 4)
 
+Run on an 800,000-star random subsample of the fitted sample, 6 realisations
+per setting, with the spline hyperparameters held fixed. The subsample size is
+recorded in the output; recovery significance scales as `p·sqrt(N)`, so these
+thresholds are **not** rescaled to the full sample.
+
 ### Uniform injection: recovery is identically zero
 
 | injected f | injected Δ (mag) | recovered mean residual | model-anchored recovery |
 |---|---|---|---|
-| 1e-5 | 0.000011 | 0.005600 | 0.0052 |
-| 1e-4 | 0.000109 | 0.005600 | 0.0052 |
-| 1e-3 | 0.001086 | 0.005600 | 0.0061 |
-| 1e-2 | 0.010912 | 0.005600 | 0.0151 |
-| 1e-1 | 0.114394 | 0.005600 | 0.1046 |
+| 1e-5 | 0.0000109 | **0.00629139** | 0.00580 |
+| 1e-4 | 0.0001086 | **0.00629139** | 0.00589 |
+| 1e-3 | 0.0010863 | **0.00629139** | 0.00678 |
+| 1e-2 | 0.0109120 | **0.00629139** | 0.01573 |
+| 1e-1 | 0.1143937 | **0.00629139** | 0.10521 |
+
+The self-calibrated column is **identical to eight decimal places** across four
+orders of magnitude of injected signal, and the 5-sigma tail count is
+identical too (4,846 in every row). The spline absorbs the offset completely.
+
+The model-anchored column, comparing against a frozen reference curve, does
+track the injection — recovering 0.105 for 0.1 injected and 0.0157 for 0.01 —
+down to its own floor of ~0.006, set by the baseline offset of the reference.
 
 The self-calibrated column is constant to six decimal places across four
 orders of magnitude of injected signal. The spline absorbs the offset to a
@@ -324,18 +337,44 @@ against `p < 5.1e-3` from the tail — a factor ~17 better.
 
 ### Sparse injection: recovery lives in the tail
 
-| f | p injected | p recovered | ratio |
-|---|---|---|---|
-| 0.5 | 1e-2 | 9.39e-3 | 0.94 |
-| 0.5 | 1e-3 | 8.87e-4 | 0.89 |
-| 0.5 | 1e-4 | 7.7e-5 | 0.77 |
-| 0.3 | 1e-2 | 6.53e-3 | 0.65 |
-| 0.3 | 1e-3 | 7.0e-4 | 0.70 |
-| 0.1 | any | consistent with zero | — |
+| f | p injected | p recovered | ratio | 5σ tail count |
+|---|---|---|---|---|
+| 0.5 | 1e-2 | 9.476e-3 | 0.95 | 12,321 |
+| 0.5 | 1e-3 | 9.681e-4 | 0.97 | 5,608 |
+| 0.5 | 1e-4 | 9.84e-5 | 0.98 | 4,922 |
+| 0.5 | 1e-5 | 1.14e-5 | 1.14 | 4,853 |
+| 0.3 | 1e-2 | 6.381e-3 | 0.64 | 5,711 |
+| 0.3 | 1e-3 | 6.230e-4 | 0.62 | 4,929 |
+| 0.3 | 1e-4 | 5.89e-5 | 0.59 | 4,852 |
+| 0.1 | any | consistent with zero | — | ~4,846 |
 
-Smallest recoverable harvested fraction (>3 sigma): **p = 1e-3 at f = 0.5**
-(mean `f̄ = 5e-4`), **p = 1e-2 at f = 0.3**. **f = 0.1 is not recoverable at
-any p**, because `Δ = 0.114 mag` is only 1.2 sigma and never reaches the tail.
+At `f = 0.5` recovery is essentially unbiased down to `p = 1e-5`. At `f = 0.3`
+about 60% of the injected signal is recovered — the deficit `Δ = 0.387 mag` is
+3.9 sigma, so a substantial fraction of harvested stars fall short of the
+5-sigma threshold. **At `f = 0.1` nothing is recoverable at any `p`**, because
+`Δ = 0.114 mag` is 1.15 sigma and never reaches the tail.
+
+### The gap between injection sensitivity and the achievable limit
+
+This is the single most informative pair of numbers in the report, and they
+must not be confused:
+
+| | value at `f = 0.5` |
+|---|---|
+| smallest **injected** `p` recovered at >3σ | **1e-5** (grid edge; true threshold may be lower) |
+| model-free **upper limit** on `p` from the data | **6.13e-3** |
+| **ratio** | **~600×** |
+
+The injection test measures sensitivity to an *added* excess on top of a
+baseline it takes as perfectly known — and it takes that baseline from the same
+data. The upper limit cannot make that assumption: the 19,844 real 5-sigma
+outliers are indistinguishable, star by star, from signal, so all of them must
+be allowed to be signal.
+
+**That factor of ~600 is the background limitation, quantified.** It is not a
+statistical shortfall, and no amount of `N` reduces it. Closing it requires
+removing the background — which §7b shows means a NIR anchor with angular
+resolution comparable to Gaia's, not more stars.
 
 Figure: `F6_injection_recovery.png`.
 
@@ -384,69 +423,122 @@ value, the analytic estimate (0.198) agrees with the full numeric integration
 | fluxratio < 0.10 | 14,149 | 0.206 mag | f < 0.173 |
 
 Restricting to faint secondaries was expected to tighten the bound by removing
-unmodelled secondary light; it did not, which indicates the residual scatter is
-*not* dominated by that term. The bound stands at **f < 0.106** per star, and
-is weak. It also applies to a different population (binaries) than the science
-sample (which excludes them) — see LIMITATIONS §7.
+unmodelled secondary light; it did not — it made the bound worse — which
+indicates the residual scatter is *not* dominated by that term. Reporting the
+failed hypothesis rather than only the subset that happened to win: the bound
+stands at **f < 0.106** per star, and it is weak.
+
+It also applies to a different population (binaries) than the science sample
+(which excludes them by construction) — see LIMITATIONS §7. And note it is
+bounded by the *scatter*, so a flat absorber affecting every star identically
+is absorbed into the fitted relation and remains unbounded by any
+self-calibrated method, mass anchor included.
 
 ---
 
 ## 6. Blinded analysis and limits
 
 A secret offset was drawn (uniform ±0.05 mag), committed by SHA-256 to a
-tracked file (`blind/commitment.json`), and added to every residual. Analysis
-choices were fixed against blinded numbers.
+tracked file (`blind/commitment.json`), and added to every residual. The
+analysis was frozen and committed at `738942b` with a clean working tree; the
+unblinding script refuses to run otherwise and verifies the commitment hash
+before revealing anything.
 
-**Blinded exclusion (95% CL), interim sample:**
+**Revealed offset: +0.036403 mag.** Commitment verified.
 
-| f | Δ (mag) | Δ/sigma | detection eff. | p upper limit | implied mean `f̄` |
+### The blind did not do its job, and that must be said
+
+The tail statistics are defined relative to the sample median, so a constant
+offset shifts the residuals and the median together and **the tail counts are
+identical blinded and unblinded**. The exclusion curve computed under the blind
+is bit-for-bit the one below. There was no moment at which the primary answer
+was hidden. Only the mean-residual and model-anchored numbers were genuinely
+blinded (mean +0.04270 blinded → +0.00630 unblinded).
+
+What protects this result is **pre-registration, not blinding**: the 5-sigma
+threshold, the conservative no-background-subtraction limit, the colour box and
+the null-test battery were all fixed in `config.py` and `DECISIONS.md` before
+the full sample existed — most before any data was downloaded. That is weaker
+than a working blind. See DECISIONS.md D12a.
+
+### Exclusion (95% CL), N = 3,321,566
+
+| f | Δ (mag) | Δ/σ | detection eff. | p upper limit | implied mean `f̄` |
 |---|---|---|---|---|---|
-| 0.03 | 0.033 | 0.34 | 0.0066 | 0.77 | 0.023 |
-| 0.10 | 0.114 | 1.19 | 0.015 | 0.34 | 0.034 |
-| 0.30 | 0.387 | 4.02 | 0.19 | 0.027 | 0.0080 |
-| **0.50** | 0.753 | 7.81 | 0.99 | **5.1e-3** | **2.6e-3** |
-| 0.90 | 2.50 | 25.96 | 1.00 | 5.1e-3 | 4.6e-3 |
+| 0.001 | 0.0011 | 0.011 | 0.0060 | 1.0 — unconstrained | — |
+| 0.01 | 0.0109 | 0.110 | 0.0065 | 0.926 | — |
+| 0.03 | 0.0331 | 0.334 | 0.0078 | 0.770 | 0.0231 |
+| 0.10 | 0.1144 | 1.154 | 0.0156 | 0.388 | 0.0388 |
+| 0.30 | 0.3873 | 3.907 | 0.169 | 0.0358 | 0.0107 |
+| **0.50** | 0.7526 | 7.592 | 0.986 | **6.13e-3** | **3.07e-3** |
+| 0.70 | 1.3072 | 13.19 | 1.000 | 6.04e-3 | 4.23e-3 |
+| 0.90 | 2.5000 | 25.22 | 1.000 | 6.04e-3 | 5.44e-3 |
 
-Below `f ≈ 0.03` the limit saturates at `p = 1` — the test provides **no
-constraint at all** on per-star harvested fractions below a few per cent.
+**Best constraint: `p < 6.1e-3` at `f = 0.5`, i.e. mean harvested fraction
+`f̄ < 3.1e-3`.**
 
-**These limits are background-limited.** The 5-sigma positive tail contains 218
-stars in 47,927 (0.45%) against 17 on the negative side. Because that
-population scales with N, `p_UL ≈ 5e-3` does **not** improve as the sample
-grows. The full 5.4M-star sample is expected to reproduce this limit, not beat
-it, unless the background is removed object by object.
+Below `f ≈ 0.03` the limit saturates — the test provides **no constraint at
+all** on per-star harvested fractions below a few per cent, at any `p`.
+
+**The limit is background-limited, and the full sample proves it.** The
+validation subset gave `p_UL = 5.1e-3` on 47,927 stars; the full sample gives
+`6.1e-3` on 3,321,566 stars — **69× more stars, and the limit got slightly
+worse.** That is the signature of a background that scales with `N`. The
+positive 5-sigma tail is 0.60% of the sample in both.
+
+### Systematic budget, itemised
+
+| term | mag |
+|---|---|
+| **astrophysical: main-sequence structure vs colour** | **0.06779** |
+| extinction: low vs high `A_0` split | 0.04456 |
+| photometric: bright vs faint G split | 0.02818 |
+| crowding: sparse vs crowded split | 0.02612 |
+| spatial coherence plateau | 0.01694 |
+| extinction: implied fractional error × median `A_G` | 0.01314 |
+| extinction: map vs Gaia per-star `A_G` | 0.00702 |
+| parallax zero-point residual (10 µas, ×\|1−s\|) | 0.00195 |
+| metallicity calibration | 0.00099 |
+| extinction: band law (Fitz19 vs Wang & Chen 19) | 0.00005 |
+| **quadrature sum** | **0.09258** |
+| **largest single term** | **0.06779** |
+| naive `sigma/sqrt(N)` | 0.0000544 |
+| **budget / naive** | **1246×** |
+
+The largest term is astrophysical, not instrumental. Extinction is second.
+Everything Gaia-instrumental — zero point, metallicity, band law — is
+negligible by comparison.
 
 ---
 
 ## 7. Outliers and their follow-up (step 7)
 
-At 5 sigma: **218 positive (deficit-like), 17 negative (control)**. The
-asymmetry is 13 sigma — highly significant, and not a detection.
+At 5 sigma: **19,844 positive (deficit-like), 1,126 negative (control)** — a
+17.6:1 asymmetry at 129 sigma. Highly significant, and not a detection: §7b
+identifies what it is.
 
-Follow-up of the 60 strongest positive outliers:
+Follow-up of the **300 strongest** positive outliers, with the 300 strongest
+negative outliers as a control:
 
 | outcome | count |
 |---|---|
-| mid-IR excess in W1−W2, W1−W3 or W1−W4 | 25 |
-| **no AllWISE photometry at all** | 34 |
-| mid-IR measured and normal, not a known contaminant | **1** |
+| rejected by mid-IR excess or SIMBAD contaminant class | 22 |
+| **no AllWISE photometry at all — unverifiable** | **278** |
+| **mid-IR measured and normal, not a known contaminant** | **0** |
 
-SIMBAD classifications of the matched positive outliers: `Y*?` (candidate YSO)
-×7, `Em*` (emission-line star) ×3, `*` ×3, `BY*` ×1. The negative control side
-matched `PM*` (high proper motion) ×6 — i.e. ordinary stars.
+SIMBAD classifications that matched, positive side: `Em*` (emission-line) ×5,
+`Y*?` (candidate YSO) ×1, `Y*O` (YSO) ×1, `PM*` ×1, 279 unmatched. Negative
+control side: `PM*` (ordinary high-proper-motion stars) ×17, `Em*` ×1,
+`Y*?` ×1, 272 unmatched. The positive side draws contaminant classes; the
+control side draws ordinary stars.
 
-The single surviving "clean" candidate is classified `BY*` — a BY Draconis
-rotating spotted variable. Starspots dim the optical continuum at roughly
-constant `Ks`, which is the harvesting signature produced by magnetic activity.
-It is a false positive of exactly the kind this channel cannot distinguish
-photometrically.
+**278 of 300 have no WISE photometry at all.** That is itself diagnostic: the
+extreme outliers sit preferentially in fields too confused for AllWISE to
+produce a clean match — which is also why they are outliers. Counting "no
+excess detected" as "beaming-consistent" would have promoted 278 candidates
+instead of 0.
 
-Note that 34 of 60 candidates had no WISE photometry at all. Counting "no
-excess detected" as "beaming-consistent" would have promoted 35 candidates
-instead of 1; outliers preferentially lack clean WISE matches *because* they
-sit in confused regions, which is also why they are outliers.
-
-**Zero surviving candidates.**
+## **Zero surviving candidates.**
 
 ---
 
@@ -559,12 +651,38 @@ independent reasons:
    spotted rotators — all of which dim in the optical for ordinary reasons.
    That background scales with `N`, so more stars do not help (§6, §7, §7b).
 
-**The optical-deficit channel saturates near a mean harvested fraction of a
-few × 1e-3 and cannot reach 1e-5.** The correct answer to the brief's question
-is the one it anticipated might be true, and it is worth stating plainly: this
-channel's value is not sensitivity. It is that it cannot be evaded by beaming,
-and that it constrains a region of parameter space — cold, non-radiating, or
-directionally-beamed absorbers — that the infrared surveys cannot see at all.
+**The optical-deficit channel saturates at a mean harvested fraction of
+`f̄ < 3.1e-3` and cannot reach 1e-5.** It is two and a half orders of magnitude
+short, and the shortfall is not statistical.
+
+The cleanest single piece of evidence: the validation subset of 47,927 stars
+gave `p_UL = 5.1e-3`; the full sample of 3,321,566 stars gave `6.1e-3`.
+**Sixty-nine times more stars, and the limit did not improve.** Under
+`sqrt(N)` scaling it should have improved eightfold.
+
+The correct answer to the brief's question is the one it anticipated might be
+true, and it is worth stating plainly: this channel's value is not sensitivity.
+It is that it cannot be evaded by beaming, and that it constrains a region of
+parameter space — cold, non-radiating, or directionally-beamed absorbers —
+that the infrared surveys cannot see at all.
+
+### What would actually improve it
+
+Not more stars, and not a better dust map. In order of leverage:
+
+1. **A near-infrared anchor at Gaia-like angular resolution.** §7b shows the
+   dominant contaminant is neighbours blended into the 4-arcsec 2MASS `Ks`
+   beam. This is worth a large factor and nothing else comes close.
+2. **A mass anchor that is not a luminosity.** Asteroseismic or dynamical
+   masses for single main-sequence stars would remove the flat-absorber
+   degeneracy (§5) and the `M_Ks`-blending degeneracy at once.
+3. **A metallicity that is not derived from the same photometry** (§5 of
+   LIMITATIONS), which would let the astrophysical colour term — the single
+   largest budget entry at 0.068 mag — be modelled rather than absorbed.
+
+Improving the extinction treatment, which is where the effort naturally goes,
+is fourth: it is worth 0.045 mag against the astrophysical term's 0.068 mag,
+and the trade study shows the sample cannot be grown to compensate.
 
 ---
 
@@ -583,6 +701,27 @@ wsl -d kali-linux bash run.sh scripts/16_mass_anchor.py
 wsl -d kali-linux bash run.sh scripts/20_make_figures.py --tag primary
 ```
 
-**Post-unblinding changes: none yet.** The blind on the interim sample has not
-been opened. Any analysis change made after unblinding will be recorded here
-with both the pre- and post-change result, per the rules in the brief.
+## Post-unblinding changes
+
+The brief requires these to be declared with both versions. There is one.
+
+**1. Substring-collision bug in the systematic-budget table
+(`scripts/22_systematic_budget.py`).** The budget looked splits up by substring,
+and `"extinction quartile"` also matches `"colour split WITHIN
+lowest-extinction quartile"`. The extinction row therefore reported the
+(larger) colour value. Fixed to exact-name matching, which now raises rather
+than silently mismatching.
+
+| | before fix | after fix |
+|---|---|---|
+| extinction: low vs high `A_0` split | 0.06779 mag *(wrong — colour value)* | **0.04456 mag** |
+| quadrature sum | 0.10574 mag | **0.09258 mag** |
+| largest single term | 0.06779 mag | 0.06779 mag (unchanged) |
+| budget / naive | 1246× | 1246× (unchanged) |
+
+This is a reporting bug in a summary table, not an analysis change: the
+underlying null-test values were computed before unblinding and are unaltered,
+and the headline numbers (largest term, ratio) are identical either way. The
+before-fix numbers are recorded above so the correction is auditable.
+
+**No analysis choice, cut, threshold or model was changed after unblinding.**
