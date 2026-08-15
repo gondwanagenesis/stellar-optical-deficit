@@ -1,0 +1,40 @@
+{
+  "tag": "primary",
+  "k_sigma": 5.0,
+  "sigma_mag": 0.09912799253680192,
+  "dust_leverage": 0.892,
+  "classes": [
+    {
+      "label": "positive outliers (deficit-like)",
+      "n": 19021,
+      "median": 1.0864075969219211,
+      "frac_dust": 0.5622207034330476,
+      "frac_blend": 0.05988118395457652,
+      "frac_other": 0.3778981126123758
+    },
+    {
+      "label": "negative outliers (over-luminous control)",
+      "n": 1082,
+      "median": 1.5683032430550838,
+      "frac_dust": 0.17467652495378927,
+      "frac_blend": 0.09796672828096119,
+      "frac_other": 0.7273567467652495
+    },
+    {
+      "label": "positive outliers, HIGH C* (blend-prone)",
+      "n": 13238,
+      "median": 1.0314643536273391,
+      "frac_dust": 0.5710832452032029,
+      "frac_blend": 0.07040338419700862,
+      "frac_other": 0.3585133705997885
+    },
+    {
+      "label": "positive outliers, LOW C* (clean photometry)",
+      "n": 646,
+      "median": 1.323743311886313,
+      "frac_dust": 0.46594427244582043,
+      "frac_blend": 0.021671826625386997,
+      "frac_other": 0.5123839009287925
+    }
+  ]
+}
