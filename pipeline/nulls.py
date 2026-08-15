@@ -130,6 +130,13 @@ def dust_map_paired_test(df: pd.DataFrame, resid_a: np.ndarray,
 # Mean-residual scatter versus group size
 # --------------------------------------------------------------------------
 
+# An RMS estimated from a handful of groups is itself so noisy that it can
+# fake a plateau ending.  Below this many surviving groups the point is dropped
+# rather than plotted, because the alternative is a downturn at large N that
+# looks like the systematic going away.
+MIN_GROUPS_FOR_RMS = 8
+
+
 def _group_mean_scatter(resid: np.ndarray, group_id: np.ndarray,
                         min_group: int = 20) -> tuple[float, float, int, int]:
     """Scatter of per-group mean residuals.
@@ -148,7 +155,7 @@ def _group_mean_scatter(resid: np.ndarray, group_id: np.ndarray,
     ends = np.concatenate([edges, [len(g)]])
     counts = ends - starts
     keep = counts >= min_group
-    if keep.sum() < 3:
+    if keep.sum() < MIN_GROUPS_FOR_RMS:
         return np.nan, np.nan, int(keep.sum()), 0
 
     sums = np.add.reduceat(r, starts)[keep]

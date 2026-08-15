@@ -1,0 +1,9 @@
+{
+  "commitment_sha256": "65b0d4a4da739c8b4d467d1ee15e74f2e312966721a7341fa27917085589e1a9",
+  "salt": "fbf157a5a6f6cf48e89ada5a5db530f3",
+  "scale_mag": 0.05,
+  "distribution": "uniform(-scale, +scale)",
+  "created_utc": "2026-08-15T13:06:18.199447+00:00",
+  "unblinded": false,
+  "note": "SHA-256 of 'salt:repr(offset)'. Verify after unblinding with pipeline.blind.verify()."
+}

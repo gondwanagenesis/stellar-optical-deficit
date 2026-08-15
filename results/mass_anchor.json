@@ -1,0 +1,50 @@
+{
+  "mass_range_msun": [
+    0.15097001194953918,
+    1.9999216794967651
+  ],
+  "subsets": [
+    {
+      "subset": "all systems",
+      "n_systems": 95777,
+      "poly_degree": 3,
+      "scatter_M_Ks_about_mass_relation_mag": 0.27718325942560373,
+      "median_relative_mass_error": 0.0633396411832106,
+      "dMKs_dlog10M": -9.045055328308182,
+      "scatter_attributable_to_mass_error_mag": 0.2488118943879608,
+      "residual_M_Ks_scatter_mag": 0.12216055221255256,
+      "flat_absorber_bound_frac": 0.10641518692774421
+    },
+    {
+      "subset": "fluxratio < 0.30",
+      "n_systems": 15825,
+      "poly_degree": 2,
+      "scatter_M_Ks_about_mass_relation_mag": 0.3033120213383642,
+      "median_relative_mass_error": 0.05843808688983992,
+      "dMKs_dlog10M": -8.502664760950617,
+      "scatter_attributable_to_mass_error_mag": 0.2157920085591803,
+      "residual_M_Ks_scatter_mag": 0.21314781568282365,
+      "flat_absorber_bound_frac": 0.17824780326241974
+    },
+    {
+      "subset": "fluxratio < 0.10",
+      "n_systems": 14149,
+      "poly_degree": 1,
+      "scatter_M_Ks_about_mass_relation_mag": 0.2961841001356364,
+      "median_relative_mass_error": 0.05795284109358359,
+      "dMKs_dlog10M": -8.456678122112352,
+      "scatter_attributable_to_mass_error_mag": 0.21284274135254697,
+      "residual_M_Ks_scatter_mag": 0.2059684165756718,
+      "flat_absorber_bound_frac": 0.17279598561009968
+    }
+  ],
+  "best_subset": "all systems",
+  "flat_absorber_bound_frac": 0.10641518692774421,
+  "residual_M_Ks_scatter_mag": 0.12216055221255256,
+  "n_systems": 95777,
+  "caveats": [
+    "control population is BINARIES, which the science sample explicitly excludes; this is an argument by analogy",
+    "unmodelled secondary light inflates M_Ks at fixed primary mass, so the bound is conservative",
+    "a flat absorber affecting every star IDENTICALLY is absorbed into the fitted relation and is unbounded by any self-calibrated method"
+  ]
+}

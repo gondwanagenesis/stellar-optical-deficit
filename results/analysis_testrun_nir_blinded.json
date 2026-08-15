@@ -1,0 +1,14 @@
+{
+  "tag": "testrun_nir",
+  "state": "BLINDED",
+  "n_stars": 47927,
+  "sigma_robust_mag": 0.09630548331496978,
+  "mean_residual_mag": 0.04200365384900301,
+  "median_residual_mag": 0.031316753228691915,
+  "bowley_skew": 0.04639033202784184,
+  "n_pos_outliers": 218,
+  "n_neg_outliers": 17,
+  "k_sigma": 5.0,
+  "best_mean_f_upper_limit": 0.001,
+  "f_at_best_limit": 0.001
+}
