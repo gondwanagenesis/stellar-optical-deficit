@@ -1,0 +1,73 @@
+{
+  "tag": "primary",
+  "n_all": 3321566,
+  "n_with_wise": 2993277,
+  "n_bare_photosphere": 2897070,
+  "n_ir_excess": 73123,
+  "n_no_wise": 328289,
+  "excess_scatter_w1": 0.04819824359577917,
+  "excess_scatter_w2": 0.09124094830204954,
+  "table": [
+    {
+      "subsample": "all stars (paper Sec 5.3)",
+      "N": 3321566,
+      "f": 0.3,
+      "sigma": 0.09912799253680192,
+      "n_pos": 19844,
+      "efficiency": 0.16872342744356125,
+      "p_UL": 0.035825035606883916,
+      "mean_f_UL": 0.010747510682065175
+    },
+    {
+      "subsample": "all stars (paper Sec 5.3)",
+      "N": 3321566,
+      "f": 0.5,
+      "sigma": 0.09912799253680192,
+      "n_pos": 19844,
+      "efficiency": 0.9859746878430234,
+      "p_UL": 0.00613050504278607,
+      "mean_f_UL": 0.003065252521393035
+    },
+    {
+      "subsample": "all stars (paper Sec 5.3)",
+      "N": 3321566,
+      "f": 0.9,
+      "sigma": 0.09912799253680192,
+      "n_pos": 19844,
+      "efficiency": 0.9999984946859403,
+      "p_UL": 0.006044531894799922,
+      "mean_f_UL": 0.00544007870531993
+    },
+    {
+      "subsample": "bare photosphere only",
+      "N": 2897070,
+      "f": 0.3,
+      "sigma": 0.09703861557516455,
+      "n_pos": 15330,
+      "efficiency": 0.181135077854522,
+      "p_UL": 0.029604391518215967,
+      "mean_f_UL": 0.00888131745546479
+    },
+    {
+      "subsample": "bare photosphere only",
+      "N": 2897070,
+      "f": 0.5,
+      "sigma": 0.09703861557516455,
+      "n_pos": 15330,
+      "efficiency": 0.9885128768031148,
+      "p_UL": 0.005424708052190446,
+      "mean_f_UL": 0.002712354026095223
+    },
+    {
+      "subsample": "bare photosphere only",
+      "N": 2897070,
+      "f": 0.9,
+      "sigma": 0.09703861557516455,
+      "n_pos": 15330,
+      "efficiency": 1.0,
+      "p_UL": 0.0053623937624877995,
+      "mean_f_UL": 0.00482615438623902
+    }
+  ],
+  "interpretation": "p_UL in the 'bare photosphere' rows is a limit on stars with an optical deficit AND a measured absence of mid-IR excess, i.e. the beaming-consistent / non-thermally-exporting class that IR-excess searches such as Suazo+22 are not designed to constrain."
+}

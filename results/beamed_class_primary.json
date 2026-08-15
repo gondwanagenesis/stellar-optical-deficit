@@ -1,0 +1,61 @@
+{
+  "tag": "primary",
+  "n_pairs": 6431,
+  "n_stars": 12862,
+  "sigma_dr": 0.10909432905495849,
+  "frac_bare": 0.8721988363320193,
+  "best_p_UL": 0.0004887056658026737,
+  "best_f": 0.45276532244069934,
+  "best_mean_f_UL": 0.0002212689783557442,
+  "table": [
+    {
+      "k": 3,
+      "threshold_mag": 0.32728298716487547,
+      "f_detectable": 0.26024688066943535,
+      "n_pos": 143,
+      "n_neg": 174,
+      "asymmetry": -31,
+      "asym_err": 17.804493814764857,
+      "excess_UL_95": 32.284124598842176,
+      "p_UL": 0.0025100392317557283,
+      "mean_f_UL": 0.0006532298804223342
+    },
+    {
+      "k": 4,
+      "threshold_mag": 0.43637731621983394,
+      "f_detectable": 0.330964637361461,
+      "n_pos": 55,
+      "n_neg": 50,
+      "asymmetry": 5,
+      "asym_err": 10.246950765959598,
+      "excess_UL_95": 27.369268918745075,
+      "p_UL": 0.002127917036133189,
+      "mean_f_UL": 0.0007042652901990957
+    },
+    {
+      "k": 5,
+      "threshold_mag": 0.5454716452747924,
+      "f_detectable": 0.39492202903322393,
+      "n_pos": 8,
+      "n_neg": 12,
+      "asymmetry": -4,
+      "asym_err": 4.47213595499958,
+      "excess_UL_95": 10.352395919528298,
+      "p_UL": 0.0008048822826565307,
+      "mean_f_UL": 0.00031786574419960994
+    },
+    {
+      "k": 6,
+      "threshold_mag": 0.6545659743297509,
+      "f_detectable": 0.45276532244069934,
+      "n_pos": 1,
+      "n_neg": 3,
+      "asymmetry": -2,
+      "asym_err": 2.0,
+      "excess_UL_95": 6.28573227355399,
+      "p_UL": 0.0004887056658026737,
+      "mean_f_UL": 0.0002212689783557442
+    }
+  ],
+  "claim": "limit on optical deficit WITH measured absence of mid-IR excess; complements rather than competes with IR-excess searches"
+}
