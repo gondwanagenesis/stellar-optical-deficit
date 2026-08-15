@@ -1,0 +1,57 @@
+{
+  "n_systems": 88149,
+  "k": 5.0,
+  "table": [
+    {
+      "subset": "all systems",
+      "band": "M_G",
+      "N": 88149,
+      "sigma": 0.2772645069016736,
+      "threshold_mag": 1.386322534508368,
+      "f_detectable": 0.7210855683554399,
+      "n_pos": 14,
+      "n_neg": 41,
+      "p_UL": 0.0002482896676408251,
+      "mean_f_UL": 0.00017903809610756767
+    },
+    {
+      "subset": "all systems",
+      "band": "M_Ks",
+      "N": 88149,
+      "sigma": 0.26607692887576256,
+      "threshold_mag": 1.3303846443788128,
+      "f_detectable": 0.7063390886513785,
+      "n_pos": 11,
+      "n_neg": 23,
+      "p_UL": 0.00020655383783030614,
+      "mean_f_UL": 0.00014589704957050306
+    },
+    {
+      "subset": "faint secondary only",
+      "band": "M_G",
+      "N": 13482,
+      "sigma": 0.2879006280241674,
+      "threshold_mag": 1.439503140120837,
+      "f_detectable": 0.7344179346517837,
+      "n_pos": 0,
+      "n_neg": 8,
+      "p_UL": 0.0002222023641562075,
+      "mean_f_UL": 0.00016318940135834546
+    },
+    {
+      "subset": "faint secondary only",
+      "band": "M_Ks",
+      "N": 13482,
+      "sigma": 0.28585026329763036,
+      "threshold_mag": 1.4292513164881517,
+      "f_detectable": 0.731898358272524,
+      "n_pos": 0,
+      "n_neg": 2,
+      "p_UL": 0.0002222023641562075,
+      "mean_f_UL": 0.0001626295455302018
+    }
+  ],
+  "best_MG_p_UL": 0.0002222023641562075,
+  "best_MG_f": 0.7344179346517837,
+  "note": "M_G vs dynamical mass is immune to the grey-absorber and alpha~0.19 blind spots and does not use 2MASS as the anchor; unresolved secondary light is the dominant systematic and biases toward over-luminosity, i.e. against the signal"
+}

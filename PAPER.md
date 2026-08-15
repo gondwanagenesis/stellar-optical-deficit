@@ -56,6 +56,18 @@ existing El-Badry et al. catalogue, would push the deficit limit below the
 infrared limit and make the *beamed fraction* β = p_dark/p_total a measurable
 quantity for the first time.
 
+Two further channels close blind spots the main estimator cannot reach. A
+**dynamical-mass** search — regressing M_G on log M_dyn for 88,149 Gaia binary
+systems — is indifferent to spectral slope and does not use 2MASS as its
+anchor, giving **p < 2.2 × 10⁻⁴ at f ≥ 0.73 for an absorber of any spectral
+slope**, with **zero positive outliers** among the 13,482 systems with faint
+secondaries. This is the only constraint here covering the grey and α ≈ 0.19
+cases. A **kinematic** search in velocity space rather than position space
+returned a 4301σ excess that dissolves to ~1.4× once bound pairs, |v| and pair
+separation are controlled: anomalies are kinematically cold (median |v| = 22.8
+against 35.1 km/s) because the tail is enriched in young stars, which cluster
+in comoving associations for mundane reasons.
+
 Three results correct assumptions we began with, and we consider them the more
 durable contribution:
 
@@ -751,6 +763,69 @@ two-sided count.**
 optical output by any disposal mode.** A 12% improvement from 40% more pairs —
 Poisson-limited statistics scale weakly when the counts are single digits,
 which is exactly why the deeper sample matters more than any estimator tweak.
+
+### 5.8d Dynamical mass: closing the spectral blind spot
+
+Every limit above regresses M_G on M_Ks, which inherits two structural blind
+spots: a **grey** absorber dims both bands and produces a residual of the
+*wrong sign* (§3.3), and the anchor is 2MASS, whose beam is our dominant
+contaminant (§5.5). A **dynamical** mass has neither problem. Gravity is
+indifferent to what an absorber does to photons, and the mass comes from Gaia
+astrometry rather than from a low-resolution infrared survey.
+
+Regressing M_G directly on log M_dyn for 88,149 `gaiadr3.binary_masses`
+systems (0.2–1.6 M☉, A₀ < 0.6, clean Ks):
+
+| subset | N | σ | threshold | f detectable | n_pos | n_neg | p_UL |
+|---|---|---|---|---|---|---|---|
+| all systems | 88,149 | 0.277 mag | 1.386 mag | 0.721 | 14 | 41 | 2.5 × 10⁻⁴ |
+| **faint secondary** (fluxratio < 0.1) | 13,482 | 0.288 mag | 1.440 mag | **0.734** | **0** | 8 | **2.2 × 10⁻⁴** |
+
+**Zero positive outliers in 13,482 systems with clean dynamical masses.**
+
+The negative excess (41 against 14, and 8 against 0 in the clean subset) is
+the expected signature of unresolved secondary light: in a binary the observed
+G contains both components while m1 is the primary alone, inflating the
+luminosity. That biases toward *over*-luminosity — against the signal — so the
+search is conservative by construction.
+
+**p < 2.2 × 10⁻⁴ at f ≥ 0.73, for an absorber of ANY spectral slope.** This is
+the first constraint here that covers the grey case and the α ≈ 0.19 blind
+spot, which no version of the M_G–M_Ks estimator can reach at any sample size.
+It costs a higher covering-fraction threshold (0.73 against 0.51) because
+dynamical masses are noisy, but it constrains a class that was previously
+entirely unconstrained by this work.
+
+### 5.8e Kinematic clustering: a 4301σ excess that is young stars
+
+§5.10 searched for a spreading front in 3D *position* and found dust.
+But interstellar transfer cost is set by **Δv**, not distance: two stars 50 pc
+apart co-moving at 2 km/s are adjacent in transfer cost, two stars 5 pc apart
+differing by 60 km/s are not. Position-space clustering is arguably the wrong
+metric, so we repeated the search in velocity space.
+
+The first pass reported a **4301σ** excess of low-Δv anomaly pairs, 178× the
+control rate. It is not a detection. Three controls were missing, and the
+sequence of removing them is the result:
+
+| control added | excess ratio at Δv < 2 km/s |
+|---|---|
+| none | 178× |
+| exclude gravitationally bound pairs (Δv = 0 by construction) | 160× |
+| match controls on \|v\| | 43× |
+| match on pair separation, and restrict to \|v\| > 40 km/s | **~1.4×** |
+
+The decisive diagnostic: **anomalies are kinematically cold**, median |v| =
+22.8 km/s against 35.1 for the field, with 43% below 20 km/s against 23%.
+Kinematically cold means young, young stars sit in comoving associations, and
+associations cluster in velocity for entirely mundane reasons. Restricting to
+the dynamically heated disc (|v| > 40 km/s), where coherent young associations
+are absent, collapses ratios of 8–29× to ~1.4×.
+
+No kinematic front. But the test has real teeth — it detected a genuine
+population at enormous significance — and the failure mode is instructive: in
+velocity space the young-star contaminant is *more* concentrated than in
+position space, so this metric needs stronger controls, not weaker.
 
 ### 5.9 Deficit spectral type
 

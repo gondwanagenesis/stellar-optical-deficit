@@ -1,0 +1,65 @@
+{
+  "tag": "primary",
+  "k_sigma": 5.0,
+  "r_pc": 100.0,
+  "n_stars": 3321566,
+  "n_anomalies": 19844,
+  "n_anomaly_pairs": 3893115,
+  "table": [
+    {
+      "dv_max_kms": 2,
+      "n_anom_pairs_below": 422154,
+      "frac_anomaly": 0.10843604671323606,
+      "frac_control": 0.0025258623905653815,
+      "control_sd": 6.558407676783706e-05,
+      "ratio": 42.93030654332838,
+      "n_sigma": 1614.876499635501
+    },
+    {
+      "dv_max_kms": 5,
+      "n_anom_pairs_below": 1095328,
+      "frac_anomaly": 0.28135002433783746,
+      "frac_control": 0.020568237819305273,
+      "control_sd": 0.00023780975318308663,
+      "ratio": 13.678858967381414,
+      "n_sigma": 1096.5983649869888
+    },
+    {
+      "dv_max_kms": 10,
+      "n_anom_pairs_below": 1786488,
+      "frac_anomaly": 0.45888395282440925,
+      "frac_control": 0.08331006554793058,
+      "control_sd": 0.0006812661973255247,
+      "ratio": 5.508145382029506,
+      "n_sigma": 551.2880115744548
+    },
+    {
+      "dv_max_kms": 20,
+      "n_anom_pairs_below": 2521177,
+      "frac_anomaly": 0.6475989021644621,
+      "frac_control": 0.272752359301967,
+      "control_sd": 0.0015564349621968242,
+      "ratio": 2.374310909067146,
+      "n_sigma": 240.8366247012464
+    },
+    {
+      "dv_max_kms": 40,
+      "n_anom_pairs_below": 3200780,
+      "frac_anomaly": 0.8221642566428169,
+      "frac_control": 0.6198717004205876,
+      "control_sd": 0.0015054345323575996,
+      "ratio": 1.3263458488022155,
+      "n_sigma": 134.37486112758899
+    },
+    {
+      "dv_max_kms": 80,
+      "n_anom_pairs_below": 3769873,
+      "frac_anomaly": 0.9683436014605271,
+      "frac_control": 0.9155616636624551,
+      "control_sd": 0.001307372822636136,
+      "ratio": 1.057649790170257,
+      "n_sigma": 40.37252181183069
+    }
+  ],
+  "verdict": "EXCESS at dv < 2 km/s (+1614.9 sigma) -- INVESTIGATE"
+}
