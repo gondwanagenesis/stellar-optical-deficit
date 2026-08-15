@@ -697,6 +697,61 @@ sample at matched threshold. The joint constraint of §5.8 is unchanged at
 p_total < 6.8 × 10⁻⁴ because the corrected p_dark is numerically almost
 identical to the (invalid) asymmetry value — a coincidence, not a vindication.
 
+### 5.8c Improved estimator: dropping the metallicity control *helps*
+
+Two changes, one of which was counter-intuitive.
+
+**(1) Requiring a metallicity was pure loss.** The fitted sample demanded a
+GSP-Phot [M/H], costing 15% of stars and ~30% of pairs since both members must
+survive. But within a co-natal pair the metallicity is *common to both
+components and cancels exactly in the difference*. Refitting the fiducial with
+only the near-infrared colour control, on all 3,884,167 stars:
+
+| | with [M/H] | without [M/H] |
+|---|---|---|
+| σ (single star) | 0.09913 mag | 0.11338 mag |
+| clean pairs | 8,844 | **12,214** (+38%) |
+| pairs, both bare | 6,431 | **9,022** (+40%) |
+| σ(Δr) | 0.11209 mag | **0.10957 mag** |
+| common-mode variance | 34% | **53%** |
+
+The single-star scatter gets *worse* (0.099 → 0.113) and the pair scatter gets
+*better* (0.112 → 0.110). Removing a control for a quantity that is shared
+within pairs moves that variance from the "per-star" bucket into the
+"common-mode" bucket, where the difference cancels it for free. Common-mode
+cancellation rises from 34% to 53%. **For a differential estimator, controlling
+for a common-mode variable is actively counterproductive.**
+
+Chance-alignment contamination stays at 0.03%.
+
+**(2) The background prediction was targeted at the wrong population — and our
+reasoning about which way it would go was wrong.** We expected pair members to
+be *cleaner* than average, since both passed astrometric-consistency cuts.
+Measured, they are **dirtier**: q(|r| > 0.67) is 3.40 × 10⁻³ for pair members
+against 2.41 × 10⁻³ globally, a ratio of 1.41. Wide binarity correlates with
+higher-order multiplicity, so a wide-pair member is *more* likely to have a
+close companion as well.
+
+The prediction therefore over-predicts by far more than we assumed —
+63.5 expected against 7 observed at the 0.66 mag threshold — because
+common-mode cancellation suppresses the tail so strongly. With observed counts
+this small the conservative Poisson limit beats the background-subtracted one,
+so **subtraction contributes nothing and the honest estimator is the plain
+two-sided count.**
+
+**Improved limits:**
+
+| | limit | at | previous |
+|---|---|---|---|
+| all clean pairs | **p < 5.3 × 10⁻⁴** | f ≥ 0.507 | 4.8 × 10⁻⁴ |
+| **beamed class** | **p < 4.3 × 10⁻⁴** | f ≥ 0.507 | 4.9 × 10⁻⁴ |
+| **p_total (joint)** | **< 6.2 × 10⁻⁴** | | 6.8 × 10⁻⁴ |
+
+**Fewer than 1 in 1,614 nearby lower-main-sequence stars intercepts ≥51% of its
+optical output by any disposal mode.** A 12% improvement from 40% more pairs —
+Poisson-limited statistics scale weakly when the counts are single digits,
+which is exactly why the deeper sample matters more than any estimator tweak.
+
 ### 5.9 Deficit spectral type
 
 Classifying each outlier by whether its colour excess matches the reddening
