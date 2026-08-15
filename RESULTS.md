@@ -265,6 +265,34 @@ extinction (351σ), crowding (239σ) and latitude (242σ).
 target, essentially reached on paper.** Its measured floor is 1376× that.
 Adding stars closes none of that gap, because the gap is not statistical.
 
+### Distance trade study: pushing further out makes things worse
+
+Same 26 sky partitions at every distance cut, same spline complexity, so the
+comparison isolates distance (`scripts/17_distance_trade.py`,
+`F9_distance_trade.png`):
+
+| d limit (pc) | N | median `A_0` | `sigma/sqrt(N)` | spatial plateau | floor/naive |
+|---|---|---|---|---|---|
+| 200 | 67,061 | 0.033 | 3.28e-4 | 0.0154 | 149× |
+| 300 | 172,126 | 0.061 | 2.35e-4 | 0.0157 | 287× |
+| 500 | 480,700 | 0.110 | 1.42e-4 | 0.0227 | 345× |
+| 750 | 945,934 | 0.144 | 9.41e-5 | 0.0230 | 339× |
+| 1000 | 1,265,254 | 0.160 | 7.92e-5 | 0.0231 | 352× |
+| 1250 | 1,383,542 | 0.166 | 7.51e-5 | 0.0235 | 536× |
+
+Going from 200 pc to 1250 pc buys **21× more stars** and improves
+`sigma/sqrt(N)` by 4.4×. Over the same range the median extinction rises 5×
+and the spatial systematic plateau rises from 0.0154 to 0.0235 mag. The ratio
+of floor to naive degrades by 3.6×.
+
+**The extra stars are bought at a worse price than they are worth.** There is
+no distance at which this reverses within the Edenhofer map's 1.25 kpc
+validity, so 500 pc is not a compromise that a bolder cut would improve on.
+
+The 500 pc row here (floor 0.0489 mag on 26 partitions) is consistent with the
+full-sky 500 pc measurement (0.0520 mag on 192 partitions), which is a useful
+check that the trade study's subset is not pathological.
+
 ---
 
 ## 4. Injection–recovery (step 4)
@@ -520,13 +548,16 @@ independent reasons:
 
 1. **The `sqrt(N)` scaling does not apply to the mean**, because the mean is
    not measurable at all in a self-calibrated analysis (§4).
-2. **Where `sqrt(N)` scaling could apply, it stops at ~1e-2 mag**, 121× above
-   the naive expectation, and the plateau is set by coherent extinction and
-   photometric systematics that do not average down (§3).
-3. **The tail-based limit is background-limited at `p ~ 5e-3`**, set by
-   YSOs, emission-line stars and spotted rotators that dim in the optical for
-   ordinary reasons. That background scales with `N`, so more stars do not
-   help (§6, §7).
+2. **Where `sqrt(N)` scaling could apply, it stops at 2–5e-2 mag** —
+   **957× above the naive expectation for variant A and 1376× for variant B**
+   — and the plateau is set by coherent astrophysical and extinction
+   systematics that do not average down (§3). Variant B's naive `sigma/sqrt(N)`
+   is 1.5e-5 mag, so the 1e-5 target *is* reachable statistically; it is three
+   orders of magnitude away systematically.
+3. **The tail-based limit is background-limited**, set by unresolved
+   companions blended into the 2MASS beam, YSOs, emission-line stars and
+   spotted rotators — all of which dim in the optical for ordinary reasons.
+   That background scales with `N`, so more stars do not help (§6, §7, §7b).
 
 **The optical-deficit channel saturates near a mean harvested fraction of a
 few × 1e-3 and cannot reach 1e-5.** The correct answer to the brief's question
