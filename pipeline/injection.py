@@ -11,9 +11,12 @@ Two injection modes, and they behave completely differently:
             it is the reason the brief's "nonzero MEAN Delta_M_G" statistic is
             not measurable self-calibrated.
 
-  sparse  : a fraction p of stars dimmed by Delta(f).  The *mean* shift p*Delta
-            is likewise absorbed, but the one-sided tail is not.  Recovery is
-            therefore measured in the tail, not the mean.
+  sparse  : a fraction p of stars dimmed by Delta(f).  Here the mean shift
+            p*Delta is NOT absorbed -- the robust (Huber) fit down-weights the
+            injected outliers instead of following them, so ~77% of p*Delta
+            survives into the residual mean.  Recovery is nevertheless measured
+            in the tail, because the mean is also where the coherent
+            systematics live and the tail limit is ~17x tighter.
 
 Rule enforced here: the spline hyperparameters (knot count, metallicity degree)
 are chosen once on the real data and then held FIXED for every injection.

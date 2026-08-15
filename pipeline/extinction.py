@@ -93,12 +93,17 @@ BAND_LAWS = {"fitz19": k_fitz19, "wangchen19": k_wangchen19}
 
 
 def deredden(band: str, a0: np.ndarray, bp_rp_obs: np.ndarray,
-             law: str = "fitz19", n_iter: int = 4) -> np.ndarray:
+             law: str = "fitz19", n_iter: int = 12) -> np.ndarray:
     """Return A_band given A_0 and the *observed* BP-RP.
 
     The Fitz19 law wants the intrinsic colour, which we do not know until we
-    have dereddened, so iterate.  Four iterations converges to < 1e-4 mag over
-    the whole colour and A_0 range used here (checked in tests).
+    have dereddened, so iterate.
+
+    Four iterations is NOT enough: at A_0 = 1.5 and (BP-RP) = 3.8 the fixed
+    point is still moving by 3e-3 mag between iteration 4 and 12, which is
+    within a factor of a few of the systematic floor.  Twelve iterations
+    converges to < 1e-4 mag over the whole colour and A_0 range used here, and
+    costs nothing.  Checked in tests/test_statistics_and_extinction.py.
     """
     fn = BAND_LAWS[law]
     a0 = np.asarray(a0, dtype=float)
@@ -111,7 +116,7 @@ def deredden(band: str, a0: np.ndarray, bp_rp_obs: np.ndarray,
 
 
 def intrinsic_bp_rp(a0: np.ndarray, bp_rp_obs: np.ndarray,
-                    law: str = "fitz19", n_iter: int = 4) -> np.ndarray:
+                    law: str = "fitz19", n_iter: int = 12) -> np.ndarray:
     fn = BAND_LAWS[law]
     a0 = np.asarray(a0, dtype=float)
     bp_rp = np.asarray(bp_rp_obs, dtype=float)

@@ -6,15 +6,23 @@ The fiducial spline has a free intercept in every knot interval, so the
 weighted mean residual is zero *by construction* at every M_Ks.  This is not a
 detail: it means
 
-    the mean residual is not a measurable quantity in the self-calibrated
-    analysis, and neither is a uniform harvesting fraction.
+    a UNIFORM harvesting fraction is not measurable in the self-calibrated
+    analysis at all -- sensitivity exactly zero, not sigma/sqrt(N).
 
-Even a sparse injection -- a fraction p of stars each dimmed by Delta -- shifts
-the local mean by p*Delta, and the spline absorbs that too.  What the spline
-*cannot* absorb is the **shape** of the residual distribution at fixed M_Ks.
-Harvesting adds a one-sided positive (fainter) tail and nothing else.
+A **sparse** deficit behaves differently, and it is worth being precise because
+the obvious guess is wrong.  Injecting a fraction p of stars at Delta shifts
+the local mean by p*Delta, and one might expect the spline to absorb that too.
+It does not: the fit is robust (Huber), so injected stars sitting several sigma
+out are down-weighted rather than followed, and roughly 77% of p*Delta survives
+into the residual mean (measured in tests/test_fiducial.py).
 
-So the self-calibrated analysis is a distribution-shape test:
+So the mean IS sensitive to sparse harvesting.  The tail is nevertheless the
+better statistic, for a different reason: the mean is also where the coherent
+extinction and photometric systematics live.  With a measured floor of ~5e-2
+mag, a mean-based limit at f = 0.5 would give p < 0.09, whereas the tail gives
+p < 5e-3 -- a factor of ~17 better.
+
+The self-calibrated analysis is therefore primarily a distribution-shape test:
 
   * tail asymmetry  A(k) = [N(r > +k s) - N(r < -k s)] / N
   * the count of individual >5-sigma positive outliers

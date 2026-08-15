@@ -21,10 +21,19 @@ all returned an identical mean residual to six decimal places. Four orders of
 magnitude of injected signal, zero response.
 
 The brief's proposed statistic — "a nonzero MEAN `Delta_M_G` across the
-population" — is therefore not a measurable quantity in a self-calibrated
-analysis, and no amount of `N` helps. What *is* measurable is the **shape** of
-the residual distribution at fixed `M_Ks`: a one-sided fainter tail, which
-sparse harvesting produces and a uniform offset does not.
+population" — is therefore not measurable *for a uniform deficit*, and no
+amount of `N` helps.
+
+For a **sparse** deficit the mean does survive, and it is worth being exact
+here because the intuitive guess is wrong in the other direction: the robust
+(Huber) fit down-weights injected outliers rather than following them, so
+~77% of the `p·Δ` mean shift is retained. The mean is genuinely sensitive to
+sparse harvesting.
+
+The tail is still the statistic used, for a different reason: the mean is also
+where the coherent systematics of §4 live. At the measured floor of ~5e-2 mag,
+a mean-based limit at `f = 0.5` gives `p < 0.09`; the tail gives `p < 5e-3`, a
+factor ~17 better. The choice is systematics-driven, not sensitivity-driven.
 
 Bounding the uniform case requires an external absolute anchor (stellar models,
 or dynamical masses). That analysis is then limited by the anchor's systematic

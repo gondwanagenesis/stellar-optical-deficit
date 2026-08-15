@@ -147,9 +147,19 @@ rather than as a sensitivity.
 | 1e-1 | 0.114394 | 0.005600 | 0.1046 |
 
 The self-calibrated column is constant to six decimal places across four
-orders of magnitude of injected signal. The spline absorbs the offset exactly.
+orders of magnitude of injected signal. The spline absorbs the offset to a
+leak fraction of 1.5e-7 (residual conditioning-ridge effect, not physics).
 The model-anchored column, which compares against a frozen reference curve,
 does recover the injection — above its own ~0.005 mag floor.
+
+**A sparse deficit is a different case, and the obvious guess is wrong.** One
+might expect the `p·Δ` mean shift to be absorbed as well. It is not: the robust
+Huber fit down-weights injected outliers rather than following them, so ~77% of
+`p·Δ` survives into the residual mean (`tests/test_fiducial.py`). The mean is
+therefore genuinely sensitive to sparse harvesting. The tail is used anyway,
+because the mean is also where the coherent systematics of §3 sit: at the
+measured 5.3e-2 mag floor a mean-based limit at `f = 0.5` gives `p < 0.09`,
+against `p < 5.1e-3` from the tail — a factor ~17 better.
 
 ### Sparse injection: recovery lives in the tail
 
