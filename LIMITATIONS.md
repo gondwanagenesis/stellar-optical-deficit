@@ -136,13 +136,23 @@ method that anchors on 2MASS. An anchor from a comparable-resolution survey
 
 ---
 
-## 4. Extinction is the dominant measured systematic
+## 4. Extinction is a large measured systematic — but not the largest
 
-The null tests put numbers on this. Splitting the sample by extinction
-quartile gives a mean-residual difference of **−0.020 mag** at 12 sigma
-(`results/nulls_*_splits.csv`); after the NIR control, the colour split is
-worse still. For comparison the naive `sigma/sqrt(N)` on the same sample is
-`4.4e-4` mag.
+On the full 3.32M-star sample, splitting by extinction quartile gives a
+mean-residual difference of **−0.0446 mag at 212 sigma**. Regressing the
+residual directly on `A_0` gives a slope of `0.1253 ± 0.0005` mag per unit
+`A_0` (247 sigma), which — if attributed entirely to the extinction
+correction — means it **under-corrects by 19% of `A_G`**.
+
+That attribution is an **upper bound**, and the caveat matters: `A_0`
+correlates with distance and Galactic latitude, which correlate with stellar
+population (age, alpha-enhancement, thin versus thick disc). Some of the slope
+is astrophysical rather than an extinction failure, and this diagnostic cannot
+separate them. The colour-split-at-low-extinction test (below) shows a large
+population term certainly exists.
+
+For comparison the naive `sigma/sqrt(N)` on the same sample is `5.4e-5` mag —
+so the extinction term alone is ~800× the naive statistical error.
 
 Contributing pieces:
 

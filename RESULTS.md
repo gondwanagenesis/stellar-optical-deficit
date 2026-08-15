@@ -345,6 +345,48 @@ sit in confused regions, which is also why they are outliers.
 
 ---
 
+## 7b. What the contaminating population actually is
+
+The 5-sigma tail on the full sample holds **19,844 positive** against **1,126
+negative** — a 17.6:1 asymmetry at 129 sigma. A Gaussian of the same width
+would put about *one* star beyond 5 sigma in 3.3M. The tail is entirely
+non-Gaussian, and strongly one-sided in the deficit direction.
+
+Splitting by every available multiplicity and blending proxy
+(`scripts/18_binary_hypothesis.py`) identifies what it is. Rates are the
+5-sigma tail fraction, lowest to highest quartile:
+
+| proxy | positive tail | negative tail (control) |
+|---|---|---|
+| RUWE (0.45→1.39) | **2.04×** | 0.72× |
+| `astrometric_excess_noise` | **2.77×** | 0.85× |
+| BP/RP excess factor `C*` | **20.5×** | 0.38× |
+
+Every proxy drives the positive tail **up** and the negative tail **down**.
+This is the analytic prediction of §Headline-2 confirmed on data: unresolved
+companions manufacture false deficits rather than masking real ones.
+
+### The dominant mechanism is aperture mismatch, and it is structural
+
+That `C*` dominates — a factor 20, far above RUWE's 2 — identifies the channel.
+Gaia resolves sources at sub-arcsecond scale; the 2MASS beam is ~4 arcsec. A
+neighbour that Gaia separates is **blended into the same 2MASS `Ks`
+measurement**. That star's `Ks` is too bright while its `G` is not, so at fixed
+`M_G` it looks like a larger star — which in this diagram is
+indistinguishable from being under-luminous in `G`.
+
+This is not a flagging problem that better quality cuts would solve. It is
+intrinsic to regressing a high-resolution optical catalogue against a
+low-resolution infrared one, and it will limit **any** implementation of the
+optical-deficit method anchored on 2MASS. Removing it needs a NIR anchor of
+comparable angular resolution — VISTA/VVV where it covers, or JWST-era imaging.
+
+That finding is arguably more useful than the limit itself: it says where the
+next factor of improvement in this channel has to come from, and it is not
+from more stars.
+
+---
+
 ## 8. Comparison with prior work
 
 **Zackrisson et al. 2015 (ApJ 810, 23)** set a conservative limit of **3%** on

@@ -169,6 +169,14 @@ def extinction_residual_slope(df: pd.DataFrame, resid: np.ndarray,
             f"the extinction correction appears to be "
             f"{'under' if eps > 0 else 'over'}-correcting by "
             f"{abs(eps) * 100:.1f}% of A_G"),
+        "caveat": (
+            "this is an UPPER BOUND on the extinction error. A_0 correlates "
+            "with distance and galactic latitude, which correlate with "
+            "stellar population (age, alpha-enhancement, thin vs thick disc), "
+            "so some of the fitted slope is astrophysical rather than an "
+            "extinction-correction failure. The two are not separable with "
+            "this diagnostic alone -- but the colour-split-at-low-extinction "
+            "test shows a large population term does exist."),
     }
 
 
