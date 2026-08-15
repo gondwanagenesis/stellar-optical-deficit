@@ -44,6 +44,17 @@ components to have a **measured bare photosphere** in W1 and W2 gives
 warm re-emission* — the beaming-consistent, cold, or non-thermally-exporting
 case that motivates the deficit channel in the first place.
 
+Combining that with the infrared limit gives what we believe is the **first
+bound on stellar energy harvesting that does not assume how the waste heat is
+disposed of**: writing p_total = p_iso + p_dark for the isotropic-warm and
+beamed/cold/non-thermal populations, Suazo et al. constrain the former and §5.7
+constrains the latter, so **p_total < 6.8 × 10⁻⁴** — fewer than 1 in 1,473
+nearby lower-main-sequence stars intercepts ≥45% of its optical output by any
+means. We further show that a 10× larger wide-pair sample, well within the
+existing El-Badry et al. catalogue, would push the deficit limit below the
+infrared limit and make the *beamed fraction* β = p_dark/p_total a measurable
+quantity for the first time.
+
 Three results correct assumptions we began with, and we consider them the more
 durable contribution:
 
@@ -572,14 +583,65 @@ This is the only limit in this paper not superseded by prior work, and it is
 complementary rather than competitive: it covers the corner of parameter space
 that an IR-excess estimator weights to zero.
 
-### 5.8 Deficit spectral type
+### 5.8 Joint constraint: the first bound that does not assume a disposal mode
+
+Every published limit constrains one way of getting rid of the waste heat.
+Infrared searches constrain spheres that re-radiate isotropically in the WISE
+bands. Deficit searches constrain interception regardless of disposal, but
+weakly. Partition the stars intercepting a fraction ≥ f:
+
+> **p_total = p_iso + p_dark**
+>
+> **p_iso** — re-radiates isotropically and warm; infrared searches see it.
+> **p_dark** — beams, radiates too cold for WISE, or exports non-thermally;
+> infrared searches do not see it, and only a deficit search can.
+
+§5.7 measures **p_dark directly** by requiring a measured bare photosphere
+alongside the deficit. Suazo et al. (2022) measure **p_iso**. They combine:
+
+| | constraint | source |
+|---|---|---|
+| p_iso (isotropic, warm, 100 pc) | < 1.9 × 10⁻⁴ | Suazo et al. 2022 |
+| **p_dark** (beamed / cold / non-thermal, 500 pc) | **< 4.9 × 10⁻⁴** | **this work, §5.7** |
+| **p_total** | **< 6.8 × 10⁻⁴** | **combined** |
+
+**Fewer than 1 in 1,473 nearby lower-main-sequence stars intercepts ≥45% of its
+optical output by any means, warm or dark.** To our knowledge this is the first
+bound on stellar energy harvesting that does not assume how the energy is
+disposed of, and it is the natural product of running the two channels against
+each other rather than in isolation.
+
+#### When the beamed fraction becomes measurable
+
+The quantity the whole "infrared searches are evadable" argument turns on is
+β = p_dark/p_total. Both inputs are non-detections, so β is bounded only
+trivially today. It becomes informative the moment the deficit limit drops
+*below* the infrared limit, because then a detection in one channel and not the
+other is decisive rather than ambiguous.
+
+That requires **2.6×** improvement. Because the pair estimator is
+background-subtracted, its limit scales as √N/N rather than saturating:
+
+| pair sample | stars | projected p_UL | below IR limit? |
+|---|---|---|---|
+| current | 12,862 | 4.9 × 10⁻⁴ | no |
+| 5× | 64,310 | 2.2 × 10⁻⁴ | no |
+| **10×** | **128,620** | **1.5 × 10⁻⁴** | **yes** |
+| 50× | 643,100 | 6.9 × 10⁻⁵ | yes |
+
+El-Badry, Rix & Heintz (2021) catalogue ~1.3 × 10⁶ wide pairs. We use 6,431.
+**A 10× increase — well within that catalogue — makes β a measured quantity
+rather than a rhetorical one.** That is the single most valuable follow-up
+this work identifies, and it requires no new observations.
+
+### 5.9 Deficit spectral type
 
 Classifying each outlier by whether its colour excess matches the reddening
 vector: positive outliers have median δC_obs/δC_dust = **1.09**. They redden.
 There is no grey population and no exotic-spectrum population — nothing near
 the α ≈ 0.19 blind spot where a deliberate evader would sit.
 
-### 5.8 Search for a spreading front
+### 5.10 Search for a spreading front
 
 A spreading civilisation produces *spatially correlated* anomalies, and
 correlation statistics detect clustered weak signals far below the per-object
@@ -778,12 +840,19 @@ judge the pipeline's reliability.
    clean wide pairs, with **zero candidates**. This is *not* the strongest
    published limit: Suazo et al. (2022) reach 1.9 × 10⁻⁴ at γ ≥ 0.5 using the
    infrared re-emission as well.
-3. **A uniform deficit is unmeasurable** by any self-calibrated version of this
+3. Requiring a **measured bare photosphere** gives **p < 4.9 × 10⁻⁴ at
+   f ≥ 0.45** for the beamed / cold / non-thermal class — the one limit here
+   not superseded, because infrared estimators weight that class to zero.
+4. Combining the two channels gives **p_total < 6.8 × 10⁻⁴**, the first
+   disposal-agnostic bound: fewer than 1 in 1,473 nearby lower-main-sequence
+   stars intercepts ≥45% of its output by any means. A 10× larger wide-pair
+   sample makes the beamed fraction β measurable.
+5. **A uniform deficit is unmeasurable** by any self-calibrated version of this
    method.
-4. **Unresolved companions mimic the signal**, because dM_G/dM_Ks = 1.26 > 1.
-5. **The blind spot is α ≈ 0.19, not a grey absorber**; grey gives the opposite
+6. **Unresolved companions mimic the signal**, because dM_G/dM_Ks = 1.26 > 1.
+7. **The blind spot is α ≈ 0.19, not a grey absorber**; grey gives the opposite
    sign.
-6. The dominant contaminant is **Gaia/2MASS aperture mismatch**, localised to
+8. The dominant contaminant is **Gaia/2MASS aperture mismatch**, localised to
    θ ≲ 6.5″, and it limits any 2MASS-anchored version of this search.
 
 ---

@@ -1,0 +1,48 @@
+{
+  "f_this_work": 0.45276532244069934,
+  "gamma_suazo": 0.5,
+  "p_iso_upper": 0.00019,
+  "p_dark_upper": 0.0004887056658026737,
+  "p_total_upper": 0.0006787056658026738,
+  "one_in_n_stars": 1473.3927391299235,
+  "improvement_needed_for_beta": 2.572135083171967,
+  "projection": [
+    {
+      "pair_sample_multiple": 1,
+      "stars": 12862,
+      "projected_p_UL": 0.0004887056658026737,
+      "beats_IR_limit": false
+    },
+    {
+      "pair_sample_multiple": 2,
+      "stars": 25724,
+      "projected_p_UL": 0.00034556709029335723,
+      "beats_IR_limit": false
+    },
+    {
+      "pair_sample_multiple": 5,
+      "stars": 64310,
+      "projected_p_UL": 0.00021855581794481458,
+      "beats_IR_limit": false
+    },
+    {
+      "pair_sample_multiple": 10,
+      "stars": 128620,
+      "projected_p_UL": 0.00015454230093655093,
+      "beats_IR_limit": true
+    },
+    {
+      "pair_sample_multiple": 20,
+      "stars": 257240,
+      "projected_p_UL": 0.00010927790897240729,
+      "beats_IR_limit": true
+    },
+    {
+      "pair_sample_multiple": 50,
+      "stars": 643100,
+      "projected_p_UL": 6.911341805867145e-05,
+      "beats_IR_limit": true
+    }
+  ],
+  "caveat": "both inputs are non-detections, so beta is bounded only trivially from above; the new content is the disposal-agnostic bound on p_total and the explicit threshold at which beta becomes measurable"
+}
