@@ -1,10 +1,11 @@
 # RESULTS — stellar optical-deficit search
 
-**Status.** The full-sky 500 pc sample is complete: 4,809,840 rows downloaded
-across 192 HEALPix partitions with zero failures, **3,884,167 stars** after
-cuts, **3,321,566** in the fitted sample. Sections 1–3, 7b and 8 carry
-full-sample numbers. Sections 4–7 are being regenerated on the full sample and
-are marked where they still quote the 47,927-star validation subset.
+**Status: complete and unblinded.** The full-sky 500 pc sample is
+4,809,840 rows downloaded across 192 HEALPix partitions with zero failures,
+**3,884,167 stars** after cuts, **3,321,566** in the fitted sample. Every
+number below is from that sample unless explicitly labelled otherwise. The
+analysis was frozen at commit `738942b` and unblinded at `0240acd`; the one
+post-unblinding change is declared at the end.
 
 The ESA archive was degraded for much of the run — an identical `COUNT` took
 28 s at 13:50 and 362 s at 14:40, and 5 concurrent anonymous jobs completed
