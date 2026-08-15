@@ -132,6 +132,49 @@ uniform offset — except that, per §4, a uniform offset is not measurable at
 all, so this number is best read as the scale of the coherent systematics
 rather than as a sensitivity.
 
+### What the floor is actually made of
+
+Repeating the worst split *inside the lowest-extinction quartile* separates the
+candidate causes, and the answer is not the obvious one:
+
+| split | full sample | within lowest-`A_0` quartile |
+|---|---|---|
+| colour, blue vs red | −0.0532 (46σ) | **−0.0590 (27σ) — survives** |
+| distance, near vs far | +0.0024 (2.0σ) | **−0.0027 (1.2σ) — vanishes** |
+
+The distance systematic *is* extinction and disappears where there is no dust.
+The colour systematic **is not** — it is, if anything, larger at zero
+extinction. It is real astrophysical structure in the main sequence that
+`M_Ks`, `[M/H]` and `(J−Ks)` do not capture (age, alpha-enhancement, rotation,
+activity). **The floor of the primary analysis is astrophysical, not
+instrumental**, and no better dust map would move it.
+
+### Two analysis variants, and what each is sensitive to
+
+Adding the dereddened *optical* `(BP−RP)` colour as a further control removes
+that astrophysical term — at the price of narrowing what the search can see.
+
+| | **A: NIR control only** | **B: + optical colour** |
+|---|---|---|
+| residual scatter | 0.0963 mag | **0.0267 mag** |
+| worst null split | colour, −0.0532 | extinction, −0.0159 |
+| **measured floor** | **5.3e-2 mag** | **1.6e-2 mag** |
+| implied `f` | 4.8e-2 | **1.5e-2** |
+| ratio to `sigma/sqrt(N)` | 121x | 131x |
+| sensitive to | **any** optically selective absorber | absorbers **grey across the optical** only |
+
+Variant B is 3.3x better and is the more constraining number *for the absorber
+class it can see*: an absorber that is grey across the optical leaves `BP−RP`
+unchanged, so controlling on colour costs nothing and leverage stays at 1. An
+absorber that reddens or blues the optical has its signal partly absorbed by
+the control, and variant A is the honest number there. Both are reported;
+neither is "the" answer alone.
+
+Note that in variant B the colour split passes (2.4σ) and **extinction becomes
+the limiting term** (32σ) — the two variants are limited by different physics,
+which is why the ratio to `sigma/sqrt(N)` is ~125x in both cases despite the
+3.6x difference in scatter.
+
 ---
 
 ## 4. Injection–recovery (step 4)

@@ -1,0 +1,15 @@
+{
+  "tag": "testrun_optcol",
+  "n_stars": 47927,
+  "sigma_mag": 0.02665384442571747,
+  "naive_sigma_over_sqrtN_mag": 0.00012175021475427828,
+  "floor_spatial_mag": 0.009046560951565584,
+  "floor_all_axes_mag": 0.003983780464485114,
+  "worst_split_test": "extinction quartile (low vs high A_0)",
+  "worst_split_difference_mag": -0.015883782555638132,
+  "worst_split_n_sigma": -32.5816271730037,
+  "max_paired_rms_mag": 0.12223632445614316,
+  "max_paired_mean_shift_mag": 0.00880145840442286,
+  "floor_total_mag": 0.015883782555638132,
+  "floor_implied_f": 0.014523013111358951
+}

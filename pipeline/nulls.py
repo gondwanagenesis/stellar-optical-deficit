@@ -102,6 +102,28 @@ def standard_splits(df: pd.DataFrame, resid: np.ndarray) -> pd.DataFrame:
     rows.append(split_test(resid, colour <= cmed, colour > cmed,
                            "colour (blue vs red half)"))
 
+    # --- conditional splits ------------------------------------------------
+    # The colour split is usually the worst offender, and the obvious suspect
+    # is the colour-dependent extinction coefficient.  Repeating it inside the
+    # lowest-extinction quartile separates the two hypotheses: if the bias
+    # survives where there is almost no dust, it is not an extinction-law
+    # error but a genuine inadequacy of the M_Ks + [M/H] parametrisation.
+    lowdust = a0 <= q1
+    if lowdust.sum() > 1000:
+        c_lo = np.nanmedian(colour[lowdust])
+        rows.append(split_test(
+            resid, lowdust & (colour <= c_lo), lowdust & (colour > c_lo),
+            "colour split WITHIN lowest-extinction quartile"))
+
+    # Same idea for distance: a distance-dependent bias at low extinction
+    # points at the parallax zero point or the selection function rather than
+    # at the dust map.
+    if lowdust.sum() > 1000:
+        d_lo = np.nanmedian(d[lowdust])
+        rows.append(split_test(
+            resid, lowdust & (d <= d_lo), lowdust & (d > d_lo),
+            "distance split WITHIN lowest-extinction quartile"))
+
     return pd.DataFrame(rows)
 
 

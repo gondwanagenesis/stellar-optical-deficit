@@ -29,21 +29,24 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(mess
 log = logging.getLogger("nulls")
 
 
-def _covs(d: pd.DataFrame, mh_degree: int, nir: bool):
+def _covs(d: pd.DataFrame, mh_degree: int, nir: bool, optical: bool = False):
     c = [(d["mh_gspphot"].to_numpy(float), mh_degree)]
     if nir and "j_ks0" in d:
         c.append((d["j_ks0"].to_numpy(float), 1))
+    if optical and "bp_rp0" in d:
+        c.append((d["bp_rp0"].to_numpy(float), 2))
     return c
 
 
 def band_law_variant(df: pd.DataFrame, knots: int, mh_degree: int,
-                     dust_map: str, band_law: str, nir: bool):
+                     dust_map: str, band_law: str, nir: bool,
+                     optical: bool = False):
     """Refit the whole chain under a different extinction treatment."""
     d = smp.add_absolute_magnitudes(df, dust_map, band_law)
     ok = (d["mh_gspphot"].notna() & np.isfinite(d["M_G"])
           & np.isfinite(d["M_Ks"])).to_numpy()
     d = d[ok].reset_index(drop=True)
-    covs = _covs(d, mh_degree, nir)
+    covs = _covs(d, mh_degree, nir, optical)
     fit = fid.fit_fiducial(d["M_Ks"].to_numpy(float), covs,
                            d["M_G"].to_numpy(float), knots)
     return d, fit.residuals(d["M_Ks"].to_numpy(float), covs,
@@ -60,6 +63,7 @@ def main() -> int:
     meta = json.loads((cfg.RESULT_DIR / f"fiducial_{args.tag}.json").read_text())
     knots, mh_degree = meta["n_interior_knots"], meta["mh_degree"]
     nir = bool(meta.get("nir_control", False))
+    optical = bool(meta.get("optical_colour_control", False))
     resid = d["residual"].to_numpy(dtype=float)
     sigma = float(meta["sigma_observed_mag"])
     log.info("%d stars, sigma=%.4f mag", len(d), sigma)
@@ -76,10 +80,12 @@ def main() -> int:
     print("\n=== B. paired extinction-treatment differences ===")
     paired = []
     base_map, base_law = args.dust_map, "fitz19"
-    d_base, r_base = band_law_variant(d, knots, mh_degree, base_map, base_law, nir)
+    d_base, r_base = band_law_variant(d, knots, mh_degree, base_map, base_law,
+                                      nir, optical)
     key = d_base["source_id"].to_numpy()
     for law in ["wangchen19"]:
-        d_alt, r_alt = band_law_variant(d, knots, mh_degree, base_map, law, nir)
+        d_alt, r_alt = band_law_variant(d, knots, mh_degree, base_map, law,
+                                        nir, optical)
         common, ia, ib = np.intersect1d(key, d_alt["source_id"].to_numpy(),
                                         return_indices=True)
         paired.append(nulls.dust_map_paired_test(
@@ -96,7 +102,7 @@ def main() -> int:
         a_ks = ext.deredden("Ks", a0, d2["bp_rp"].to_numpy(float), law="fitz19")
         d2["M_G"] = d2["phot_g_mean_mag"].to_numpy(float) - mu - d2["ag_gspphot"].to_numpy(float)
         d2["M_Ks"] = d2["tmass_ks_m"].to_numpy(float) - mu - a_ks
-        covs2 = _covs(d2, mh_degree, nir)
+        covs2 = _covs(d2, mh_degree, nir, optical)
         f2 = fid.fit_fiducial(d2["M_Ks"].to_numpy(float), covs2,
                               d2["M_G"].to_numpy(float), knots)
         r2 = f2.residuals(d2["M_Ks"].to_numpy(float), covs2,

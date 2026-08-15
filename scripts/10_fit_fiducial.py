@@ -28,10 +28,12 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(mess
 log = logging.getLogger("fit")
 
 
-def build_covs(d: pd.DataFrame, mh_degree: int, nir: bool):
+def build_covs(d: pd.DataFrame, mh_degree: int, nir: bool, optical: bool = False):
     covs = [(d["mh_gspphot"].to_numpy(dtype=float), mh_degree)]
     if nir:
         covs.append((d["j_ks0"].to_numpy(dtype=float), 1))
+    if optical:
+        covs.append((d["bp_rp0"].to_numpy(dtype=float), 2))
     return covs
 
 
@@ -44,6 +46,14 @@ def main() -> int:
     ap.add_argument("--nir-control", action="store_true",
                     help="add the dereddened (J-Ks) colour as a control; it is "
                          "immune to optical harvesting (see fiducial.py)")
+    ap.add_argument("--optical-colour-control", action="store_true",
+                    help="ALSO control on the dereddened (BP-RP) colour. This "
+                         "narrows what the search is sensitive to: it keeps "
+                         "full sensitivity to an absorber that is GREY ACROSS "
+                         "THE OPTICAL (which leaves BP-RP unchanged) but "
+                         "absorbs the signal from any absorber that reddens or "
+                         "blues the optical colour. Run as a labelled variant, "
+                         "never as the sole analysis.")
     ap.add_argument("--out-tag", default=None)
     args = ap.parse_args()
     out_tag = args.out_tag or args.tag
@@ -80,15 +90,23 @@ def main() -> int:
         best_k, best_p = cv.best_knots, cv.best_mh_degree
         cv.to_frame().to_csv(cfg.RESULT_DIR / f"cv_{out_tag}.csv", index=False)
 
-    log.info("fitting with knots=%d mh_degree=%d nir_control=%s",
-             best_k, best_p, args.nir_control)
-    covs = build_covs(d, best_p, args.nir_control)
+    log.info("fitting with knots=%d mh_degree=%d nir=%s optical_colour=%s",
+             best_k, best_p, args.nir_control, args.optical_colour_control)
+    covs = build_covs(d, best_p, args.nir_control, args.optical_colour_control)
     fit = fid.fit_fiducial(m_ks, covs, m_g, best_k)
     resid = fit.residuals(m_ks, covs, m_g)
 
     sig_meas = fid.residual_uncertainty(d, fit, covs)
     s_obs, s_int = fid.intrinsic_scatter(resid, sig_meas)
     slopes = fid.slope(fit, m_ks, covs)
+
+    # The measurement-error model propagates sigma_G, sigma_Ks and sigma_mu
+    # only.  With (BP-RP) in the model, BP and RP errors enter as well and are
+    # correlated with the G error through the same photometry, so the model
+    # over-predicts and the deconvolved "intrinsic" scatter comes out at zero.
+    # Report it as undefined rather than as 0.0, which would read as a
+    # spectacular and false result.
+    intrinsic_valid = not args.optical_colour_control
 
     # Variant A: no metallicity, no NIR -- pure M_G(M_Ks).
     fit_bare = fid.fit_fiducial(m_ks, None, m_g, best_k)
@@ -101,12 +119,20 @@ def main() -> int:
     out = {
         "tag": out_tag, "source_tag": args.tag,
         "nir_control": bool(args.nir_control),
+        "optical_colour_control": bool(args.optical_colour_control),
+        "sensitive_to": ("absorbers grey across the optical only"
+                         if args.optical_colour_control
+                         else "any optically selective absorber"),
         "n_stars_total": int(len(df)), "n_stars_fitted": int(len(d)),
         "n_interior_knots": int(best_k), "mh_degree": int(best_p),
         "n_params": int(fit.n_params), "converged": bool(fit.converged),
         "sigma_observed_mag": float(s_obs),
         "sigma_measurement_mag": float(np.sqrt(np.nanmean(sig_meas ** 2))),
-        "sigma_intrinsic_mag": float(s_int),
+        "sigma_intrinsic_mag": float(s_int) if intrinsic_valid else None,
+        "sigma_intrinsic_note": (None if intrinsic_valid else
+                                 "undefined for the optical-colour variant: "
+                                 "the error model omits correlated BP/RP terms "
+                                 "and over-predicts sigma_measurement"),
         "sigma_observed_bare_mag": float(s_obs_bare),
         "slope_dMG_dMKs_median": float(np.nanmedian(slopes)),
         "slope_dMG_dMKs_p16": float(np.nanpercentile(slopes, 16)),
