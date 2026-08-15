@@ -1,0 +1,9 @@
+{
+  "tag": "primary",
+  "n_stars": 3321566,
+  "sigma_mag": 0.09912799253680192,
+  "k_sigma": 5.0,
+  "ruwe_Q4_over_Q1_positive_tail": 2.03961376168326,
+  "ruwe_Q4_over_Q1_negative_tail": 0.7243581020503514,
+  "verdict": "CONSISTENT with binaries driving the positive tail"
+}

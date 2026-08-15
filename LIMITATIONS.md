@@ -108,6 +108,32 @@ that manufactures false positives. Residual undetected binarity — companions
 too close, too faint, or at unlucky orbital phase for RUWE to flag — is an
 irreducible background.
 
+**Confirmed on the data, not just analytically.** Splitting the 3.32M-star
+sample by every available multiplicity proxy (`scripts/18_binary_hypothesis.py`),
+the 5-sigma positive-tail rate rises from the lowest to highest quartile while
+the negative tail *falls*:
+
+| proxy | positive tail | negative tail (control) |
+|---|---|---|
+| RUWE | **2.04×** | 0.72× |
+| `astrometric_excess_noise` | **2.77×** | 0.85× |
+| BP/RP excess factor `C*` | **20.5×** | 0.38× |
+
+### The dominant mechanism is aperture mismatch, and it is structural
+
+That `C*` is by far the strongest driver identifies the channel. Gaia resolves
+sources at sub-arcsecond scale; the 2MASS beam is ~4 arcsec. A neighbour Gaia
+separates is **blended into the same 2MASS `Ks` measurement**. The star gets a
+`Ks` that is too bright while its `G` is not — so at fixed `M_G` it looks like
+a bigger star, which in this diagram is indistinguishable from being
+under-luminous in `G`. A manufactured optical deficit.
+
+This is not a data-quality problem that better flags would fix. It is intrinsic
+to comparing a high-resolution optical catalogue against a low-resolution
+infrared one, and it will affect *any* implementation of the optical-deficit
+method that anchors on 2MASS. An anchor from a comparable-resolution survey
+(e.g. VISTA/VVV, or JWST-era NIR imaging) would be required to remove it.
+
 ---
 
 ## 4. Extinction is the dominant measured systematic

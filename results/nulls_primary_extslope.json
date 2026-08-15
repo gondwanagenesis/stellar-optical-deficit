@@ -1,0 +1,8 @@
+{
+  "slope_resid_per_A0": 0.1253393919440839,
+  "slope_err": 0.0005081162584505985,
+  "n_sigma": 246.67463372709614,
+  "median_A_G_over_A_0": 0.7419210480044118,
+  "implied_fractional_extinction_error": 0.18981908903118938,
+  "interpretation": "the extinction correction appears to be under-correcting by 19.0% of A_G"
+}
