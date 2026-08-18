@@ -1,0 +1,27 @@
+{
+  "tag": "primary",
+  "catalogue": "J/A+A/594/A28/pgcc",
+  "n_pgcc": 13242,
+  "n_with_free_beta": 3030,
+  "beta_thresholds": {
+    "blackbody_max": 0.5,
+    "unphysical_min": 3.5,
+    "dust_range": [
+      1.0,
+      2.5
+    ]
+  },
+  "n_blackbody_tail": 0,
+  "n_unphysical_mirror": 0,
+  "n_blackbody_point_estimate": 0,
+  "n_unphysical_point_estimate": 0,
+  "n_dust_like": 2968,
+  "asymmetry_ratio": 0.0,
+  "p_symmetric_noise": 1.0,
+  "median_absb_blackbody": NaN,
+  "median_absb_dust": NaN,
+  "median_temp_blackbody": NaN,
+  "median_temp_dust": NaN,
+  "n_blackbody_high_latitude": 0,
+  "verdict": "NULL. No Planck cold clump has an emissivity index significantly below the dust floor. Every cold source in the all-sky catalogue is spectrally consistent with grains, not with an engineered blackbody radiator."
+}

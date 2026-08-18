@@ -1,0 +1,67 @@
+{
+  "tag": "primary",
+  "n_hgca": 115346,
+  "n_within_500pc": 94390,
+  "n_significant_pma": 31989,
+  "snr_min": 3.0,
+  "k_neighbours": 40,
+  "frame_rotation_masyr": [
+    0.0031298645010392812,
+    0.0007700216080232229,
+    0.00248287096832529
+  ],
+  "frame_glide_masyr": [
+    -0.002912179745744958,
+    -0.0016111312822217646,
+    0.0002824892051728335
+  ],
+  "median_dv_kms": 1.1139894198628562,
+  "mean_resultant_observed": 0.14074204099656062,
+  "mean_resultant_null": 0.14573286958282644,
+  "mean_resultant_null_std": 0.0012822099266389146,
+  "z_mean": -3.8923646452717664,
+  "max_resultant_observed": 0.49323187808620306,
+  "max_resultant_null": 0.44141223013746234,
+  "z_max": 1.918609427794058,
+  "most_coherent_patch": {
+    "resultant": 0.49323187808620306,
+    "l_deg": 339.23380686447433,
+    "b_deg": 27.468577403300095,
+    "dist_pc": 96.57916594232292
+  },
+  "injection": [
+    {
+      "coherent_fraction": 0.02,
+      "n_injected": 639,
+      "mean_resultant": 0.15572066784369817,
+      "z": 7.789518746788189
+    },
+    {
+      "coherent_fraction": 0.05,
+      "n_injected": 1599,
+      "mean_resultant": 0.18081982441303512,
+      "z": 27.36443861590036
+    },
+    {
+      "coherent_fraction": 0.1,
+      "n_injected": 3198,
+      "mean_resultant": 0.22148728770825346,
+      "z": 59.081135274006
+    },
+    {
+      "coherent_fraction": 0.2,
+      "n_injected": 6397,
+      "mean_resultant": 0.31034809922016987,
+      "z": 128.3839925251967
+    },
+    {
+      "coherent_fraction": 0.4,
+      "n_injected": 12795,
+      "mean_resultant": 0.47858290787782665,
+      "z": 259.59090736998695
+    }
+  ],
+  "min_detectable_coherent_fraction": 0.02,
+  "n_shuffle": 200,
+  "verdict": "NULL. Acceleration directions are isotropic: mean local resultant -3.89 sigma, max patch +1.92 sigma from the shuffled null. Consistent with unseen binaries pointing at random, which is the expected background. No coordinated stellar migration in this volume at the injected sensitivity."
+}

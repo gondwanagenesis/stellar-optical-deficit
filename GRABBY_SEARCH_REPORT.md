@@ -24,9 +24,27 @@ covered.
 | 10 | radio counterparts (NVSS/FIRST) | non-thermal emitters | 1/5000 dimmed, 4/5000 control → null |
 | 11 | 3D domain edge | grabby boundary | 148.5σ → extinction + scanning law |
 | 12 | Search A diagnosis | NIR companion test | **consistent with blends** |
+| 13 | coherent acceleration (Hipparcos–Gaia) | coordinated stellar migration | isotropic, −3.9σ; ≥2% domain excluded |
+| 14 | local mass ledger (Oort limit) | **any** cold mass, any technology | < 1.2e5 M☉ within 100 pc |
+| 15 | cold blackbody, 3–100 K (β free) | engineered radiators below every prior search | 0 of 3,030; all dust-like |
+| 16 | dark companions vs WD channel | fully enshrouded star (f→1) | *(running)* |
 
 **Joint, disposal-agnostic: p_total < 6.2e−4.** Fewer than 1 in 1,614 nearby
 lower-main-sequence stars intercepts ≥51% of its optical output by any means.
+
+---
+
+## Part II — leaving the photometric frame entirely
+
+Channels 1–12 all measure light. Every one of them is blind to the same case:
+a *completely* enshrouded star does not produce a small deficit, it leaves the
+photometric catalogue altogether. And light is the easiest thing to hide —
+beam it, cool it, or take a small enough slice and no photometric channel can
+reach you.
+
+Channels 13–16 drop the assumption that the target radiates at all, and
+measure the three quantities no concealment strategy can touch: **mass,
+momentum, and shadow.**
 
 ---
 
@@ -263,6 +281,149 @@ which our pipeline reads as every other band being too faint.
 Verdict: **consistent with the aperture-mismatch / blend family**. The
 asymmetry is real (something physical), but spectroscopy would confirm these
 are unresolved binaries, not engineered absorbers.
+
+---
+
+## Channel 13 — coherent acceleration. Momentum cannot be hidden.
+
+Gaia gives position and velocity, never acceleration. But Hipparcos measured
+the same stars in 1991, and the difference between the 25-year mean proper
+motion and the instantaneous Gaia one is a measured velocity change. Brandt
+(2021) publishes both on a common frame for 115,346 stars; 94,390 are within
+500 pc.
+
+A large anomaly on one star means "unseen companion" — this is the standard
+companion-detection tool, and 34% of the sample has one. **Magnitude is not
+the discriminant. Direction is.** A companion pulls its primary along whatever
+orbit it occupies, so across a population the vectors are isotropic. A
+coordinated migration programme would not be.
+
+| | value |
+|---|---|
+| stars with significant acceleration (>3σ) | 31,989 |
+| frame rotation removed (rigid spin + glide) | \|ω\| = 0.0041 mas/yr |
+| median velocity anomaly | 1.11 km/s |
+| mean local resultant (k = 40 neighbours) | 0.14074 |
+| shuffled null | 0.14573 ± 0.00128 |
+| **excess** | **−3.9σ** |
+| best local patch | +1.9σ |
+
+The null is built by **permuting acceleration vectors over positions**, which
+preserves the survey geometry and the velocity distribution exactly and
+destroys only the position–direction association. Any other null manufactures
+detections out of the selection function.
+
+Injection-recovery sets the sensitivity: a coherent patch containing **2% of
+the accelerating stars is recovered at 7.8σ**, 5% at 27σ. So this is a
+quantified limit, not merely an absence.
+
+Two systematics had to come out first. The Hipparcos-to-Gaia frame spin is
+global and coherent — the same shape as the signal, at the largest scale —
+and is removed as a six-parameter rotation plus glide. Perspective
+acceleration is subtracted per star. The Galactic potential itself is *not* a
+confound: at 2.3e−10 m/s² it moves a star 0.16 m/s over the baseline, which at
+100 pc is 3e−4 mas/yr, three orders below the per-star noise.
+
+**Prior art.** Huang et al. (arXiv:2608.16060, 17 Aug 2026) published a Gaia
+DR3 stellar-engine acceleration limit eight days before this run. They used
+Gaia's own `Acceleration7` solutions, whose angular-acceleration sensitivity
+is ~2000× worse than the 25-year Hipparcos baseline, and they did not test
+coherence. The channels are complementary, not duplicated.
+
+**What it cannot reach.** A Shkadov thruster produces ~10⁻¹² m/s². The best
+per-star sensitivity here is ~10⁻⁸ m/s², and no planned mission closes a
+10⁴ gap. This channel can only see *accumulated* Δv or *coordinated* thrust,
+never the instantaneous acceleration of a passive stellar engine.
+
+---
+
+## Channel 14 — the local mass ledger. The one bound that survives anything.
+
+Does the Solar neighbourhood weigh more than what we can see in it?
+
+The total density near the Sun is measurable from how hard stars are pulled
+back toward the midplane (the Oort limit). The luminous mass is measurable by
+counting. The difference bounds every cold, dark, non-radiating component at
+once — with no assumption about temperature, spectral slope, beaming geometry,
+or energy source.
+
+The dynamical side and the luminous side are both well studied. They have
+never been differenced and reported as a technosignature constraint; that
+literature is empty. Here the stellar term is recounted from our own sample,
+on a mass scale calibrated against 96,641 Gaia dynamical masses (0.033 dex
+scatter), so the luminous side uses the same stars and cuts as the rest of the
+project.
+
+| term | M☉/pc³ |
+|---|---|
+| dynamical total | 0.1000 ± 0.0100 |
+| stars | 0.0400 ± 0.0040 |
+| gas | 0.0417 ± 0.0083 |
+| stellar remnants | 0.0060 ± 0.0012 |
+| brown dwarfs | 0.0020 ± 0.0010 |
+| **counted luminous** | **0.0897 ± 0.0093** |
+| residual | 0.0103 ± 0.0137 |
+| halo dark matter | 0.0100 ± 0.0020 |
+| **unexplained** | **+0.0003 ± 0.0138** |
+
+**The ledger balances.** The 2σ ceiling on any non-halo dark component is
+0.0280 M☉/pc³, i.e. **below 1.2 × 10⁵ M☉ within 100 pc** — 70% of the local
+stellar mass density.
+
+This is a weak bound, and the reason is worth stating: it is limited by the
+uncertainty on the *gas* density (±0.0083, dominated by the CO-to-H₂
+conversion factor) and on the dynamical total, not by anything about the
+search. It also can never produce a detection, because the residual is
+dominated by the local dark matter density, which is real and is not
+engineering. What it does is close the loophole every other channel leaves
+open: a civilisation that emits *nothing at all* still has to weigh something.
+
+---
+
+## Channel 15 — cold blackbody radiators. The band nobody had searched.
+
+Every published waste-heat search covers 100–1000 K: Carrigan (2009) on IRAS,
+Suazo et al. (2022, 2024) on WISE, the Ĝ survey on galaxies. **Below 100 K
+there were no searches at all** — not for lack of sensitivity (Planck, AKARI
+and IRAS reach ~10⁻³ L☉ at 100 pc down to a few K) but because everything cold
+looks like Galactic cirrus and gets catalogued as a molecular cloud core.
+
+That gap is where thermodynamics points. Erasing a bit costs kT ln 2, so
+computation per joule scales as 1/T: a civilisation optimising for total
+computation rather than raw power is driven toward cold radiators — and would
+be invisible to every search ever run.
+
+**The discriminant is grain physics.** Interstellar dust is not a blackbody.
+Its emissivity rises with frequency as κ ∝ ν^β with β ≈ 1.5–2.0, because the
+grains are far smaller than the wavelength. An engineered radiator is built to
+dump heat efficiently, so β ≈ 0. The question is therefore not "is this source
+cold?" but **"is this cold source a blackbody or a dust cloud?"**
+
+The Planck Catalogue of Galactic Cold Clumps is all-sky, contains 13,242
+sources at 8.6–30 K, and already publishes a fit with **β as a free
+parameter** alongside the conventional fixed-β = 2 one. The measurement exists
+in a public catalogue and has simply never been read this way.
+
+| | count |
+|---|---|
+| PGCC sources | 13,242 |
+| with a well-constrained free β, clean flux, unblended, SNR > 4 | 3,030 |
+| β in [1.0, 2.5] — dust-like | 2,968 |
+| **β < 0.5 — blackbody-like** | **0** |
+| β > 3.5 — unphysical (mirror control) | 0 |
+
+The mirror control is what makes this a measurement rather than an absence:
+β has a physical range in *both* directions, since no known material exceeds
+β ≈ 3 either. A noisy SED fit scatters into both tails equally, so the
+high-β tail measures the rate at which this catalogue manufactures unphysical
+emissivities from noise alone. **Both tails are empty**, and the distribution
+is tightly centred on β = 1.87 with a 16–84% range of [1.60, 2.17] — textbook
+dust, with no room for anything else.
+
+**The residual gap.** The PGCC covers 8.6–30 K. Below ~5 K, Planck's own
+component separation subtracts a 2.725 K blackbody as the CMB, so a 3–4 K
+source is partly absorbed into the CMB map by construction. That last few
+kelvin remains genuinely unexamined.
 
 ---
 

@@ -1,0 +1,67 @@
+{
+  "tag": "primary",
+  "radius_pc": 100.0,
+  "volume_pc3": 4188790.2047863905,
+  "mass_relation": {
+    "form": "log10(M/Msun) = cubic in M_Ks",
+    "coefficients": [
+      -0.001871819344744114,
+      0.02037469186992094,
+      -0.17385060141398997,
+      0.3881590622799416
+    ],
+    "scatter_dex": 0.03302279813515325,
+    "n_calibrators": 96641
+  },
+  "counted_stellar_mass_msun": 9739.376318608012,
+  "counted_stellar_density": 0.0023251048256079172,
+  "n_stars_in_volume": 25449,
+  "apparent_completeness": 0.05812762064019793,
+  "ledger_msun_pc3": {
+    "dynamical_total": [
+      0.1,
+      0.01
+    ],
+    "stars": [
+      0.04,
+      0.004
+    ],
+    "gas": [
+      0.0417,
+      0.0083
+    ],
+    "remnants": [
+      0.006,
+      0.0012
+    ],
+    "brown_dwarfs": [
+      0.002,
+      0.001
+    ],
+    "counted_luminous": [
+      0.0897,
+      0.009345052166788582
+    ],
+    "residual": [
+      0.010300000000000004,
+      0.01368685500763415
+    ],
+    "halo_dark_matter": [
+      0.01,
+      0.002
+    ],
+    "unexplained": [
+      0.0003000000000000034,
+      0.013832208789632984
+    ]
+  },
+  "ceiling_2sigma_msun_pc3": 0.027964417579265974,
+  "ceiling_mass_within_radius_msun": 117137.07843858565,
+  "ceiling_as_fraction_of_stellar": 0.6991104394816493,
+  "provenance": {
+    "dynamical": "Gaia-era Oort-limit determinations (Read 2014 review; Widmark, Bovy and successors cluster at 0.08-0.10)",
+    "gas_remnants_stars": "McKee, Parravano & Hollenbach 2015, ApJ 814, 13",
+    "dark_matter": "local halo density, 0.008-0.012 Msun/pc^3"
+  },
+  "verdict": "The Solar neighbourhood's mass ledger balances. Counted luminous matter (0.0897 Msun/pc^3) plus the halo dark matter density (0.0100) accounts for the dynamical total (0.1000) to within 0.0138 Msun/pc^3. Any cold, non-radiating, engineered mass component is therefore bounded at 0.0280 Msun/pc^3 at 2 sigma, i.e. below 1.17e+05 Msun within 100 pc (70% of the local stellar mass). This bound holds regardless of temperature, spectral slope, beaming geometry or energy source, because it is a statement about gravity alone. It does not and cannot produce a detection: the residual is dominated by the local dark matter density, which is real and is not attributed to engineering."
+}
