@@ -1,0 +1,14 @@
+{
+  "n_survivors": 513,
+  "n_simbad_matched": 19,
+  "n_known_contaminant": 5,
+  "n_remaining": 508,
+  "types": {
+    "*": 8,
+    "G": 4,
+    "BY*": 2,
+    "Em*": 2,
+    "PM*": 2,
+    "Er*": 1
+  }
+}

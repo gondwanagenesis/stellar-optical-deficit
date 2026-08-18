@@ -1,0 +1,12 @@
+{
+  "n_survivors": 513,
+  "median_mh_survivors": -0.00559999980032444,
+  "median_mh_highb": -0.09309999644756317,
+  "frac_metalpoor_survivors": 0.1267056530214425,
+  "frac_metalpoor_highb": 0.12172741417617056,
+  "median_vtan_survivors": 34.46664194125464,
+  "median_vtan_highb": 37.95353091235654,
+  "frac_fast_survivors": 0.003898635477582846,
+  "frac_fast_highb": 0.043270054609600594,
+  "verdict": "survivors are NOT preferentially metal-poor or fast; the subdwarf explanation does not account for them"
+}

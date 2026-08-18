@@ -1,0 +1,7 @@
+{
+  "n_dimmed": 372,
+  "n_brightened": 13,
+  "ratio": 28.615384615384617,
+  "frac_amplitude_positive": 0.9662337662337662,
+  "verdict": "ASYMMETRIC at 28.6:1. The dimmed set exceeds the unphysical mirror, so it is not purely noise."
+}

@@ -1,0 +1,8 @@
+{
+  "n_fitted": 2991398,
+  "n_significant": 79426,
+  "median_alpha": 1.9500000476837158,
+  "n_anomalous_lowalpha": 1994,
+  "frac_alpha_below_1p5": 0.23496084405610254,
+  "note": "grey (alpha=0) is invisible by construction; see scripts/37"
+}

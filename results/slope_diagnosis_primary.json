@@ -1,0 +1,10 @@
+{
+  "n_significant": 79426,
+  "n_low_alpha": 5239,
+  "median_A0_low_alpha": 0.11594781303672785,
+  "median_A0_dustlike": 0.05472994492894012,
+  "frac_in_sfr_low_alpha": 0.09314754724184005,
+  "frac_in_sfr_dustlike": 0.09123128628169874,
+  "n_survivors": 513,
+  "verdict": "low alpha is DUST-ASSOCIATED -- it concentrates strongly toward the Galactic plane, consistent with grain growth flattening the extinction law in dense material"
+}

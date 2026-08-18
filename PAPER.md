@@ -1067,6 +1067,17 @@ judge the pipeline's reliability.
    sign.
 8. The dominant contaminant is **Gaia/2MASS aperture mismatch**, localised to
    θ ≲ 6.5″, and it limits any 2MASS-anchored version of this search.
+9. **Four additional independent channels** (searches A–D, detailed in
+   `GRABBY_SEARCH_REPORT.md`) searched for spreading stellar-energy harvesting
+   across 12 total channels: spectral-slope fitting (7 bands), mid-IR
+   intercept-and-re-emit (WISE W3/W4), radio counterparts (NVSS/FIRST), 3D
+   domain-edge detection, and multi-indicator blend diagnosis.
+   Every anomaly resolved to a mundane population: spectral-slope survivors
+   (28.6:1 mirror asymmetry) are unresolved NIR companions; W3/W4 candidates
+   (1,316:1 asymmetry, 2,632 stars) are debris discs; the 148.5σ planar edge
+   is extinction + Gaia scanning law; radio cross-match is null (1/5,000 dimmed
+   vs 4/5,000 control). The updated joint constraint stands at
+   **p < 6.2 × 10⁻⁴** (fewer than 1 in 1,614).
 
 ---
 

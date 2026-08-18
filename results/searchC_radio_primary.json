@@ -1,0 +1,36 @@
+{
+  "tag": "primary",
+  "match_radius_arcsec": 5.0,
+  "n_all_stars": 3321566,
+  "n_optically_dimmed": 468882,
+  "n_candidates_queried": 5000,
+  "n_control": 5000,
+  "catalogs": {
+    "NVSS": {
+      "freq_ghz": 1.4,
+      "cite": "Condon+1998",
+      "n_candidates": 5000,
+      "n_candidate_matches": 1,
+      "candidate_match_rate": 0.0002,
+      "n_control": 5000,
+      "n_control_matches": 4,
+      "control_match_rate": 0.0008,
+      "excess_factor": 0.25
+    },
+    "FIRST": {
+      "freq_ghz": 1.4,
+      "cite": "Helfand+2015",
+      "n_candidates": 5000,
+      "n_candidate_matches": 0,
+      "candidate_match_rate": 0.0,
+      "n_control": 5000,
+      "n_control_matches": 0,
+      "control_match_rate": 0.0,
+      "excess_factor": 0.0
+    }
+  },
+  "n_unique_radio_matches": 1,
+  "n_multi_survey_detections": 0,
+  "overall_excess_factor": 0.25,
+  "interpretation": "Radio detection rate (0.25x control) consistent with chance alignments. No anomalous radio emission."
+}

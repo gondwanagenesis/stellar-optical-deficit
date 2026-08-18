@@ -1,0 +1,27 @@
+{
+  "tmass_xm_dist_surv": 0.09042904525995255,
+  "tmass_xm_dist_ctrl": 0.07477039098739624,
+  "tmass_xm_dist_ratio": 1.2094231963451392,
+  "wise_xm_dist_surv": 0.14352194964885712,
+  "wise_xm_dist_ctrl": 0.05625421181321144,
+  "wise_xm_dist_ratio": 2.5513102934481187,
+  "w12_surv": 0.0674999999999999,
+  "w12_ctrl": 0.0039999999999995595,
+  "bprp_excess_surv": 1.3646061420440674,
+  "bprp_excess_ctrl": 1.327998161315918,
+  "teff_surv": 3807.33349609375,
+  "teff_ctrl": 4129.4765625,
+  "frac_mdwarf_surv": 0.6692913385826772,
+  "frac_mdwarf_ctrl": 0.4667322834645669,
+  "corr_deficit_wise_xm_dist": 0.13331408296917197,
+  "corr_deficit_W1-W2": -0.1208938412565024,
+  "corr_deficit_tmass_xm_dist": 0.18904496238846588,
+  "evidence": [
+    "WISE positional offset 2.6x larger",
+    "W1-W2 0.064 mag redder",
+    "concentrated in M dwarfs",
+    "slightly elevated BP-RP excess factor"
+  ],
+  "verdict": "CONSISTENT WITH UNRESOLVED NIR COMPANIONS. WISE positional offset 2.6x larger; W1-W2 0.064 mag redder; concentrated in M dwarfs; slightly elevated BP-RP excess factor. The asymmetry is real (something physical dims these stars with a flat slope), but the multi-indicator pattern matches the aperture-mismatch/companion family rather than engineering. Spectroscopy remains the decisive test.",
+  "n_survivors": 508
+}
