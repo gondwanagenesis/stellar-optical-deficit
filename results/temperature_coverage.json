@@ -1,0 +1,75 @@
+{
+  "bands": [
+    {
+      "lam_um": 3.4,
+      "limit_jy": 5e-05,
+      "survey": "WISE W1"
+    },
+    {
+      "lam_um": 4.6,
+      "limit_jy": 0.0001,
+      "survey": "WISE W2"
+    },
+    {
+      "lam_um": 12.0,
+      "limit_jy": 0.001,
+      "survey": "WISE W3"
+    },
+    {
+      "lam_um": 22.0,
+      "limit_jy": 0.006,
+      "survey": "WISE W4"
+    },
+    {
+      "lam_um": 25.0,
+      "limit_jy": 0.5,
+      "survey": "IRAS 25um"
+    },
+    {
+      "lam_um": 60.0,
+      "limit_jy": 0.6,
+      "survey": "IRAS 60um"
+    },
+    {
+      "lam_um": 65.0,
+      "limit_jy": 2.4,
+      "survey": "AKARI FIS N60"
+    },
+    {
+      "lam_um": 90.0,
+      "limit_jy": 0.55,
+      "survey": "AKARI FIS WIDE-S"
+    },
+    {
+      "lam_um": 100.0,
+      "limit_jy": 1.0,
+      "survey": "IRAS 100um"
+    },
+    {
+      "lam_um": 140.0,
+      "limit_jy": 1.4,
+      "survey": "AKARI FIS WIDE-L"
+    },
+    {
+      "lam_um": 160.0,
+      "limit_jy": 6.3,
+      "survey": "AKARI FIS N160"
+    },
+    {
+      "lam_um": 250.0,
+      "limit_jy": 0.02,
+      "survey": "Herschel SPIRE 250 (pointed)"
+    },
+    {
+      "lam_um": 350.0,
+      "limit_jy": 0.02,
+      "survey": "Herschel SPIRE 350 (pointed)"
+    },
+    {
+      "lam_um": 850.0,
+      "limit_jy": 0.05,
+      "survey": "SCUBA-2 850 (pointed)"
+    }
+  ],
+  "note": "W1/W2 veto in Sec 5.7 covers only hot shells; the far-IR all-sky surveys (IRAS, AKARI FIS) extend coverage down to ~20-30 K at 500 pc; below that no all-sky survey reaches and the CMB floor at 2.7 K is unreachable in principle"
+}

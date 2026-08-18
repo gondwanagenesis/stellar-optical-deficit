@@ -611,6 +611,20 @@ Applying the veto where our best estimator lives — clean wide pairs with
 **p < 4.9 × 10⁻⁴ at f ≥ 0.45 for stars with an optical deficit and a measured
 absence of mid-infrared excess.** Every asymmetry is consistent with zero.
 
+> **What "bare photosphere" actually means, quantified.** W1 and W2 sit at 3.4
+> and 4.6 µm, so they only respond to *hot* shells.
+> `scripts/38_temperature_coverage.py` computes the detectability of a shell
+> re-radiating a solar luminosity at 500 pc: SNR is 1.8 × 10³ at 800 K, 454 at
+> 400 K, **2.9 at 200 K**, and 7.6 × 10⁻⁶ at 100 K. Our veto is therefore only
+> informative above roughly **300 K**.
+>
+> This makes the class broader than "beamed" — it is **beamed, OR cooler than
+> ~300 K, OR non-thermal**. That is the correct reading of the limit and it is
+> more useful than the narrow one, since a cold radiator is what a
+> computation-limited civilisation is driven toward: the Landauer cost of a
+> bit erasure is kT ln 2, so the value of energy is set by the sink
+> temperature, and colder is strictly better.
+
 This is the only limit in this paper not superseded by prior work, and it is
 complementary rather than competitive: it covers the corner of parameter space
 that an IR-excess estimator weights to zero.
