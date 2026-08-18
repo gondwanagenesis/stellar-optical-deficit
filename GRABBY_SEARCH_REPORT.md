@@ -28,6 +28,8 @@ covered.
 | 14 | local mass ledger (Oort limit) | **any** cold mass, any technology | < 1.2e5 M☉ within 100 pc |
 | 15 | cold blackbody, 3–100 K (β free) | engineered radiators below every prior search | 0 of 3,030; all dust-like |
 | 16 | dark companions vs WD channel | fully enshrouded star (f→1) | *(running)* |
+| 17 | stellar mass function, spatially | **holes** in the population | 59σ → completeness; null at 100 pc |
+| 18 | **bolometric closure vs dynamical mass** | **energy missing at ANY wavelength** | **18 vs 36 mirror → p < 2.8e−4** |
 
 **Joint, disposal-agnostic: p_total < 6.2e−4.** Fewer than 1 in 1,614 nearby
 lower-main-sequence stars intercepts ≥51% of its optical output by any means.
@@ -424,6 +426,97 @@ dust, with no room for anything else.
 component separation subtracts a 2.725 K blackbody as the CMB, so a 3–4 K
 source is partly absorbed into the CMB map by construction. That last few
 kelvin remains genuinely unexamined.
+
+---
+
+## Channel 17 — holes in the population. The f→1 case, at last.
+
+Every channel above examines stars that are *in* the catalogue and asks
+whether their light is anomalous. That is structurally blind to the limiting
+case the whole project was built to find. A star intercepted at f = 0.5 is
+0.75 mag faint and lands in our residual tail. A star intercepted at f → 1 is
+not faint — it is **absent**. It drops below the magnitude limit and leaves
+the sample entirely.
+
+So the signature of complete harvesting is a hole, not a dim star.
+
+Counting stars per unit volume is the obvious test and the wrong one: stellar
+density has huge natural gradients. The *shape* of the mass function is the
+better observable because it is close to universal — and it carries the
+physics, since harvesting is not mass-blind. A civilisation choosing targets
+by stellar type removes stars from one end of the distribution and tilts the
+slope.
+
+The null permutes masses over positions, preserving the density field,
+extinction pattern and global mass distribution exactly while destroying only
+the position–mass association.
+
+| sample | global α | max cell deviation | vs null |
+|---|---|---|---|
+| 300 pc, all sky | 1.361 | 1.400 | **+59.0σ** |
+| 300 pc, A₀ < 0.05, \|b\| > 20° | 1.828 | 2.014 | +14.7σ |
+| **100 pc, \|b\| > 20° (volume-complete)** | **3.410** | **0.660** | **+1.4σ** |
+
+**It was completeness, and the global slope proves it.** α drifts from 3.41 to
+1.36 as the volume grows. That drift *is* the bias: at fixed distance a
+0.3 M☉ star is far fainter than a 0.8 M☉ one, so as the sample reaches deeper
+it preferentially loses the low-mass end and the fitted slope flattens. Cells
+differ in effective survey depth, so they differ in slope — and permutation,
+which reassigns masses at random, cannot reproduce that.
+
+Restricting to 100 pc, where the sample is volume-complete across the whole
+0.3–0.8 M☉ window, the anomaly vanishes: the mass function has the same shape
+everywhere to within permutation noise. **No region within 100 pc is missing
+stars of any particular mass.**
+
+Note the honest limitation: this constrains the f → 1 case only out to 100 pc,
+because that is where volume-completeness holds. It is a much smaller volume
+than the photometric channels cover, and that is the price of asking about
+stars that are not there.
+
+---
+
+## Channel 18 — bolometric closure. Energy in, energy out.
+
+Channel 4 is this project's strongest constraint, and it has one specific
+escape: it measures a single band. An absorber that intercepts optical light
+and re-radiates it at a wavelength we did not check produces a G-band deficit
+and no bolometric deficit at all. Channel 3 patched part of that with a W1/W2
+veto, which reaches shells hotter than ~300 K; channel 9 added W3/W4, which
+reaches ~130 K. Below that, the re-emission simply leaves our bands.
+
+Integrating the whole measured spectral energy distribution removes the escape.
+If the total energy leaving a star is less than its **mass** says it should
+produce, that energy is not being re-radiated anywhere we can see.
+
+The anchor has to be gravity. Any photometric anchor is circular — it moves
+when the absorber does. Gaia's `binary_masses` supplies m1 from astrometric
+orbits, independent of every band summed.
+
+| | value |
+|---|---|
+| systems with dynamical mass and a 7-band SED | **94,123** |
+| wavelength coverage | G, J, K_s, W1–W4 (0.6 → 22 µm) |
+| M_bol vs log M_dyn robust scatter | 0.2545 mag |
+| threshold (5σ) | 1.273 mag → f ≥ 0.69 |
+| **bolometrically deficient** | **18** |
+| bolometrically excessive (mirror) | 36 |
+| **Poisson 95% upper limit** | **p < 2.8 × 10⁻⁴** |
+
+**Fewer deficient than the mirror.** And the mirror is the larger tail for a
+known reason: unresolved secondary light inflates the measured luminosity, so
+this estimator is biased toward over-luminosity. The systematic pushes against
+the signal, which makes the null conservative rather than fragile.
+
+Two escapes remain, and only two. The waste heat can be **beamed** away from
+our line of sight, or it can be **stored** rather than radiated. Everything
+else — any temperature, any spectral slope, any re-emission wavelength inside
+0.6–22 µm — is now excluded for this population at f ≥ 0.69.
+
+The population caveat is real and worth repeating: dynamical masses come from
+binaries, and the photometric science sample of this project excludes binaries
+by construction. The overlap between the two samples is exactly **zero**. This
+channel constrains a different set of stars than channels 1–3 and 5.
 
 ---
 

@@ -1,0 +1,30 @@
+{
+  "tag": "primary",
+  "max_dist_pc": 300.0,
+  "mass_window": [
+    0.3,
+    0.8
+  ],
+  "n_stars": 1128426,
+  "n_cells": 288,
+  "n_populated_cells": 288,
+  "min_per_cell": 120,
+  "global_alpha": 1.3606014568864717,
+  "cell_alpha_rms": 0.29019557220810266,
+  "max_abs_deviation": 1.4001944266622157,
+  "null_max_mean": 0.16277315429037936,
+  "null_max_std": 0.020966560636528412,
+  "z": 59.01880111972076,
+  "p_empirical": 0.0,
+  "corr_alpha_extinction": -0.4072010960769248,
+  "max_dev_low_extinction": 0.5798157226595322,
+  "worst_cell": {
+    "l_deg": 352.5,
+    "b_deg": -4.780191847199161,
+    "alpha": -0.03959296977574389,
+    "n": 3090,
+    "A_0": 0.15628415165313306
+  },
+  "n_shuffle": 300,
+  "verdict": "The mass-function slope varies across the sky by more than permutation allows (+59.0 sigma, p = 0). Before this means anything, the extinction correlation is -0.407 and the low-extinction maximum is 0.5798 against 1.4002 overall -- if the signal survives there it is not dust."
+}

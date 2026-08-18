@@ -1,0 +1,25 @@
+{
+  "tag": "primary",
+  "n_systems": 94123,
+  "bands": [
+    "G",
+    "J",
+    "Ks",
+    "W1",
+    "W2",
+    "W3",
+    "W4"
+  ],
+  "n_with_w3": 94065,
+  "n_with_w4": 94083,
+  "poly_degree": 4,
+  "robust_sigma_mag": 0.2545367384884663,
+  "k_sigma": 5.0,
+  "threshold_mag": 1.2726836924423315,
+  "f_detectable": 0.690310469950875,
+  "n_deficient": 18,
+  "n_excessive": 36,
+  "ratio_deficient_excessive": 0.5,
+  "poisson_upper_limit_rate": 0.0002835839307234648,
+  "verdict": "NULL. The 18 bolometrically deficient systems are matched by 36 equally-significant over-luminous ones, so both tails are photometric scatter rather than a distinct population."
+}
