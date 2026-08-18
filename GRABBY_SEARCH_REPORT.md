@@ -27,7 +27,7 @@ covered.
 | 13 | coherent acceleration (Hipparcos–Gaia) | coordinated stellar migration | isotropic, −3.9σ; ≥2% domain excluded |
 | 14 | local mass ledger (Oort limit) | **any** cold mass, any technology | < 1.2e5 M☉ within 100 pc |
 | 15 | cold blackbody, 3–100 K (β free) | engineered radiators below every prior search | 0 of 3,030; all dust-like |
-| 16 | dark companions vs WD channel | fully enshrouded star (f→1) | *(running)* |
+| 16 | dark companions vs WD channel | fully enshrouded star (f→1) | 486:0 → extrapolated orbits |
 | 17 | stellar mass function, spatially | **holes** in the population | 59σ → completeness; null at 100 pc |
 | 18 | **bolometric closure vs dynamical mass** | **energy missing at ANY wavelength** | **18 vs 36 mirror → p < 2.8e−4** |
 
@@ -426,6 +426,86 @@ dust, with no room for anything else.
 component separation subtracts a 2.725 K blackbody as the CMB, so a 3–4 K
 source is partly absorbed into the CMB map by construction. That last few
 kelvin remains genuinely unexamined.
+
+---
+
+## Channel 16 — dark companions. A 486:0 asymmetry, and a broken control.
+
+Gravity measures a companion's mass whether or not it emits anything, so a
+fully enshrouded star in a binary is a *maximal* astrometric signal rather
+than a null one. From 72,152 Gaia DR3 astrometric orbits we computed the
+astrometric mass-ratio function from the Thiele-Innes coefficients, solved for
+the minimum companion mass assuming zero companion light, and asked which
+companions violate the white-dwarf formation channel.
+
+The physics is sharp. Below ~0.50 M☉ no white dwarf forms from a single star
+in a Hubble time, so anything lighter is a *helium* white dwarf and must have
+been stripped by a companion. Stripping welds mass to orbit: the donor's core
+mass sets both the remnant mass and the donor's radius at the end of mass
+transfer, giving P_orb = 1.2×10⁵ (M_WD − 0.12)^4.5 days (Tauris & Savonije
+1999), a relation that terminates near 0.47 M☉ where helium ignites. A
+0.25 M☉ helium white dwarf belongs at ~10 days. And stable Roche-lobe overflow
+circularises, so wide orbits should have e ~ 10⁻³.
+
+After the full quality cascade — Thiele-Innes relative error, the DR3 pipeline
+validity cuts, magnitude-conditioned goodness-of-fit, scanning-law period
+rejection, within 300 pc — **17,717 clean orbits** remained, of which 8,831
+had a companion in the 0.20–0.45 M☉ helium window.
+
+**486 sat in the anomaly box (P > 1500 d, e > 0.15) against 0 in the circular
+control.** Median violation of the mass-period relation: a factor of 23.
+
+### Why that is not a detection
+
+The zero is what gives it away. If fitted eccentricity carried real scatter,
+some long-period systems would land at low e by chance. Finding *none* meant
+either a real population or a broken control — and it was the control.
+
+**88% of every astrometric orbit in this sample has e > 0.15**, including
+inside the baseline. Gaia DR3 astrometric solutions are overwhelmingly
+eccentric, so "e < 0.05" selected essentially nothing and the 486:0 ratio
+carried no information. The control was designed on an assumption about the
+eccentricity distribution that the data does not satisfy.
+
+Three tests then settled it:
+
+| test | result |
+|---|---|
+| frac(e > 0.15) within the 1000 d baseline | 0.877 |
+| frac(e > 0.15) beyond 1500 d | 0.987 |
+| **spread in frac(e > 0.15) across companion mass 0.2 → 1.4 M☉** | **0.083** |
+
+The mass-independence test is decisive. The physical claim was specific to
+*low-mass* companions, because only they require stripping. But wide eccentric
+systems are just as common at 0.9–1.4 M☉ (0.909) as at 0.20–0.45 M☉ (0.992).
+The selection was never testing the helium-white-dwarf relation — it was
+selecting long-period Gaia solutions, which are eccentric regardless of what
+orbits them.
+
+And the solution quality is damning:
+
+| | anomaly box | rest | ratio |
+|---|---|---|---|
+| relative period error | 0.126 | 0.004 | **31×** |
+| period error (days) | 240 | 1.7 | 138× |
+| significance (a₀/σ) | 10.4 | 36.1 | 0.29× |
+| RUWE | 9.7 | 4.5 | 2.2× |
+
+Every box member has a period beyond the ~1000 d DR3 baseline, so every one is
+extrapolated — and they are precisely the badly-constrained tail.
+
+**This is the structural problem stated when the channel was designed**: the
+physically clean region begins at P > 1500 d, and DR3's baseline ends at
+~1000 d. The region where this test has power is exactly the region where the
+orbits cannot be trusted. That tension is not resolvable with DR3. Gaia DR4
+(66-month baseline, epoch astrometry published for the first time) is the
+release that fixes it, and this search should be re-run then.
+
+Prior art also constrains the claim: Shahaf et al. (2019, 2023, 2024) already
+classified 101,380 DR3 orbits into main-sequence, triple and compact-object
+companions and published ~3,145 white-dwarf candidates. "There is a dark
+companion here" is their result. Any contribution has to be a discriminant
+applied on top, and the mass-period one attempted here needs DR4 to work.
 
 ---
 

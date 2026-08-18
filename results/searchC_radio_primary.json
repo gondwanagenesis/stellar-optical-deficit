@@ -10,12 +10,13 @@
       "freq_ghz": 1.4,
       "cite": "Condon+1998",
       "n_candidates": 5000,
-      "n_candidate_matches": 1,
-      "candidate_match_rate": 0.0002,
+      "n_candidate_matches": 0,
+      "candidate_match_rate": 0.0,
       "n_control": 5000,
-      "n_control_matches": 4,
-      "control_match_rate": 0.0008,
-      "excess_factor": 0.25
+      "n_control_matches": 0,
+      "control_match_rate": 0.0,
+      "control_match_rate_err": 0.0002,
+      "excess_factor": null
     },
     "FIRST": {
       "freq_ghz": 1.4,
@@ -26,11 +27,13 @@
       "n_control": 5000,
       "n_control_matches": 0,
       "control_match_rate": 0.0,
-      "excess_factor": 0.0
+      "control_match_rate_err": 0.0002,
+      "excess_factor": null
     }
   },
-  "n_unique_radio_matches": 1,
+  "n_unique_radio_matches": 0,
   "n_multi_survey_detections": 0,
-  "overall_excess_factor": 0.25,
-  "interpretation": "Radio detection rate (0.25x control) consistent with chance alignments. No anomalous radio emission."
+  "overall_excess_factor": 0.0,
+  "vizier_reachable": true,
+  "interpretation": "No radio counterparts found for any optically-dimmed candidate. This is the expected result if the dimming is caused by a spectrally selective absorber that does not emit at GHz frequencies, or if the dimming is a photometric/extinction artefact. The non-detection places no constraint on the harvesting hypothesis but rules out strong GHz emission correlated with the optical deficit."
 }

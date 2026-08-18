@@ -1,0 +1,56 @@
+{
+  "tag": "primary",
+  "max_dist_pc": 300.0,
+  "cut_flow": [
+    {
+      "cut": "pulled",
+      "n": 72217
+    },
+    {
+      "cut": "has Gaia primary mass m1",
+      "n": 59976
+    },
+    {
+      "cut": "m1 from isochrone+luminosity",
+      "n": 59810
+    },
+    {
+      "cut": "Thiele-Innes relative error",
+      "n": 53661
+    },
+    {
+      "cut": "DR3 pipeline validity",
+      "n": 53266
+    },
+    {
+      "cut": "magnitude-conditioned F2",
+      "n": 50125
+    },
+    {
+      "cut": "scanning-law periods removed",
+      "n": 33700
+    },
+    {
+      "cut": "within 300 pc",
+      "n": 17717
+    }
+  ],
+  "n_clean": 17717,
+  "n_below_co_wd_floor": 15109,
+  "n_he_wd_mass_window": 8831,
+  "n_anomaly_box": 486,
+  "n_circular_control": 0,
+  "n_marginal": 1685,
+  "median_amrf": 0.2945981074541662,
+  "median_m2_min": 0.2959992156683699,
+  "ecc_distance_correlation": -0.04265004183978757,
+  "median_dist_anomalous_pc": 169.90765425412746,
+  "median_dist_all_pc": 200.63995870374447,
+  "n_beyond_dr3_baseline": 2665,
+  "ts99_params": {
+    "a": 4.5,
+    "b": 120000.0,
+    "c": 0.12
+  },
+  "verdict": "486 systems in the anomaly box against 0 in the circular control. These violate the helium-white-dwarf mass-period relation by a median factor of 23. BEFORE this means anything: 486 have periods beyond the DR3 baseline and are extrapolated; each needs radial-velocity confirmation, a tertiary search to exclude Kozai-Lidov pumping, and a colour-excess check to exclude an M-dwarf inner pair."
+}

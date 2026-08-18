@@ -1,0 +1,95 @@
+{
+  "tag": "primary",
+  "n_sample": 17717,
+  "ecc_cut": 0.15,
+  "dr3_baseline_d": 1000.0,
+  "period_bins": [
+    {
+      "P_lo": 0,
+      "P_hi": 200,
+      "n": 2565,
+      "median_e": 0.3447677083403663,
+      "frac_ecc": 0.8701754385964913
+    },
+    {
+      "P_lo": 200,
+      "P_hi": 400,
+      "n": 4491,
+      "median_e": 0.3556696377661236,
+      "frac_ecc": 0.8864395457581831
+    },
+    {
+      "P_lo": 400,
+      "P_hi": 700,
+      "n": 6490,
+      "median_e": 0.37177459287053305,
+      "frac_ecc": 0.8799691833590139
+    },
+    {
+      "P_lo": 700,
+      "P_hi": 1000,
+      "n": 1506,
+      "median_e": 0.3794311399248978,
+      "frac_ecc": 0.8452855245683931
+    },
+    {
+      "P_lo": 1000,
+      "P_hi": 1500,
+      "n": 1823,
+      "median_e": 0.4623951424661227,
+      "frac_ecc": 0.9051014810751509
+    },
+    {
+      "P_lo": 1500,
+      "P_hi": 2500,
+      "n": 687,
+      "median_e": 0.6465671668017107,
+      "frac_ecc": 0.9839883551673945
+    },
+    {
+      "P_lo": 2500,
+      "P_hi": 1000000000.0,
+      "n": 155,
+      "median_e": 0.8162094070085145,
+      "frac_ecc": 1.0
+    }
+  ],
+  "frac_ecc_within_baseline": 0.8767605633802817,
+  "frac_ecc_beyond_1500d": 0.9869358669833729,
+  "baseline_ratio": 1.125661792061357,
+  "mass_bins_beyond_1500d": [
+    {
+      "m2_lo": 0.2,
+      "m2_hi": 0.45,
+      "n": 490,
+      "frac_ecc": 0.9918367346938776,
+      "median_e": 0.6953391096700134
+    },
+    {
+      "m2_lo": 0.45,
+      "m2_hi": 0.6,
+      "n": 181,
+      "frac_ecc": 0.9779005524861878,
+      "median_e": 0.6541698471757058
+    },
+    {
+      "m2_lo": 0.6,
+      "m2_hi": 0.9,
+      "n": 57,
+      "frac_ecc": 0.9649122807017544,
+      "median_e": 0.5554339001214103
+    },
+    {
+      "m2_lo": 0.9,
+      "m2_hi": 1.4,
+      "n": 11,
+      "frac_ecc": 0.9090909090909091,
+      "median_e": 0.5339597589388191
+    }
+  ],
+  "frac_ecc_spread_across_mass": 0.0827458256029685,
+  "mass_independent": true,
+  "all_box_beyond_baseline": true,
+  "n_box": 486,
+  "verdict": "ARTEFACT. The fraction of eccentric wide systems varies by only 0.083 across companion mass from 0.2 to >1.4 Msun. The selection is therefore not testing the helium-white-dwarf mass-period relation -- it is selecting long-period Gaia solutions, which are eccentric regardless of what orbits them. Combined with frac(e>0.15) rising 1.1x across the 1000 d baseline and every box member having an extrapolated period, the 486:0 asymmetry is a property of fitting orbits longer than the data, not of the companions."
+}
