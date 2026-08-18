@@ -1,0 +1,14 @@
+{
+  "checked_utc": "2026-08-18T21:19:44.301002+00:00",
+  "mirror": "ARI Heidelberg",
+  "any_dr4_table": false,
+  "tables": {
+    "gaiadr4.gaia_source": false,
+    "gaiadr4.nss_two_body_orbit": false,
+    "gaiadr4.epoch_photometry": false,
+    "gaiadr4.epoch_astrometry": false,
+    "gaiadr4.binary_masses": false
+  },
+  "orbits_ready": false,
+  "core_ready": false
+}
