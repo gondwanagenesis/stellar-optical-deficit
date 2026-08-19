@@ -1,4 +1,7 @@
 {
+  "SUPERSEDED": true,
+  "superseded_by": "results/searchT_unrailed_primary.json (scripts/80_searchT_unrailed.py)",
+  "why": "This diagnosis attributed a 4.4x cold-blackbody asymmetry to CMB confusion. It was built on fits pinned at beta = -0.50, the lower grid edge: 88.6 percent of the candidates were boundary-railed, and the 2.75 K temperature clustering the argument rested on was a nuisance parameter absorbing a slope beta was not allowed to reach. Widening the grid to beta = -4 gives 36 cold vs 325 mirror (ratio 0.11, a clean null) and identifies the railed population as extragalactic flat-spectrum radio sources (median beta -2.15). DO NOT CITE the CMB conclusion below.",
   "tag": "primary",
   "n_sources": 20932,
   "n_cold": 1023,

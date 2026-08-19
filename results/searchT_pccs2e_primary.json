@@ -1,4 +1,7 @@
 {
+  "SUPERSEDED": true,
+  "superseded_by": "results/searchT_unrailed_primary.json (scripts/80_searchT_unrailed.py)",
+  "why": "Grid floored at beta = -0.5; 88.6 percent of the 1023 cold candidates are railed there. Use the unrailed run.",
   "tag": "primary",
   "n_detections": 134457,
   "n_excluded_bin_detections": 120491,
