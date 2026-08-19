@@ -1,0 +1,19 @@
+{
+  "tag": "primary",
+  "n_within_10pc": 315,
+  "n_usable_mks": 184,
+  "n_saturated": 66,
+  "n_rankable": 129,
+  "fiducial_sigma": 0.17667518587455952,
+  "n_deficit_3sig": 16,
+  "n_excess_3sig": 1,
+  "n_ir_red_3sig": 1,
+  "n_high_ruwe": 30,
+  "saturation_limits": {
+    "G": 6.0,
+    "Ks": 4.5,
+    "W1": 8.0,
+    "W2": 7.0
+  },
+  "verdict": "16 deficient against 1 over-luminous inside 10 pc. With this few objects that asymmetry is not statistically meaningful on its own, but these are the nearest, best-measured, least-extinguished stars available and each is individually checkable against decades of literature. Listed in the CSV for identification."
+}
