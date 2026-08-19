@@ -1,0 +1,129 @@
+{
+  "n_findings": 12,
+  "findings": [
+    {
+      "channel": "15 cold blackbody PGCC",
+      "issue": "BOTH tails empty: the control never had anything to draw from, so this is a non-measurement rather than a null"
+    },
+    {
+      "channel": "16 dark companions",
+      "issue": "mirror is ZERO while signal is not: verify the control can fire at all before reading the asymmetry (this is exactly how Search T's grid-edge false positive presented)"
+    },
+    {
+      "channel": "17 mass function",
+      "issue": "MARGINAL: p_empirical = 0.090 is neither a detection nor a clean null and should not be quoted as decisive"
+    },
+    {
+      "channel": "20 nearest 10 pc",
+      "issue": "LOW POWER: with n=91 the best possible limit is a rate of 3.3e-02, so this channel cannot constrain anything rarer than about 1 in 30"
+    },
+    {
+      "channel": "24 energy balance",
+      "issue": "BOTH tails empty: the control never had anything to draw from, so this is a non-measurement rather than a null"
+    },
+    {
+      "channel": "14 mass ledger",
+      "issue": "our own star count reached only 6% of the literature stellar density, so the luminous term is the PUBLISHED value, not ours. The channel is a literature synthesis with our own mass scale, not an independent measurement.",
+      "source": "record"
+    },
+    {
+      "channel": "24 energy balance",
+      "issue": "the sign-reversed mirror returned ZERO usable objects, because the sample was pre-selected for positive optical deficits and reversing the sign makes every fractional loss negative. The null rests on the four-order-of-magnitude energy gap alone.",
+      "source": "record"
+    },
+    {
+      "channel": "22 SED vs spectrum",
+      "issue": "GSP-Spec needs RVS spectra, so the 32k sample is restricted to bright stars and is not the same population the photometric channels constrain.",
+      "source": "record"
+    },
+    {
+      "channel": "20 nearest 10 pc",
+      "issue": "91 clean stars is a dossier, not a rate limit. Reported as such.",
+      "source": "record"
+    },
+    {
+      "channel": "16 dark companions",
+      "issue": "every candidate orbit has a period beyond the ~1000 d DR3 baseline and is extrapolated. Unresolvable until DR4.",
+      "source": "record"
+    },
+    {
+      "channel": "13 coherent accel",
+      "issue": "the original mark-permutation null was geometrically invalid and gave -3.9 sigma; corrected to -0.03 by rotating each vector about its own line of sight. Earlier sensitivity claims are superseded.",
+      "source": "record"
+    },
+    {
+      "channel": "25 Planck excluded bin",
+      "issue": "survivors still sit one grid step from the boundary, and PCCS2E photometry is unreliable by construction. Null is safe only because the mirror exceeds the signal.",
+      "source": "record"
+    }
+  ],
+  "informative_channels": [
+    {
+      "channel": "5  spectral slope",
+      "n": 2991398,
+      "rate_upper_limit": 1.0028755785756359e-06
+    },
+    {
+      "channel": "23 joint distribution",
+      "n": 2565377,
+      "rate_upper_limit": 1.1694187637918326e-06
+    },
+    {
+      "channel": "9  W3/W4 re-emit",
+      "n": 104299,
+      "rate_upper_limit": 2.876345890181114e-05
+    },
+    {
+      "channel": "18 bolometric closure",
+      "n": 94123,
+      "rate_upper_limit": 3.187318721247729e-05
+    },
+    {
+      "channel": "22 SED vs spectrum",
+      "n": 32016,
+      "rate_upper_limit": 9.37031484257871e-05
+    },
+    {
+      "channel": "13 coherent accel",
+      "n": 31989,
+      "rate_upper_limit": 9.378223764419019e-05
+    },
+    {
+      "channel": "25 Planck excluded bin",
+      "n": 20932,
+      "rate_upper_limit": 0.00014332123065163385
+    },
+    {
+      "channel": "16 dark companions",
+      "n": 17717,
+      "rate_upper_limit": 0.00016932889315346842
+    },
+    {
+      "channel": "17 mass function",
+      "n": 11225,
+      "rate_upper_limit": 0.00026726057906458796
+    },
+    {
+      "channel": "10 radio",
+      "n": 5000,
+      "rate_upper_limit": 0.0006
+    },
+    {
+      "channel": "15 cold blackbody PGCC",
+      "n": 3030,
+      "rate_upper_limit": 0.0009900990099009901
+    }
+  ],
+  "low_power_channels": [
+    {
+      "channel": "24 energy balance",
+      "n": 2632,
+      "rate_upper_limit": 0.0011398176291793312
+    },
+    {
+      "channel": "20 nearest 10 pc",
+      "n": 91,
+      "rate_upper_limit": 0.03296703296703297
+    }
+  ]
+}
