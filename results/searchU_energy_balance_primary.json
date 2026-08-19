@@ -1,0 +1,32 @@
+{
+  "tag": "primary",
+  "n_candidates": 2632,
+  "n_usable": 2632,
+  "log10_balance_percentiles": {
+    "1": -5.011152876422417,
+    "5": -4.867497155978643,
+    "16": -4.660218285966755,
+    "50": -4.284071405845333,
+    "84": -3.765185443314712,
+    "95": -3.282499530032784,
+    "99": -2.759846746984461
+  },
+  "frac_gain_exceeds_loss": 0.0,
+  "n_balanced": 0,
+  "n_runaway_disclike": 0,
+  "n_starved_extinctionlike": 2632,
+  "n_mirror_balanced": 0,
+  "balanced_over_mirror": null,
+  "class_properties": [
+    {
+      "class": "starved",
+      "n": 2632,
+      "W3-W4": 2.869343496106084,
+      "A_0": 0.14995420707008134,
+      "|b|": 11.423832420668283,
+      "deficit": 0.3838259693884494,
+      "implied f": 0.30123831269923995
+    }
+  ],
+  "verdict": "NULL. No channel-9 candidate re-radiates in the mid-infrared anything close to what it appears to lose in the optical. The population splits into disc-like objects that gain without losing and extinction-like objects that lose without gaining, which is what the two natural explanations predict and what an intercept-and-re-emit structure cannot look like."
+}
