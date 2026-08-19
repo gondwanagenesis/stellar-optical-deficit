@@ -1,0 +1,95 @@
+{
+  "tag": "primary",
+  "n_sources": 20932,
+  "n_cold": 1023,
+  "n_mirror": 233,
+  "T_CMB": 2.72548,
+  "median_T_cold": 2.75,
+  "frac_within_0p25K_of_TCMB": 0.39100684261974583,
+  "frac_within_0p5K_of_TCMB": 0.6578690127077224,
+  "latitude_profile": [
+    {
+      "b_lo": 0,
+      "b_hi": 5,
+      "n": 10170,
+      "cold_rate": 0.005703048180924287,
+      "mirror_rate": 0.014060963618485743
+    },
+    {
+      "b_lo": 5,
+      "b_hi": 10,
+      "n": 2738,
+      "cold_rate": 0.0310445580715851,
+      "mirror_rate": 0.004017531044558071
+    },
+    {
+      "b_lo": 10,
+      "b_hi": 20,
+      "n": 4060,
+      "cold_rate": 0.04064039408866995,
+      "mirror_rate": 0.013793103448275862
+    },
+    {
+      "b_lo": 20,
+      "b_hi": 40,
+      "n": 2738,
+      "cold_rate": 0.1168736303871439,
+      "mirror_rate": 0.007669831994156318
+    },
+    {
+      "b_lo": 40,
+      "b_hi": 90,
+      "n": 1226,
+      "cold_rate": 0.32218597063621535,
+      "mirror_rate": 0.0016313213703099511
+    }
+  ],
+  "plane_to_pole_rise": 56.4936434719019,
+  "cut_table": [
+    {
+      "cut": "none",
+      "cold": 1023,
+      "mirror": 233,
+      "ratio": 4.390557939914163
+    },
+    {
+      "cut": "T >= 4.0 K (1.3 K above T_CMB)",
+      "cold": 88,
+      "mirror": 220,
+      "ratio": 0.4
+    },
+    {
+      "cut": "T >= 5.0 K",
+      "cold": 28,
+      "mirror": 206,
+      "ratio": 0.13592233009708737
+    },
+    {
+      "cut": "T >= 6.0 K",
+      "cold": 16,
+      "mirror": 155,
+      "ratio": 0.1032258064516129
+    },
+    {
+      "cut": "|b| < 10 deg (CMB-suppressed sky)",
+      "cold": 143,
+      "mirror": 154,
+      "ratio": 0.9285714285714286
+    },
+    {
+      "cut": "T >= 4.0 K AND |b| < 10 deg",
+      "cold": 16,
+      "mirror": 145,
+      "ratio": 0.1103448275862069
+    },
+    {
+      "cut": "T >= 5.0 K AND |b| < 10 deg",
+      "cold": 7,
+      "mirror": 140,
+      "ratio": 0.05
+    }
+  ],
+  "T_separable_from_cmb": 4.0,
+  "excess_over_mirror_above_T_separable": 0,
+  "verdict": "The 4.4x cold-blackbody asymmetry in Search T is the CMB. Three independent lines agree. The fitted temperature of the cold tail peaks at 2.75 K, the grid point nearest T_CMB = 2.72548 K, with 66% of the tail inside 0.5 K of it, although T was free over 2-40 K. The classification rate rises 56x from the Galactic plane to the pole, which is the signature of a fixed-amplitude isotropic field competing against a Galactic foreground, while the mirror tail instead tracks the catalogue and is disc-like. And the asymmetry vanishes under every cut that removes CMB confusion: at T >= 4 K the ratio falls from 4.39 to 0.40 (88 cold against 220 mirror, so the cold side sits BELOW its own false-positive rate), and restricting to |b| < 10 deg alone brings it to 0.93. RESULT: null at T >= 4 K, with excess over mirror <= 0. COVERAGE GAP, stated rather than implied: the 2.5-3.5 K window is spectrally degenerate with CMB anisotropy in Planck broadband photometry and this channel sets no limit there. That degeneracy is the same one the channel was built on -- a cold radiator survives component separation because it looks like a CMB fluctuation, which necessarily means CMB fluctuations look like it. Breaking it requires angular profile, millimetre follow-up at ACT or SPT resolution, or the non-Gaussianity of a discrete population against a Gaussian field."
+}
