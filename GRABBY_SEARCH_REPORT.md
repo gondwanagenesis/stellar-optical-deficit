@@ -24,7 +24,7 @@ covered.
 | 10 | radio counterparts (NVSS/FIRST) | non-thermal emitters | 1/5000 dimmed, 4/5000 control → null |
 | 11 | 3D domain edge | grabby boundary | 148.5σ → extinction + scanning law |
 | 12 | Search A diagnosis | NIR companion test | **consistent with blends** |
-| 13 | coherent acceleration (Hipparcos–Gaia) | coordinated stellar migration | isotropic, −3.9σ; ≥2% domain excluded |
+| 13 | coherent acceleration (Hipparcos–Gaia) | coordinated stellar migration | isotropic, **z = −0.03** (null corrected); ≥2% domain excluded |
 | 14 | local mass ledger (Oort limit) | **any** cold mass, any technology | < 1.2e5 M☉ within 100 pc |
 | 15 | cold blackbody, 3–100 K (β free) | engineered radiators below every prior search | 0 of 3,030; all dust-like |
 | 16 | dark companions vs WD channel | fully enshrouded star (f→1) | 486:0 → extrapolated orbits |
@@ -306,18 +306,72 @@ coordinated migration programme would not be.
 | frame rotation removed (rigid spin + glide) | \|ω\| = 0.0041 mas/yr |
 | median velocity anomaly | 1.11 km/s |
 | mean local resultant (k = 40 neighbours) | 0.14074 |
-| shuffled null | 0.14573 ± 0.00128 |
-| **excess** | **−3.9σ** |
+| mark-permutation null (**invalid**, see below) | 0.14574 ± 0.00123 → z = −4.06 |
+| line-of-sight-spin null (**correct**) | 0.14079 ± 0.00152 → **z = −0.03** |
 | best local patch | +1.9σ |
 
-The null is built by **permuting acceleration vectors over positions**, which
-preserves the survey geometry and the velocity distribution exactly and
-destroys only the position–direction association. Any other null manufactures
-detections out of the selection function.
+Injection-recovery sets the sensitivity against the corrected null: a coherent
+patch containing **2% of the accelerating stars is recovered at 9.6σ**, 5% at
+26σ, 1% at 4.9σ. So this is a quantified limit, not merely an absence.
 
-Injection-recovery sets the sensitivity: a coherent patch containing **2% of
-the accelerating stars is recovered at 7.8σ**, 5% at 27σ. So this is a
-quantified limit, not merely an absence.
+### The null was wrong, and the −3.9σ was the symptom
+
+This channel originally reported −3.9σ — the observed statistic sitting
+*below* its own permutation null — and called it a null result. It was a bug,
+caught by re-auditing the channel (scripts `76_` and `77_`).
+
+The first hypothesis was physical: resolved wide binaries, each component
+pulled toward the other, would anti-align. Script `76_` tested it and it
+failed. Only six pairs lie within 0.02 pc, and removing them made the deficit
+*worse* (−3.91 → −4.26σ). The nearest separation bin showed no significant
+anti-alignment at all (mean cos = −0.071, z = −1.2).
+
+The cause is geometric. **The proper-motion anomaly is a transverse quantity**
+— it lives in the plane perpendicular to the line of sight, always. Stars that
+are neighbours in 3D share very nearly the same line of sight, so their anomaly
+vectors are confined to nearly the same plane. Mark permutation destroys
+exactly that: it hands a star a vector computed for a *different* line of
+sight, which is not transverse to the recipient's. Permuted neighbourhoods
+therefore span the full sphere while real ones span a plane, and for *k* random
+unit vectors the expected resultant is larger in three dimensions than in two:
+
+| | E\|Σu\| / √k |
+|---|---|
+| 3D (permuted) | √(8/3π) = 0.921 |
+| 2D (real) | √π/2 = 0.886 |
+
+The null was inflated by construction, by 3.9%. Measured: 0.14574 / 0.14079 =
+**1.035**, against the predicted 1.039. The channel was being compared against
+a baseline no real data could ever reach.
+
+The diagnostic is direct. Mean |û · LOS| is 0.00000 for the observed vectors
+and 0.50065 for permuted ones — exactly the 1/2 expected for random directions
+in 3D.
+
+**The corrected null** randomises only the quantity the signal lives in:
+rotate each star's anomaly vector by a random angle *about its own line of
+sight*. That preserves transversality, sky positions, the density field and the
+magnitude distribution, and destroys only the position-angle correlation
+between neighbours — which is precisely what a coordinated thrust produces.
+Against that null, z = −0.03. Still null, now calibrated.
+
+**Standards amendment.** Mark permutation is the project's default null and is
+correct for scalar marks. It is *not* automatically correct for vector marks:
+if the vector is constrained by the geometry of the observation, permutation
+breaks the constraint and the null stops being the same kind of object as the
+data. The general rule is to randomise *within the constraint manifold* — here,
+the transverse plane.
+
+Auditing the other channels against this: channels 6 and 11 shuffle scalar
+residuals and are unaffected. Channel 13 was the only permutation-null channel
+carrying a vector mark. **Channel 7 is a follow-up item**, for a related but
+distinct reason — its marks are tangential velocities, also 2D and also
+line-of-sight-constrained, so genuinely neighbouring stars have a
+systematically *smaller* Δv than randomly paired ones purely from shared
+geometry, which pushes in the direction of manufacturing a small-Δv excess.
+Its null is control-matched rather than permutation-based and its
+separation-matched control should absorb most of that, but the size of the
+residual effect has not been measured.
 
 Two systematics had to come out first. The Hipparcos-to-Gaia frame spin is
 global and coherent — the same shape as the signal, at the largest scale —
