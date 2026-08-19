@@ -1,0 +1,35 @@
+{
+  "tag": "primary",
+  "n_detections": 134457,
+  "n_excluded_bin_detections": 120491,
+  "n_multiband_sources": 20932,
+  "n_multiband_from_excluded_bin": 19681,
+  "median_beta": 1.0999999999999996,
+  "median_T": 26.0,
+  "max_beta": 4.999999999999999,
+  "beta_dust": 1.6,
+  "beta_offset": 1.1,
+  "beta_lo_max": 0.5,
+  "beta_hi_min": 2.7,
+  "T_threshold": 10.0,
+  "dchi2_min": 4.0,
+  "n_cold_blackbody": 1023,
+  "n_unphysical_mirror": 233,
+  "n_beta_gt_3_unreachable_on_script74_grid": 388,
+  "permuted_flux_cold": [
+    1891,
+    1816,
+    1814
+  ],
+  "permuted_flux_mirror": [
+    7653,
+    7671,
+    7634
+  ],
+  "lowb_fraction": {
+    "all_sources": 0.61666348175043,
+    "cold_tail": 0.13978494623655913,
+    "mirror_tail": 0.6609442060085837
+  },
+  "verdict": "NULL. The 1023 cold-blackbody candidates are matched by 233 in the symmetric unphysical mirror and 1840.3 under flux permutation, so both tails are SED-fitting scatter rather than a population."
+}

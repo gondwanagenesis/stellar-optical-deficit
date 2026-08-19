@@ -106,33 +106,36 @@ def fit_sed(nu_ghz, flux, err):
         return None
     nu, f, e = nu[ok], f[ok], e[ok]
 
+    # Vectorised over the whole (T, beta) grid. The scalar version evaluated
+    # ~6000 models per source in Python and could not finish 134,000 sources.
     temps = np.concatenate([np.arange(2.0, 12.0, 0.25),
                             np.arange(12.0, 40.0, 0.5)])
     betas = np.arange(-0.5, 3.01, 0.05)
 
-    best = (np.inf, np.nan, np.nan)
-    chi2_bb = np.inf
-    chi2_dust = np.inf
-    for T in temps:
-        b_nu = planck_bnu(nu, T)
-        for beta in betas:
-            model = (nu ** beta) * b_nu
-            # amplitude solved analytically
-            denom = np.sum(model ** 2 / e ** 2)
-            if denom <= 0:
-                continue
-            a = np.sum(model * f / e ** 2) / denom
-            if a <= 0:
-                continue
-            chi2 = float(np.sum(((f - a * model) / e) ** 2))
-            if chi2 < best[0]:
-                best = (chi2, T, beta)
-            if abs(beta) < 0.026:
-                chi2_bb = min(chi2_bb, chi2)
-            if abs(beta - 1.60) < 0.026:
-                chi2_dust = min(chi2_dust, chi2)
-    return {"chi2": best[0], "T": best[1], "beta": best[2],
-            "chi2_blackbody": chi2_bb, "chi2_dust": chi2_dust,
+    b_nu = planck_bnu(nu[None, :], temps[:, None])          # (nT, nband)
+    model = (nu[None, None, :] ** betas[None, :, None]) * b_nu[:, None, :]
+
+    w = 1.0 / e ** 2
+    denom = np.einsum("tbn,n->tb", model ** 2, w)
+    numer = np.einsum("tbn,n->tb", model, f * w)
+    with np.errstate(divide="ignore", invalid="ignore"):
+        amp = np.where(denom > 0, numer / denom, np.nan)
+    amp = np.where(amp > 0, amp, np.nan)
+
+    resid = f[None, None, :] - amp[:, :, None] * model
+    chi2 = np.einsum("tbn,n->tb", resid ** 2, w)
+    chi2 = np.where(np.isfinite(amp), chi2, np.inf)
+
+    if not np.isfinite(chi2).any():
+        return None
+    it, ib = np.unravel_index(np.argmin(chi2), chi2.shape)
+
+    i_bb = int(np.argmin(np.abs(betas - 0.0)))
+    i_du = int(np.argmin(np.abs(betas - 1.60)))
+    return {"chi2": float(chi2[it, ib]),
+            "T": float(temps[it]), "beta": float(betas[ib]),
+            "chi2_blackbody": float(np.min(chi2[:, i_bb])),
+            "chi2_dust": float(np.min(chi2[:, i_du])),
             "n_bands": int(ok.sum())}
 
 
@@ -313,9 +316,28 @@ def main() -> int:
              float(s["beta"].quantile(0.16)), float(s["beta"].quantile(0.84)))
     log.info("fitted T    : median %.1f K", float(s["T"].median()))
 
-    cold_bb = s[(s["beta"] < BETA_BLACKBODY_MAX) & (s["T"] < T_COLD_MAX)
-                & (s["chi2_blackbody"] < s["chi2_dust"] - 4.0)]
-    unphysical = s[s["beta"] > 3.0]
+    # A fit that lands on a grid boundary is unconstrained: the data want a
+    # value outside the grid and the fitter is simply running to the wall.
+    # Without this check the entire candidate list was beta = -0.50 exactly,
+    # the lower edge, with T pinned at the 2 K floor -- a pathology, not a
+    # measurement. Note it also breaks the mirror control, because if every
+    # fit jams against the LOW edge nothing can ever reach the high one.
+    b_lo, b_hi = -0.5, 3.0
+    t_lo, t_hi = 2.0, 39.5
+    at_edge = ((np.abs(s["beta"] - b_lo) < 1e-6) | (np.abs(s["beta"] - b_hi) < 1e-6)
+               | (np.abs(s["T"] - t_lo) < 1e-6) | (np.abs(s["T"] - t_hi) < 1e-6))
+    s = s.assign(at_grid_edge=at_edge)
+    log.info("")
+    log.info("fits pinned to a grid boundary (unconstrained): %d of %d (%.1f%%)",
+             int(at_edge.sum()), len(s), 100 * at_edge.mean())
+
+    interior = s[~s["at_grid_edge"]]
+    log.info("interior fits usable for the test: %d", len(interior))
+
+    cold_bb = interior[(interior["beta"] < BETA_BLACKBODY_MAX)
+                       & (interior["T"] < T_COLD_MAX)
+                       & (interior["chi2_blackbody"] < interior["chi2_dust"] - 4.0)]
+    unphysical = interior[interior["beta"] > 2.5]
     log.info("")
     log.info("beta < %.1f AND T < %.0f K AND blackbody beats dust by dchi2>4: %d",
              BETA_BLACKBODY_MAX, T_COLD_MAX, len(cold_bb))
