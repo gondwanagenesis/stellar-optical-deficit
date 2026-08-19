@@ -1,0 +1,51 @@
+{
+  "tag": "primary",
+  "n_variables": 332323,
+  "n_dim": 22170,
+  "n_ordinary": 310033,
+  "threshold_mag": 0.5411938631253375,
+  "class_mix_dim": {
+    "YSO": {
+      "n": 1187,
+      "frac_of_classified": 0.34030963302752293
+    },
+    "RS": {
+      "n": 1077,
+      "frac_of_classified": 0.3087729357798165
+    },
+    "SOLAR_LIKE": {
+      "n": 951,
+      "frac_of_classified": 0.2726490825688073
+    },
+    "ECL": {
+      "n": 272,
+      "frac_of_classified": 0.0779816513761468
+    },
+    "RR": {
+      "n": 1,
+      "frac_of_classified": 0.00028669724770642203
+    }
+  },
+  "class_mix_ordinary": {
+    "SOLAR_LIKE": {
+      "n": 3415,
+      "frac_of_classified": 0.919989224137931
+    },
+    "RS": {
+      "n": 265,
+      "frac_of_classified": 0.07139008620689655
+    },
+    "ECL": {
+      "n": 23,
+      "frac_of_classified": 0.006196120689655173
+    },
+    "YSO": {
+      "n": 9,
+      "frac_of_classified": 0.0024245689655172415
+    }
+  },
+  "frac_classified_dim": 0.872,
+  "frac_classified_ordinary": 0.928,
+  "frac_dim_in_activity_classes": 0.6909403669724771,
+  "verdict": "STELLAR ACTIVITY. 69% of the classified dim variables fall in rotational, solar-like, young-stellar, eclipsing or long-period classes -- all of which dim the optical relative to the infrared through cool starspots or circumstellar material. Spots in particular predict the inversion that defeated the averaging explanation: coverage sets the mean deficit while only the asymmetric part of the spot distribution modulates, so a heavily spotted star is strongly dimmed and barely variable."
+}

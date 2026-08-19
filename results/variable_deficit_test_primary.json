@@ -1,0 +1,121 @@
+{
+  "tag": "primary",
+  "threshold_mag": 0.5411938631253375,
+  "fiducial_sigma": 0.18039795437511247,
+  "spearman_resid_amplitude": 0.3870738550830166,
+  "amplitude_bins": [
+    {
+      "amp_lo": 0.0,
+      "amp_hi": 0.005,
+      "group": "variable",
+      "n": 4926,
+      "median_resid": -0.06575946355762063,
+      "dim": 123,
+      "bright": 4,
+      "ratio": 30.75
+    },
+    {
+      "amp_lo": 0.0,
+      "amp_hi": 0.005,
+      "group": "non-variable",
+      "n": 898025,
+      "median_resid": -0.06539343115105556,
+      "dim": 14330,
+      "bright": 3508,
+      "ratio": 4.084948688711517
+    },
+    {
+      "amp_lo": 0.005,
+      "amp_hi": 0.01,
+      "group": "variable",
+      "n": 206297,
+      "median_resid": -0.05586849053703702,
+      "dim": 3624,
+      "bright": 46,
+      "ratio": 78.78260869565217
+    },
+    {
+      "amp_lo": 0.005,
+      "amp_hi": 0.01,
+      "group": "non-variable",
+      "n": 1210350,
+      "median_resid": -0.04526808713389974,
+      "dim": 31328,
+      "bright": 6377,
+      "ratio": 4.912654853379332
+    },
+    {
+      "amp_lo": 0.01,
+      "amp_hi": 0.02,
+      "group": "variable",
+      "n": 74374,
+      "median_resid": 0.006451528619222824,
+      "dim": 5084,
+      "bright": 34,
+      "ratio": 149.52941176470588
+    },
+    {
+      "amp_lo": 0.01,
+      "amp_hi": 0.02,
+      "group": "non-variable",
+      "n": 1709974,
+      "median_resid": 0.009467811270853055,
+      "dim": 27184,
+      "bright": 3776,
+      "ratio": 7.1991525423728815
+    },
+    {
+      "amp_lo": 0.02,
+      "amp_hi": 0.05,
+      "group": "variable",
+      "n": 42872,
+      "median_resid": 0.27161766097158724,
+      "dim": 5940,
+      "bright": 167,
+      "ratio": 35.5688622754491
+    },
+    {
+      "amp_lo": 0.02,
+      "amp_hi": 0.05,
+      "group": "non-variable",
+      "n": 252840,
+      "median_resid": 0.18966299553088017,
+      "dim": 8408,
+      "bright": 207,
+      "ratio": 40.61835748792271
+    },
+    {
+      "amp_lo": 0.05,
+      "amp_hi": 0.1,
+      "group": "variable",
+      "n": 3085,
+      "median_resid": 0.4876311938402127,
+      "dim": 523,
+      "bright": 99,
+      "ratio": 5.282828282828283
+    },
+    {
+      "amp_lo": 0.05,
+      "amp_hi": 0.1,
+      "group": "non-variable",
+      "n": 1499,
+      "median_resid": 0.6968371657913384,
+      "dim": 418,
+      "bright": 164,
+      "ratio": 2.548780487804878
+    },
+    {
+      "amp_lo": 0.1,
+      "amp_hi": 0.2,
+      "group": "variable",
+      "n": 681,
+      "median_resid": 0.6210391083450899,
+      "dim": 131,
+      "bright": 66,
+      "ratio": 1.9848484848484849
+    }
+  ],
+  "low_amplitude_variable_ratio": 74.92,
+  "low_amplitude_constant_ratio": 4.695023913707133,
+  "verdict": "PARTLY the mean-versus-epoch bias: the deficit scales with amplitude (Spearman +0.387), but low-amplitude variables remain more one-sidedly dim than constant stars (74.92 vs 4.70). Amplitude does not account for all of it and the residual needs a separate explanation."
+}

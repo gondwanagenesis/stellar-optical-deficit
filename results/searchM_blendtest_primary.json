@@ -1,0 +1,102 @@
+{
+  "tag": "primary",
+  "threshold_mag": 0.5374527812835563,
+  "fiducial_sigma": 0.1791509270945188,
+  "reference_clean_ratio": 6.016578434104208,
+  "classes": [
+    {
+      "class": "RETAINED (reference)",
+      "clean": {
+        "n": 3866950,
+        "median": -0.01748752148609478,
+        "dim": 86374,
+        "bright": 14356,
+        "ratio": 6.016578434104208
+      },
+      "suspect": null
+    },
+    {
+      "class": "variable",
+      "clean": {
+        "n": 332323,
+        "median": -0.016321807460068172,
+        "dim": 23545,
+        "bright": 108,
+        "ratio": 218.00925925925927
+      },
+      "suspect": null
+    },
+    {
+      "class": "C* beyond 3 sigma",
+      "clean": {
+        "n": 29543,
+        "median": 0.17976284254408625,
+        "dim": 1387,
+        "bright": 157,
+        "ratio": 8.834394904458598
+      },
+      "suspect": null
+    },
+    {
+      "class": "classified extragalactic",
+      "clean": {
+        "n": 185408,
+        "median": 0.03507804888060839,
+        "dim": 9425,
+        "bright": 282,
+        "ratio": 33.42198581560284
+      },
+      "suspect": null
+    },
+    {
+      "class": "2MASS Ks not 'A'",
+      "clean": {
+        "n": 10195,
+        "median": 0.13637581857193126,
+        "dim": 611,
+        "bright": 42,
+        "ratio": 14.547619047619047
+      },
+      "suspect": null
+    }
+  ],
+  "deficit_vs_xm_dist": [
+    {
+      "lo": 0.0,
+      "hi": 0.1,
+      "n": 3059205,
+      "median_resid": -0.01373359742479785
+    },
+    {
+      "lo": 0.1,
+      "hi": 0.3,
+      "n": 1345981,
+      "median_resid": -0.016406810252187043
+    },
+    {
+      "lo": 0.3,
+      "hi": 0.6,
+      "n": 22193,
+      "median_resid": 0.010057729791457248
+    },
+    {
+      "lo": 0.6,
+      "hi": 1.0,
+      "n": 553,
+      "median_resid": 0.33308050395565836
+    }
+  ],
+  "survivors": [
+    {
+      "class": "variable",
+      "clean_ratio": 218.00925925925927,
+      "suspect_ratio": null
+    },
+    {
+      "class": "classified extragalactic",
+      "clean_ratio": 33.42198581560284,
+      "suspect_ratio": null
+    }
+  ],
+  "verdict": "SURVIVES the blend test in: variable, classified extragalactic. These remain far more one-sidedly dim than the reference even when the 2MASS match is single, uncontested and centred to better than 0.3 arcsec, so the beam does not explain them. Each needs its own astrophysical account before anything else is claimed -- for variables the first candidate is starspot coverage, which suppresses optical flux more than infrared and is genuinely one-signed."
+}
