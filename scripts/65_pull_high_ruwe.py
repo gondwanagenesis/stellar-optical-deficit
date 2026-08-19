@@ -1,7 +1,39 @@
 #!/usr/bin/env python
 """Pull the high-RUWE population that the sample build never downloaded.
 
-    run.sh scripts/65_pull_high_ruwe.py
+SUPERSEDED -- USE scripts/80_pull_high_ruwe_fast.py INSTEAD.
+============================================================
+This script does not work and will refuse to run. It is kept because the
+reasoning in the notes below is still the reasoning behind Search N, and
+because the way it failed is worth not repeating.
+
+Two independent defects, both fixed in script 80:
+
+1. KEYSET PAGINATION IS CATASTROPHIC ON gaia_source. The
+   "WHERE ... AND source_id > X ORDER BY source_id ASC" pattern below was
+   lifted from script 52d, where it works well -- but that table has 72k
+   rows. gaia_source has 1.8e9, and an open-ended lower bound gives the
+   query planner no bound on how far it must scan, so it sorts a filtered
+   slice of the whole catalogue. Measured against the mirror: >300 s for a
+   single page (never returned), against 16.8 s for an equivalent
+   "source_id BETWEEN lo AND hi" range scan, which is indexed because
+   source_id is the primary key. One run of this script burned 2 h 47 m
+   without completing a single logged page; at that rate it needed ~47 h.
+
+2. THE 2MASS CROSS-MATCH IGNORED PROPER MOTION. It matched Gaia epoch-2016.0
+   positions against a ~1999.5 survey inside 3 arcsec. This sample is
+   parallax > 2 mas, so it is nearby and fast-moving, and the fastest stars
+   simply fall outside the radius. Worse, script 66 uses tmass_xm_dist <
+   0.5 arcsec as its photometric-cleanliness cut: unpropagated, that
+   separation measures proper-motion displacement rather than blending, so
+   the "pristine" subsample would have been selected on kinematics and the
+   comparison against the low-RUWE reference would have been confounded at
+   the heart of the discriminant.
+
+Script 80 carries indexed range scans, epoch propagation to 1999.5, and an
+interleaved chunk sample so the sky coverage is uniform rather than one patch.
+
+    run.sh scripts/80_pull_high_ruwe_fast.py
 
 WHY THIS DATA DOES NOT EXIST YET
 --------------------------------
@@ -93,6 +125,13 @@ def main() -> int:
     ap.add_argument("--force", action="store_true")
     ap.add_argument("--ruwe-min", type=float, default=RUWE_MIN)
     args = ap.parse_args()
+
+    log.error("scripts/65_pull_high_ruwe.py is SUPERSEDED and will not run.")
+    log.error("  Its keyset pagination needs ~47 h against gaia_source, and its")
+    log.error("  2MASS cross-match ignores proper motion, which corrupts the")
+    log.error("  tmass_xm_dist cleanliness cut that Search N depends on.")
+    log.error("  Use: run.sh scripts/80_pull_high_ruwe_fast.py")
+    return 2
 
     out = cfg.RAW_DIR / "high_ruwe_500pc.parquet"
     if out.exists() and not args.force:
