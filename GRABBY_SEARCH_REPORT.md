@@ -30,7 +30,7 @@ covered.
 | 16 | dark companions vs WD channel | fully enshrouded star (f→1) | 486:0 → extrapolated orbits |
 | 17 | stellar mass function, spatially | **holes** in the population | 59σ → completeness; null at 100 pc |
 | 18 | **bolometric closure vs dynamical mass** | **energy missing at ANY wavelength** | **18 vs 36 mirror → p < 2.8e−4** |
-| 19 | **Planck excluded compact-source bin** | cold radiators at 100–857 GHz, invisible to every IR survey | 1,023 vs 233 mirror → **the CMB**; null at T ≥ 4 K |
+| 19 | **Planck excluded compact-source bin** | cold radiators at 100–857 GHz, invisible to every IR survey | 36 vs 325 mirror → **null**; two grid-edge bugs caught |
 
 **Joint, disposal-agnostic: p_total < 6.2e−4.** Fewer than 1 in 1,614 nearby
 lower-main-sequence stars intercepts ≥51% of its optical output by any means.
@@ -655,14 +655,16 @@ channel constrains a different set of stars than channels 1–3 and 5.
 
 ---
 
-## Channel 19 — Planck's excluded bin. A 4.4× asymmetry that is the CMB.
+## Channel 19 — Planck's excluded bin. Null, after two grid-edge bugs.
 
 Hiding by running cold forces you to run big, but the band matters more than
 the size. At 3 K and 100 µm, hν/kT = 48 and the Planck function is suppressed
 by e⁻⁴⁸ ≈ 10⁻²¹. **IRAS, AKARI, WISE and Herschel are all identically blind to
 a 3–5 K source.** The Wien peak of a 3 K blackbody is 176 GHz, inside Planck's
 CMB channels — and every technosignature search ever published used the
-infrared.
+infrared. This also closes a structural hole in channel 15: the Planck
+cold-clump catalogue requires IRAS 100 µm as an input band, so a genuinely
+3–5 K source is unselectable by it at any brightness.
 
 An opaque 3 K surface against the 2.725 K CMB is a 275 mK excess on ~100 µK rms
 anisotropy: a ~3000σ compact positive spot. Component separation does not
@@ -673,73 +675,74 @@ documentation treats it as contamination. It has never been searched as a
 source population.
 
 120,491 excluded detections, grouped by position into 20,932 sources with three
-or more of the six HFI bands, each fitted for a modified blackbody
-*I* ∝ ν^β *B*ν(*T*) with β free.
+or more of the six HFI bands, each fitted for *I* ∝ ν^β *B*ν(*T*) with β and
+*T* free. Dust is β ≈ 1.6; a cold blackbody is β = 0.
 
-| | cold tail (β < 0.5) | mirror (β > 2.7) |
-|---|---|---|
-| candidates, no cut | **1,023** | 233 |
-| T ≥ 4 K | 88 | 220 |
-| \|b\| < 10° | 143 | 154 |
-| T ≥ 4 K and \|b\| < 10° | 16 | 145 |
+| | cold tail | mirror (symmetric about dust) | ratio |
+|---|---|---|---|
+| script `74_`, β ∈ [−0.5, 3.0] | 1,023 | **0** (control dead) | — |
+| script `78_`, β ∈ [−0.5, 5.0] | 1,023 | 233 | 4.39 |
+| script `80_`, β ∈ [−4.0, 7.2], interior fits only | **36** | **325** | **0.11** |
 
-The 4.4× asymmetry is real and it is **the cosmic microwave background.**
+**Null.** The cold tail sits nine times *below* its own measured
+false-positive rate. Getting there took two separate grid-edge bugs, and both
+are worth recording because the failure mode is general.
 
-**Three independent lines.** The fitted temperature of the cold tail peaks at
-2.75 K — the grid point nearest T_CMB = 2.72548 K — with 66% of the tail inside
-0.5 K of it, though *T* was free over 2–40 K and nothing in the selection asked
-for that. The classification rate rises **56× from the Galactic plane to the
-pole** (0.6% at |b|<5°, 32% at |b|>40°), which is what a fixed-amplitude
-isotropic field competing against a Galactic foreground looks like; the mirror
-tail does the opposite and tracks the catalogue, which is what a disc-following
-fitting artefact looks like. And every cut that removes CMB confusion removes
-the asymmetry — at T ≥ 4 K the ratio falls from 4.39 to 0.40, putting the cold
-side *below* its own measured false-positive rate.
-
-**The channel's founding argument was symmetric and we did not notice.** Search
-T was built on the observation that a cold radiator survives component
-separation *because* it is spectrally degenerate with a CMB temperature
-fluctuation. That is correct — and it necessarily means CMB fluctuations are
-an irreducible foreground for the same channel. Six broadband fluxes cannot
-separate a 2.7 K engineered surface from a 2.7 K CMB hot spot, because at that
-information content they are the same spectrum.
-
-So the channel splits, and the split is stated rather than papered over:
-
-- **T ≥ 4 K — null.** Spectrally separable from the CMB; the mirror control
-  applies normally; excess over mirror ≤ 0.
-- **T ≈ 2.5–3.5 K — no limit.** Degenerate. Nothing is quoted here. Breaking
-  it needs information Planck broadband photometry does not carry: angular
-  profile (an engineered radiator is compact at Planck resolution while a CMB
-  peak carries the acoustic power spectrum), higher-resolution millimetre
-  follow-up at ACT or SPT, or the non-Gaussianity of a discrete population
-  against a Gaussian field.
-
-### The mirror control in the first version was dead
+### Bug 1 — the mirror control could not fire
 
 Script `74_` fitted β on `np.arange(-0.5, 3.01, 0.05)`, whose largest element
 is 2.9999999999999991, and then defined its unphysical mirror as β > 3.0.
 **That condition can never be satisfied.** The mirror was identically zero for
 any input whatsoever — and the verdict logic compares the candidate count
 against it, so a candidate list of any size would have been reported against a
-false-positive rate measured as exactly zero. On the corrected grid, 388
-sources sit at β > 3.
+false-positive rate measured as exactly zero.
 
-The rebuild (`78_`) makes three changes, all of which make the test harder to
-pass. The grid runs to β = 5 so the high tail is measured rather than railed.
-The mirror is made **symmetric about dust** rather than pinned to a round
-number: dust sits at β = 1.6 and a cold blackbody at β = 0, an offset of −1.6,
-so the equal-and-opposite absurdity is β = 3.2, and both tails are cut at the
-same |β − 1.6| ≥ 1.1 with the same T < 10 K and the same Δχ² > 4. And the fit
-is vectorised over the (T, β) grid, which is what makes the extended grid
-affordable — verified bit-identical to the original fitter on 200 real sources
-before the grid was changed.
+The rebuild (`78_`) extended the grid to β = 5, made the mirror **symmetric
+about dust** rather than pinned to a round number (dust at 1.6, cold blackbody
+at 0, so the equal-and-opposite absurdity is 3.2, and both tails cut at
+|β − 1.6| ≥ 1.1 with the same T < 10 K and Δχ² > 4), and vectorised the fit
+over the (T, β) grid — verified bit-identical to the original scalar fitter on
+200 real sources before the grid was touched.
 
-The mirror is meaningful here, and that is worth saying explicitly because it
-is not always. Where the dominant contaminant is one-signed — 2MASS aperture
-mismatch makes Ks brighter and never fainter — one-sidedness proves nothing.
-SED-fit scatter over three to six noisy bands has no such preference, and the
-dominant real contaminant (cirrus, β ≈ 1.5–2.0) sits *between* the two tails.
+### Bug 2 — extending one edge does not validate the other
+
+`78_` then returned 1,023 cold against 233 mirror, a 4.4× asymmetry, and the
+fitted temperatures clustered at 2.75 K against T_CMB = 2.72548 K with a 56×
+plane-to-pole rate gradient. That was written up as CMB confusion. **It was
+wrong.** 88.6% of those candidates sat at β = −0.50 *exactly* — the lower grid
+edge, inherited from `74_` and never questioned because the bug being hunted
+was at the other end. A fit pinned to a boundary is not a measurement; it is
+the model reporting that it cannot describe the data. The temperature
+clustering the CMB argument rested on was a nuisance parameter absorbing a
+slope β was not allowed to reach.
+
+**β below −0.5 is not exotic.** In this parameterisation the flux density goes
+as ν^(2+β) in the Rayleigh–Jeans limit:
+
+| β | S ∝ | what it is |
+|---|---|---|
+| +1.6 | ν³·⁶ | interstellar dust |
+| 0.0 | ν² | cold blackbody — the target |
+| −2.0 | ν⁰ | **flat spectrum** |
+| −2.7 | ν⁻⁰·⁷ | optically-thin synchrotron |
+
+Widening the floor to β = −4 lets the pinned sources find their real slope, and
+**1,071 of them land below −0.5 with a median β of −2.15**, 40% within 0.3 of
+β = −2 exactly. Their |b| < 10° fraction is 0.16 against 0.62 for the
+catalogue, and their rate rises 42× from plane to pole. That is the
+extragalactic flat-spectrum radio population — blazars and FSRQs — isotropic on
+the sky and suppressed in the plane by Galactic confusion. It reproduces the
+entire gradient that had been attributed to the CMB.
+
+On the widened grid, boundary occupancy is 0.01% at the β floor and 0.03% at
+the ceiling, so the fit is no longer edge-limited where it matters. (36% rail
+at the T = 39.5 K ceiling — ordinary warm dust wanting a hotter fit — which
+touches neither tail, since both require T < 10 K.)
+
+**The reusable lesson: check boundary occupancy at every edge of every fit, as
+routine, and treat a railed fit as missing data.** Extending a grid at one end
+proves nothing about the other, and a boundary-pinned population will
+manufacture whatever correlation its nuisance parameters need.
 
 ---
 
@@ -756,16 +759,17 @@ of a bit erasure is kT ln 2, so a computation-limited civilisation is driven
 toward cold sinks, not hot ones. Channel 19 closes part of that band from the
 millimetre side and reports a null for T ≥ 4 K.
 
-**The CMB floor, 2.5–3.5 K.** Channel 19 leaves a hard, structural gap rather
-than a null. An opaque radiator at the CMB temperature is spectrally
-indistinguishable from a CMB temperature fluctuation in Planck broadband
-photometry — six band fluxes do not contain enough information to separate
-them. This is the *same* degeneracy that makes such an object survive
-component separation, so it cannot be engineered away; it is a property of the
-measurement, not of the pipeline. Only angular profile, ACT/SPT-resolution
-follow-up, or a non-Gaussianity test against the Gaussian CMB field can reach
-into it. **No limit is quoted in this window, and 2.725 K is also the coldest
-any passive radiator in the present universe can be.**
+**The CMB floor, T → 2.725 K.** Channel 19's null covers 3–10 K, but the limit
+weakens to nothing as T approaches the CMB temperature, and that is physics
+rather than a pipeline shortcoming. A surface in thermal equilibrium with the
+CMB radiates no *net* excess and is invisible in principle, not merely below
+threshold; approaching it, the contrast against a 2.725 K background that is
+itself fluctuating at ~100 µK falls away, and Planck's compact-source
+extraction masks exactly such objects. 2.725 K is also the coldest any passive
+radiator in the present universe can be, so this is the floor of the entire
+temperature axis — the one place a waste-heat argument genuinely cannot follow.
+Reaching into it needs angular profile, ACT/SPT-resolution follow-up, or the
+non-Gaussianity of a discrete population against a Gaussian field.
 
 **Spectral slope.** The grey case (α = 0) is invisible to every photometric
 channel by construction and is covered *only* by channel 4.

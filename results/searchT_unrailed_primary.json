@@ -1,0 +1,67 @@
+{
+  "tag": "primary",
+  "beta_grid": [
+    -4.0,
+    7.2,
+    225
+  ],
+  "n_sources": 20932,
+  "boundary_occupancy": {
+    "beta_floor": 9.554748710108924e-05,
+    "beta_ceiling": 0.0002866424613032677,
+    "T_floor": 0.00033441620485381233,
+    "T_ceiling": 0.36054844257596025
+  },
+  "n_interior": 13371,
+  "frac_interior": 0.6387827250143321,
+  "n_below_old_floor": 1071,
+  "median_beta_below_old_floor": -2.1500000000000066,
+  "n_cold_interior": 36,
+  "n_mirror_interior": 325,
+  "cold_over_mirror": 0.11076923076923077,
+  "cold_median_T": 3.0,
+  "cold_frac_within_0p5K_of_TCMB": 0.5555555555555556,
+  "latitude_profile": [
+    {
+      "b_lo": 0,
+      "b_hi": 5,
+      "n": 10170,
+      "cold_rate": 9.832841691248771e-05,
+      "mirror_rate": 0.017699115044247787,
+      "sub_minus_half_rate": 0.007669616519174041
+    },
+    {
+      "b_lo": 5,
+      "b_hi": 10,
+      "n": 2738,
+      "cold_rate": 0.0007304601899196494,
+      "mirror_rate": 0.014243973703433162,
+      "sub_minus_half_rate": 0.03433162892622352
+    },
+    {
+      "b_lo": 10,
+      "b_hi": 20,
+      "n": 4060,
+      "cold_rate": 0.0004926108374384236,
+      "mirror_rate": 0.0187192118226601,
+      "sub_minus_half_rate": 0.04285714285714286
+    },
+    {
+      "b_lo": 20,
+      "b_hi": 40,
+      "n": 2738,
+      "cold_rate": 0.004017531044558071,
+      "mirror_rate": 0.010226442658875092,
+      "sub_minus_half_rate": 0.1212563915266618
+    },
+    {
+      "b_lo": 40,
+      "b_hi": 90,
+      "n": 1226,
+      "cold_rate": 0.01631321370309951,
+      "mirror_rate": 0.0016313213703099511,
+      "sub_minus_half_rate": 0.3205546492659054
+    }
+  ],
+  "verdict": "NULL, and the earlier CMB diagnosis is withdrawn. On a grid widened at BOTH edges (beta from -4.0 to 7.2, symmetric about dust) and restricted to fits lying strictly inside it, the cold-blackbody tail holds 36 sources against 325 in the symmetric unphysical mirror, a ratio of 0.11. The 4.4x asymmetry reported by script 78 was 88.6% fits pinned at beta = -0.50, its grid floor: the model could not reach the slope the data wanted, and the temperature clustering near 2.7 K that the CMB argument rested on was a nuisance parameter absorbing that. Widening the floor lets those sources find their real slope, and 1071 of them land below -0.5 where flat-spectrum radio sources live (beta = -2 is S ~ nu^0). Both the cold tail and its mirror are now consistent, so this channel is a null."
+}
