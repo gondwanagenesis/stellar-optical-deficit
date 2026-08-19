@@ -1,0 +1,43 @@
+{
+  "tag": "primary",
+  "features": [
+    "BP_RP",
+    "BP_G",
+    "G_RP",
+    "G_J",
+    "J_H",
+    "H_Ks",
+    "Ks_W1",
+    "W1_W2",
+    "W2_W3",
+    "M_Ks",
+    "deficit",
+    "cstar",
+    "ruwe",
+    "ast_noise",
+    "teff",
+    "logg",
+    "mh",
+    "amp"
+  ],
+  "n_complete": 2994562,
+  "n_marginal_inliers": 2565377,
+  "marginal_veto_sigma": 3.0,
+  "d2_median_heldout": 21.002109677564484,
+  "d2_train_p999": 128.11464777184102,
+  "d2_train_max": 570.3412756611941,
+  "n_heldout_beyond_p999": 1304,
+  "n_expected_beyond_p999": 1282.689,
+  "n_heldout_beyond_train_max": 2,
+  "spatial_clump_z": -1.748680694314833,
+  "top_drivers": {
+    "teff": 234,
+    "G_J": 22,
+    "G_RP": 13,
+    "W1_W2": 10,
+    "amp": 10,
+    "BP_G": 9,
+    "M_Ks": 2
+  },
+  "verdict": "NULL. Among 2,565,377 stars that are unremarkable on every one of 18 observables individually, the joint distribution contains no population sitting where the correlation structure forbids: 1304 exceed the training 99.9th percentile against 1283 expected, the extreme tail is not spatially clustered (-1.7 sigma), and its scores are driven by 78% a single feature, which is the signature of a curved manifold rather than a distinct class. Nothing here is hiding by being average everywhere at once."
+}

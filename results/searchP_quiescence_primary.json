@@ -1,0 +1,57 @@
+{
+  "tag": "primary",
+  "n_usable": 3320948,
+  "n_quiet": 464654,
+  "global_quiet_fraction": 0.13991607215770918,
+  "quiet_fraction_by_colour": [
+    {
+      "bp_rp_lo": 0.7,
+      "bp_rp_hi": 1.0,
+      "n": 195987,
+      "quiet_frac": 0.051549337456055756
+    },
+    {
+      "bp_rp_lo": 1.0,
+      "bp_rp_hi": 1.5,
+      "n": 746073,
+      "quiet_frac": 0.22381724040408915
+    },
+    {
+      "bp_rp_lo": 1.5,
+      "bp_rp_hi": 2.0,
+      "n": 820122,
+      "quiet_frac": 0.17417896361760812
+    },
+    {
+      "bp_rp_lo": 2.0,
+      "bp_rp_hi": 2.5,
+      "n": 911431,
+      "quiet_frac": 0.12383603366574102
+    },
+    {
+      "bp_rp_lo": 2.5,
+      "bp_rp_hi": 3.0,
+      "n": 596474,
+      "quiet_frac": 0.05125621569422976
+    },
+    {
+      "bp_rp_lo": 3.0,
+      "bp_rp_hi": 3.6,
+      "n": 50758,
+      "quiet_frac": 0.025000985066393474
+    }
+  ],
+  "n_cells_populated": 200,
+  "max_abs_deviation": 0.08249135729817841,
+  "null_mean": 0.009008142486841286,
+  "null_std": 0.0015778161653725482,
+  "z": 46.572735420026916,
+  "p_empirical": 0.0,
+  "worst_cell": {
+    "l_deg": 351.0,
+    "b_deg": 44.4270040008057,
+    "quiet_frac": 0.2224074294558876,
+    "n": 16798
+  },
+  "verdict": "The quiet fraction varies across the sky beyond permutation (+46.6 sigma, p = 0), peaking at l=351, b=44. Before this means anything it has to be separated from the scanning law: Gaia's number of transits varies with ecliptic latitude, and more transits means a better-determined mean and a lower apparent amplitude."
+}
