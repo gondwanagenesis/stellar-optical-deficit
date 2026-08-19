@@ -1,0 +1,33 @@
+{
+  "n_directional": 31989,
+  "separation_bins": [
+    {
+      "sep_lo_pc": 0.3,
+      "sep_hi_pc": 1.0,
+      "n": 168,
+      "mean_cos": -0.07085866259940422,
+      "sem": 0.05742668755689118,
+      "z": -1.2338977854017146
+    },
+    {
+      "sep_lo_pc": 1.0,
+      "sep_hi_pc": 3.0,
+      "n": 2274,
+      "mean_cos": 0.022636426854068543,
+      "sem": 0.014495936292895705,
+      "z": 1.561570525469431
+    },
+    {
+      "sep_lo_pc": 3.0,
+      "sep_hi_pc": 1000000000.0,
+      "n": 29507,
+      "mean_cos": 0.0018732409660704996,
+      "sem": 0.004103822633128088,
+      "z": 0.45646245794074314
+    }
+  ],
+  "z_all_stars": -3.9080733200434716,
+  "z_close_pairs_removed": -4.255411029225971,
+  "n_dropped": 3,
+  "verdict": "NOT EXPLAINED, and this is now a concern. The closest pairs show no significant anti-alignment (mean cos = -0.0709), so resolved binaries do not account for the deficit. An observed statistic -3.91 sigma BELOW its own permutation null without a physical cause points at the statistic itself. Search F's coherence estimator should be re-derived before its limit is quoted."
+}

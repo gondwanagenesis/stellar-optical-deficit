@@ -1,0 +1,50 @@
+{
+  "n_directional": 31989,
+  "mean_abs_u_dot_los_observed": 6.205956104000134e-17,
+  "mean_abs_u_dot_los_permuted": 0.5006504283003734,
+  "observed_resultant": 0.14074204099656062,
+  "null_mark_permutation": {
+    "mean": 0.14574125648194433,
+    "std": 0.0012324420331486815,
+    "z": -4.056349386763087
+  },
+  "null_los_spin": {
+    "mean": 0.14079125122108815,
+    "std": 0.0015217996886633142,
+    "z": -0.03233686068811964
+  },
+  "injection": [
+    {
+      "coherent_fraction": 0.005,
+      "n": 159,
+      "z": 2.1326118695329126
+    },
+    {
+      "coherent_fraction": 0.01,
+      "n": 319,
+      "z": 4.938716949408051
+    },
+    {
+      "coherent_fraction": 0.02,
+      "n": 639,
+      "z": 9.586630041553377
+    },
+    {
+      "coherent_fraction": 0.05,
+      "n": 1599,
+      "z": 25.871047082898784
+    },
+    {
+      "coherent_fraction": 0.1,
+      "n": 3198,
+      "z": 53.51651237261442
+    },
+    {
+      "coherent_fraction": 0.2,
+      "n": 6397,
+      "z": 106.98304592863688
+    }
+  ],
+  "min_detectable_coherent_fraction": 0.02,
+  "verdict": "Search F's null was geometrically invalid and is corrected here. The proper-motion anomaly is transverse to the line of sight, so mark permutation -- which hands a star a vector belonging to a different line of sight -- compares real two-dimensional neighbourhoods against synthetic three-dimensional ones, and random unit vectors have a larger resultant in 3D (0.921 sqrt-k) than in 2D (0.886 sqrt-k). That inflated the null by about 4 per cent and produced the unexplained -3.9 sigma. Rotating each vector about its own line of sight preserves the geometry and destroys only the position-angle correlation a coordinated thrust would create. Against that null the result is z = -0.03: still null, now calibrated. Injection recovers a coherent domain of >=2.0% at 5 sigma."
+}
