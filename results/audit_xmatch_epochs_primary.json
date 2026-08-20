@@ -1,0 +1,79 @@
+{
+  "tag": "primary",
+  "gaia_epoch": 2016.0,
+  "sites": [
+    {
+      "script": "scripts/47b_searchC_xmatch.py",
+      "channel": "Search C (radio)",
+      "catalog": "NVSS / FIRST",
+      "survey_epoch": 1995.0,
+      "radius_arcsec": 5.0,
+      "propagates": false,
+      "pm_available": true,
+      "n_sample": 3321566,
+      "baseline_yr": 21.0,
+      "displacement_arcsec": {
+        "median": 0.48455609170599545,
+        "p99": 2.769412065987371,
+        "max": 23.964316173322985
+      },
+      "frac_beyond_match_radius": 0.0012325511520770624,
+      "n_beyond_match_radius": 4094,
+      "verdict": "latent but benign on this sample"
+    },
+    {
+      "script": "scripts/61_searchL_bolometric.py",
+      "channel": "Search L (bolometric)",
+      "catalog": "AllWISE",
+      "survey_epoch": 2010.5,
+      "radius_arcsec": 3.0,
+      "propagates": false,
+      "matched": "binary_masses_wise.parquet",
+      "pm_available": false,
+      "n_sample": 99174,
+      "verdict": "latent but benign on this sample",
+      "achieved_match": {
+        "n_matched": 98178,
+        "match_rate": 0.9899570451932966,
+        "angDist_median": 0.15702549999999998,
+        "angDist_p99": 1.4097718899999998
+      }
+    },
+    {
+      "script": "scripts/70_searchO_nearest_10pc.py",
+      "channel": "Search O (nearest 10 pc)",
+      "catalog": "2MASS / AllWISE",
+      "survey_epoch": 1999.5,
+      "radius_arcsec": 10.0,
+      "propagates": true,
+      "pm_available": true,
+      "n_sample": 315,
+      "verdict": "CORRECT: propagates to the survey epoch before matching"
+    },
+    {
+      "script": "scripts/80_pull_high_ruwe_fast.py",
+      "channel": "Search N (high RUWE)",
+      "catalog": "2MASS (via gaiadr3.tmass_psc_xsc_best_neighbour)",
+      "survey_epoch": 1999.5,
+      "radius_arcsec": null,
+      "propagates": "n/a",
+      "note": "Uses Gaia's own precomputed best-neighbour table rather than a positional match of ours, so the epoch handling is the Gaia consortium's and is correct by construction.",
+      "pm_available": true,
+      "n_sample": 224081,
+      "verdict": "not applicable: consortium cross-match"
+    },
+    {
+      "script": "pipeline/adql.py",
+      "channel": "main pipeline (Search B, U, ...)",
+      "catalog": "AllWISE + 2MASS (via gaiadr3.*_best_neighbour)",
+      "survey_epoch": null,
+      "radius_arcsec": null,
+      "propagates": "n/a",
+      "note": "The main sample's infrared photometry is joined through gaiadr3.allwise_best_neighbour and the 2MASS best-neighbour table inside ADQL. These are the consortium cross-matches, which propagate properly. No channel downstream of the main sample -- Search B, Search U among them -- is exposed to this bug at all.",
+      "verdict": "not applicable"
+    }
+  ],
+  "n_damaged": 0,
+  "n_latent_benign": 2,
+  "summary": "0 site(s) materially damaged, 2 carrying the omission without measurable damage. The two sites that skip epoch propagation, Search C and Search L, are matching samples whose proper motions are small against their match radii. Search C is measured directly: the 21-year NVSS baseline moves the median star 0.5\" against a 5\" radius and carries 0.12% of the sample past it. Search L's cached sample no longer holds proper motions, so it is judged on what its match actually achieved -- 99.0% of sources matched, 99% of separations inside 1.41\" of a 3\" radius -- which is not the signature of an epoch drift reaching the radius. Neither null is affected. The omission remains a live hazard, because the same code applied to a nearby or high-proper-motion sample is exactly what produced the fake null in the nearest-10-pc channel, and nothing in either script prevents that reuse."
+}
