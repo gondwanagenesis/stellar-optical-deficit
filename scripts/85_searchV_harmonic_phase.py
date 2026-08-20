@@ -219,6 +219,56 @@ def perm_p(obs: float, null: np.ndarray) -> float:
     return float((np.count_nonzero(null >= obs) + 1) / (null.size + 1))
 
 
+def within_cell_dispersion(pa_deg, cell) -> float:
+    """Mean circular sd of PA_PM inside a cell, in degrees, on the doubled angle.
+
+    This is what gives the local null its power. If PA_PM were nearly constant
+    within a cell, shuffling inside the cell would barely change anything and
+    the null would swallow a real per-star alignment along with the geometry.
+    """
+    th = np.deg2rad(2.0 * np.asarray(pa_deg, float))
+    df = pd.DataFrame({"c": cell, "x": np.cos(th), "y": np.sin(th)})
+    g = df.groupby("c")[["x", "y"]].agg(["mean", "count"])
+    r = np.hypot(g[("x", "mean")], g[("y", "mean")]).to_numpy()
+    n = g[("x", "count")].to_numpy()
+    r = np.clip(r[n >= 20], 1e-6, 1 - 1e-9)
+    # circular sd = sqrt(-2 ln R), halved to undo the angle doubling
+    return float(np.rad2deg(np.sqrt(-2.0 * np.log(r))).mean() / 2.0)
+
+
+def sensitivity(phase, pa, cell, rng, n_perm,
+                fractions=(0.0025, 0.005, 0.01, 0.02, 0.05, 0.10, 0.20)):
+    """Smallest injected aligned fraction this sample can still show.
+
+    Sources are chosen at random and their phase replaced by their own PA_PM
+    plus 15 deg of scatter, which is a deliberately imperfect alignment. The
+    detection threshold is the same local-shuffle null the verdict uses.
+    """
+    rows, n = [], phase.size
+    for f in fractions:
+        ph = phase.copy()
+        m = rng.random(n) < f
+        ph[m] = (pa[m] + rng.normal(0, 15, int(m.sum()))) % 180.0
+        r_obs = resultant(ph, pa)
+        nb = permute_local(ph, pa, cell, rng, n_perm)
+        p = perm_p(r_obs, nb)
+        rows.append({"injected_fraction": f, "R": r_obs,
+                     "null_R": float(nb.mean()), "null_sd": float(nb.std()),
+                     "p_local": p, "detected": bool(p < 0.01)})
+    det = [r["injected_fraction"] for r in rows if r["detected"]]
+    return {"scan": rows,
+            "min_detectable_fraction": (min(det) if det else None),
+            "permutation_p_floor": float(1.0 / (n_perm + 1)),
+            "note": ("Aligned fraction recoverable at p<0.01 against the local "
+                     "null, injected at 15 deg scatter on the real positions. "
+                     "A null from this channel excludes aligned populations at "
+                     "or above this fraction and says nothing below it. The "
+                     "permutation p cannot fall below the floor quoted here, "
+                     "so a scan that detects every injected fraction is "
+                     "resolution-limited and its lowest entry is an upper "
+                     "bound on the true threshold, not the threshold.")}
+
+
 def summarise(name, phase, pa, out_list):
     r = rayleigh((phase - pa) % 180.0)
     r["subset"] = name
@@ -230,10 +280,21 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--tag", default="primary")
     ap.add_argument("--n-perm", type=int, default=N_PERM)
+    # Exists so the analysis can be exercised end-to-end against a partial
+    # merge while the full pull is still running. A dry run on a subset finds
+    # the crash in the extinction path; it does not license a verdict, so the
+    # tag must be changed too and the JSON lands under that tag.
+    ap.add_argument("--source", default=None,
+                    help="override the input parquet (dry runs only)")
+    # The reference sample that defines the fiducial is a property of the
+    # main pipeline run, not of this channel's output label, so a dry run can
+    # relabel its output without losing the reference.
+    ap.add_argument("--ref-tag", default=None,
+                    help="tag of the reference residual parquet (default: --tag)")
     args = ap.parse_args()
     rng = np.random.default_rng(RNG_SEED)
 
-    src = cfg.RAW_DIR / "high_ruwe_500pc.parquet"
+    src = Path(args.source) if args.source else cfg.RAW_DIR / "high_ruwe_500pc.parquet"
     d = pd.read_parquet(src)
     need = ["ipd_gof_harmonic_amplitude", "ipd_gof_harmonic_phase"]
     missing = [c for c in need if c not in d.columns]
@@ -325,8 +386,18 @@ def main() -> int:
              out["null_local_shuffle"]["p_obs"])
 
     # ---- positive controls: three predicted gradients ---------------------
+    n_bin_perm = max(200, args.n_perm // 2)
+
     def gradient(values, label, edges=None):
-        """Alignment R in quartiles of `values`, with its own local null."""
+        """Alignment excess in quartiles of `values`, each with its own null.
+
+        Strict monotonicity across four bins is not used as the criterion. It
+        is a knife-edge on noise: one bin pair inverting by less than its own
+        error kills a gradient that is plainly present. The criterion is the
+        top-minus-bottom difference measured against the two bins' own
+        permutation spreads, with the Spearman rank correlation across bins
+        reported alongside as the shape check.
+        """
         q = np.nanpercentile(values, [25, 50, 75]) if edges is None else edges
         bins, rows = np.digitize(values, q), []
         for b in range(len(q) + 1):
@@ -334,17 +405,35 @@ def main() -> int:
             if m.sum() < 200:
                 continue
             r_obs = resultant(phase[m], pa_pm[m])
-            nb = permute_local(phase[m], pa_pm[m], cell[m], rng,
-                               max(100, args.n_perm // 5))
+            nb = permute_local(phase[m], pa_pm[m], cell[m], rng, n_bin_perm)
             rows.append({"bin": int(b), "n": int(m.sum()),
                          "lo": float(values[m].min()),
                          "hi": float(values[m].max()),
                          "R": r_obs, "null_R": float(nb.mean()),
+                         "null_sd": float(nb.std()),
                          "excess_R": float(r_obs - nb.mean()),
                          "p_local": perm_p(r_obs, nb)})
         log.info("gradient %s: excess_R by bin = %s", label,
                  ", ".join(f"{r['excess_R']:+.5f}" for r in rows))
-        return rows
+        return {"bins": rows, "trend": trend(rows)}
+
+    def trend(rows):
+        """Top-minus-bottom excess in units of its own permutation error."""
+        if len(rows) < 2:
+            return {"status": "too few bins"}
+        lo, hi = rows[0], rows[-1]
+        diff = hi["excess_R"] - lo["excess_R"]
+        sd = float(np.hypot(hi["null_sd"], lo["null_sd"]))
+        e = [r["excess_R"] for r in rows]
+        rho = float(np.corrcoef(np.argsort(np.argsort(e)),
+                                np.arange(len(e)))[0, 1]) if len(e) > 2 else None
+        return {"top_minus_bottom": float(diff), "sigma": sd,
+                "nsigma": float(diff / sd) if sd > 0 else None,
+                "spearman_rho_over_bins": rho,
+                # Two sigma and the right sign. Below that the gradient is not
+                # established, which is a statement about this test's power on
+                # this sample and not about the physics.
+                "passes": bool(sd > 0 and diff / sd > 2.0)}
 
     out["control_amplitude"] = gradient(amp, "ipd_gof_harmonic_amplitude")
     out["control_proper_motion"] = gradient(pm_tot, "total proper motion")
@@ -353,16 +442,30 @@ def main() -> int:
     out["control_multi_peak"] = gradient(mp, "ipd_frac_multi_peak",
                                          edges=np.array([0.5, 2.5, 10.0]))
 
-    def monotone(rows):
-        e = [r["excess_R"] for r in rows]
-        return bool(len(e) >= 2 and all(b >= a for a, b in zip(e, e[1:])))
-
-    grads = {"amplitude": monotone(out["control_amplitude"]),
-             "proper_motion": monotone(out["control_proper_motion"]),
-             "multi_peak": monotone(out["control_multi_peak"])}
-    out["controls_monotone"] = grads
+    grads = {k: bool(out[f"control_{k}"]["trend"].get("passes"))
+             for k in ("amplitude", "proper_motion", "multi_peak")}
+    out["controls_pass"] = grads
     n_pass = sum(grads.values())
-    log.info("positive controls monotone: %s (%d/3)", grads, n_pass)
+    for k in ("amplitude", "proper_motion", "multi_peak"):
+        t = out[f"control_{k}"]["trend"]
+        log.info("control %-13s top-bottom %+.5f = %+.2f sigma  rho=%s  %s",
+                 k, t.get("top_minus_bottom", float("nan")),
+                 t.get("nsigma") or float("nan"), t.get("spearman_rho_over_bins"),
+                 "PASS" if grads[k] else "fail")
+
+    # ---- sensitivity: inject alignment into THIS sky and re-measure -------
+    # The generic injection test lives in tests/. This one runs on the real
+    # positions, the real PA_PM field and the real cell occupancies, because
+    # the local null's power depends on how much PA_PM actually varies inside
+    # a cell. If it varies little the null would absorb a genuine signal along
+    # with the geometry, and the channel's null would mean nothing. This
+    # measures the smallest injected aligned fraction the channel can still
+    # see, and that number is the honest statement of what a null excludes.
+    out["within_cell_pa_dispersion_deg"] = float(within_cell_dispersion(pa_pm, cell))
+    out["sensitivity"] = sensitivity(phase, pa_pm, cell, rng, n_bin_perm)
+    log.info("within-cell PA_PM dispersion %.1f deg; detectable aligned "
+             "fraction >= %s", out["within_cell_pa_dispersion_deg"],
+             out["sensitivity"].get("min_detectable_fraction"))
 
     # ---- application: channel 20's dim tail against its bright tail -------
     app = apply_to_dim_tail(d, phase, pa_pm, cell, rng, args)
@@ -383,23 +486,25 @@ def main() -> int:
     elif p_local > 0.01:
         verdict = (
             f"NULL, with the discriminant demonstrated to work. "
-            f"{n_pass}/3 positive controls show the predicted monotone "
-            f"gradient, so the phase column does carry orientation. Yet the "
+            f"{n_pass}/3 positive controls show the predicted gradient at "
+            f">2 sigma, so the phase column does carry orientation. Yet the "
             f"population as a whole shows no alignment with the proper-motion "
             f"axis beyond what survives destroying the per-star pairing: "
             f"R = {obs['R']:.5f} against a local-shuffle null of "
-            f"{nl.mean():.5f} +- {nl.std():.5f}, p = {p_local:.3g}. Note that "
-            f"the global shuffle would have reported p = "
-            f"{out['null_global_shuffle']['p_obs']:.3g}; the difference is "
-            f"survey geometry, and taking the global number would have been "
-            f"the mistake this channel was built to avoid.")
+            f"{nl.mean():.5f} +- {nl.std():.5f}, p = {p_local:.3g}. The null "
+            f"excludes an aligned fraction at or above "
+            f"{out['sensitivity'].get('min_detectable_fraction')} and says "
+            f"nothing below it. Note that the global shuffle would have "
+            f"reported p = {out['null_global_shuffle']['p_obs']:.3g}; the "
+            f"difference is survey geometry, and taking the global number "
+            f"would have been the mistake this channel was built to avoid.")
     else:
         verdict = (
             f"ALIGNMENT DETECTED. R = {obs['R']:.5f} against a local-shuffle "
             f"null of {nl.mean():.5f} +- {nl.std():.5f} (p = {p_local:.3g}), "
             f"an excess of {excess_R:+.5f} concentrated near dphi = "
             f"{obs['preferred_dphi_deg']:.1f} deg. {n_pass}/3 positive "
-            f"controls are monotone. This is a measurement of the background-"
+            f"controls pass. This is a measurement of the background-"
             f"blend contamination of the high-RUWE population, not a "
             f"technosignature: alignment with the proper-motion axis is the "
             f"signature of a stationary contaminant the star is drifting away "
@@ -416,7 +521,7 @@ def main() -> int:
     print(f"  global-shuffle null R             {ng.mean():.5f} +- {ng.std():.5f}")
     print(f"  p (local null, the honest one)    {p_local:.4g}")
     print(f"  p (global null, would overstate)  {out['null_global_shuffle']['p_obs']:.4g}")
-    print(f"  positive controls monotone        {n_pass}/3  {grads}")
+    print(f"  positive controls passed          {n_pass}/3  {grads}")
     if app.get("dim") and app.get("bright"):
         print(f"  dim tail   excess R               {app['dim']['excess_R']:+.5f}"
               f"  (n={app['dim']['n']:,})")
@@ -440,7 +545,8 @@ def apply_to_dim_tail(d, phase, pa_pm, cell, rng, args) -> dict:
     going to be repeated in the channel that audits it.
     """
     try:
-        ref = pd.read_parquet(cfg.DERIVED_DIR / f"{args.tag}_resid.parquet",
+        ref_tag = args.ref_tag or args.tag
+        ref = pd.read_parquet(cfg.DERIVED_DIR / f"{ref_tag}_resid.parquet",
                               columns=["M_G", "M_Ks", "ruwe", "cstar_nsigma"])
     except Exception as exc:                       # noqa: BLE001
         log.warning("reference residuals unavailable (%s); skipping the "
