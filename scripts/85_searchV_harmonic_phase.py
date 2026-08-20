@@ -157,11 +157,18 @@ RNG_SEED = 20260820
 # ---------------------------------------------------------------------------
 
 def rayleigh(dphi_deg: np.ndarray) -> dict:
-    """Rayleigh test on the doubled angle of axial data in [0, 180).
+    """Mean resultant length of axial data in [0, 180), on the doubled angle.
 
-    R is the mean resultant length. Under uniformity n*R^2 is exponential(1)
-    to good accuracy for n in the thousands, so p = exp(-n R^2). The preferred
-    axis is reported but never used as the test.
+    The accompanying p is the textbook Rayleigh p = exp(-n R^2), and it is
+    DESCRIPTIVE ONLY. It assumes both marginals are uniform, and in this data
+    neither is: the raw harmonic phase piles up on the 0/180 axis (the scanning
+    law does not sample scan angles evenly), and PA_PM is shaped by solar
+    reflex motion. Two independent axial variables with non-uniform marginals
+    have an expected resultant of roughly the product of their marginal
+    resultants, not zero, so the Rayleigh p would report that product as
+    significance. Every p this channel actually reasons from is a permutation
+    p, which preserves both marginals by construction. The marginals are
+    measured and stored alongside so the size of the effect is on the record.
     """
     th = np.deg2rad(2.0 * np.asarray(dphi_deg, float))
     n = th.size
@@ -268,8 +275,25 @@ def main() -> int:
                "against PA_PM+90 returns the identical R. The false-positive "
                "rate here comes from the local mark permutation instead.")}
 
+    # ---- how non-uniform each marginal is, on its own --------------------
+    # This is why the analytic Rayleigh p cannot be the test. Two independent
+    # axial variables with these marginals already produce a resultant near
+    # the product of the two, and the permutation nulls should reproduce that
+    # number. If they do not, the permutation is not preserving what it claims.
+    marg = {"phase": rayleigh(phase), "pa_pm": rayleigh(pa_pm)}
+    out["marginals"] = {
+        "phase_R": marg["phase"]["R"], "pa_pm_R": marg["pa_pm"]["R"],
+        "product_R": float(marg["phase"]["R"] * marg["pa_pm"]["R"]),
+        "note": ("Expected resultant for two INDEPENDENT axial variables with "
+                 "these marginals, against which the permutation null means "
+                 "are the empirical check.")}
+    log.info("marginal R: phase %.5f, PA_PM %.5f -> independent product %.5f",
+             marg["phase"]["R"], marg["pa_pm"]["R"],
+             out["marginals"]["product_R"])
+
     # ---- global result and the two nulls ---------------------------------
     obs = rayleigh(dphi)
+    obs["p_is_descriptive_only"] = True
     out["global"] = obs
     log.info("global: n=%d R=%.5f preferred dphi=%.1f deg Rayleigh p=%.3g",
              obs["n"], obs["R"], obs["preferred_dphi_deg"], obs["p"])

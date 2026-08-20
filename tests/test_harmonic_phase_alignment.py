@@ -128,6 +128,40 @@ def test_perpendicular_mirror_is_degenerate():
         sv.resultant(phase, (pa + 90.0) % 180.0), rel=1e-12)
 
 
+def test_permutation_absorbs_nonuniform_marginals_and_rayleigh_does_not():
+    """The reason the analytic Rayleigh p is not this channel's test.
+
+    In the real data neither marginal is uniform: the harmonic phase piles up
+    on the 0/180 axis because the scanning law does not sample scan angles
+    evenly, and PA_PM is shaped by solar reflex motion. Two INDEPENDENT axial
+    variables with such marginals have an expected resultant near the product
+    of their marginal resultants rather than zero. A test that assumes
+    uniformity reads that product as significance.
+
+    Asserted here on independent data with deliberately non-uniform marginals:
+    the permutation null tracks the product, so the permutation p is
+    unbothered, while the Rayleigh p claims a detection that does not exist.
+    """
+    rng = np.random.default_rng(41)
+    n = 20_000
+    cell = rng.integers(0, NCELL, n)
+    # Both concentrated toward 0/180, and drawn completely independently.
+    phase = (rng.normal(0, 42, n)) % 180.0
+    pa = (rng.normal(0, 55, n)) % 180.0
+
+    r_phase = sv.rayleigh(phase)["R"]
+    r_pa = sv.rayleigh(pa)["R"]
+    r_obs = sv.resultant(phase, pa)
+    null = sv.permute_local(phase, pa, cell, rng, NPERM)
+
+    # The null lands on the product of the marginals, which is what it is for.
+    assert null.mean() == pytest.approx(r_phase * r_pa, abs=0.02)
+    # So the honest test sees nothing, because there is nothing.
+    assert sv.perm_p(r_obs, null) > 0.01
+    # And the analytic p, which assumes uniformity, calls it a detection.
+    assert sv.rayleigh((phase - pa) % 180.0)["p"] < 1e-6
+
+
 def test_uniform_data_gives_a_calibrated_p_value():
     """No signal, no geometry: the local-null p must be roughly uniform."""
     rng = np.random.default_rng(23)
