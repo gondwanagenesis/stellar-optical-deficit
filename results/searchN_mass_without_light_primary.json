@@ -1,0 +1,75 @@
+{
+  "SUPERSEDED": true,
+  "superseded_by": "results/searchN_corrected_primary.json (scripts/83_searchN_corrected.py)",
+  "why": "Thresholded both populations at one fixed 0.530 mag, which is 5.35 sigma for the low-RUWE reference but 1.81 sigma for the pristine high-RUWE sample, and compared residuals built by two different estimators (degree-5 refit sigma 0.1767 vs the pipeline local-slope residual column sigma 0.0991). The 3.96-vs-22.60 comparison and the p = 1 are both meaningless. The corrected run is still NULL, but for a valid reason.",
+  "tag": "primary",
+  "n_high_ruwe_pulled": 149536,
+  "n_pristine": 92976,
+  "k_sigma": 3.0,
+  "threshold_mag": 0.5300255576236785,
+  "f_detectable": 0.38625244227986644,
+  "ruwe_vs_blend": [
+    {
+      "ruwe_lo": 1.4,
+      "ruwe_hi": 2.0,
+      "n": 63045,
+      "frac_pristine": 0.673598223491157,
+      "median_cstar": 0.8710743038636338,
+      "median_resid": 0.19087224212202258
+    },
+    {
+      "ruwe_lo": 2.0,
+      "ruwe_hi": 3.0,
+      "n": 38189,
+      "frac_pristine": 0.6132917855927099,
+      "median_cstar": 1.0479711041297106,
+      "median_resid": 0.2122532105623831
+    },
+    {
+      "ruwe_lo": 3.0,
+      "ruwe_hi": 5.0,
+      "n": 27533,
+      "frac_pristine": 0.5950314168452403,
+      "median_cstar": 1.2351973221169361,
+      "median_resid": 0.2261624351639151
+    },
+    {
+      "ruwe_lo": 5.0,
+      "ruwe_hi": 10.0,
+      "n": 16454,
+      "frac_pristine": 0.5446092135650905,
+      "median_cstar": 1.867813761311183,
+      "median_resid": 0.25617107624069746
+    },
+    {
+      "ruwe_lo": 10.0,
+      "ruwe_hi": 1000000000.0,
+      "n": 4315,
+      "frac_pristine": 0.4041714947856315,
+      "median_cstar": 4.256066039171159,
+      "median_resid": 0.34397695420581
+    }
+  ],
+  "pristine": {
+    "n": 92976,
+    "median": 0.16659821301980804,
+    "dim": 6529,
+    "bright": 1647,
+    "ratio": 3.9641772920461444
+  },
+  "blended": {
+    "n": 56560,
+    "median": 0.30754901106066335,
+    "dim": 9129,
+    "bright": 1977,
+    "ratio": 4.617602427921093
+  },
+  "reference_low_ruwe": {
+    "n": 3321566,
+    "dim": 15094,
+    "bright": 668,
+    "ratio": 22.595808383233532
+  },
+  "p_vs_reference": 1.0,
+  "verdict": "NULL. The pristine high-RUWE subsample is no more one-sidedly dim than the clean low-RUWE reference (3.96 vs 22.60, p = 1). Astrometric disturbance alone does not produce an optical deficit once blended photometry is excluded."
+}

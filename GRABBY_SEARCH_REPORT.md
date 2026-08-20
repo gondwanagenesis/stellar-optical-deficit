@@ -31,6 +31,7 @@ covered.
 | 17 | stellar mass function, spatially | **holes** in the population | 59σ → completeness; null at 100 pc |
 | 18 | **bolometric closure vs dynamical mass** | **energy missing at ANY wavelength** | **18 vs 36 mirror → p < 2.8e−4** |
 | 19 | **Planck excluded compact-source bin** | cold radiators at 100–857 GHz, invisible to every IR survey | 36 vs 325 mirror → **null**; two grid-edge bugs caught |
+| 20 | **high-RUWE mass without light** | unseen mass with no photometric trace (f→1), a population every other channel excluded server-side | **null**; excess shrinks with cut depth; two comparison bugs caught |
 
 **Joint, disposal-agnostic: p_total < 6.2e−4.** Fewer than 1 in 1,614 nearby
 lower-main-sequence stars intercepts ≥51% of its optical output by any means.
@@ -746,6 +747,128 @@ manufacture whatever correlation its nuisance parameters need.
 
 ---
 
+## Channel 20 — mass without light. The population that was never downloaded.
+
+Every one of the nineteen channels above ran on a sample whose ADQL carried a
+server-side RUWE cut; the local partitions top out at `ruwe = 1.387`. The
+astrometrically-disturbed stars were never on disk, so they were never
+examined, and they are excluded from every limit this project has published.
+
+That is the wrong population to have discarded for this particular question.
+RUWE measures how badly a single-star astrometric model fits, and it rises
+precisely when an unseen mass pulls a star around. A fully enshrouded
+companion is an unseen mass. The f → 1 case that every photometric channel is
+structurally blind to would announce itself in RUWE and essentially nowhere
+else — and RUWE is what the sample build filtered on.
+
+**224,081 sources** with `ruwe ≥ 1.4`, `parallax > 2`, `parallax_over_error >
+20` were pulled across a uniform 20% all-sky sample of the identifier space;
+222,757 (99.4%) carry 2MASS Ks. 149,536 fall in the same lower-main-sequence
+box as the main sample, of which **92,976 (62.2%) are photometrically
+pristine**.
+
+### The discriminant, and what it says
+
+High RUWE on its own means "unresolved binary" and is unremarkable. The
+question is whether the disturbance is accompanied by *light*. An ordinary
+companion contributes flux: it inflates the BP/RP excess factor, displaces the
+2MASS cross-match, and lifts the system off the main sequence. An enshrouded
+companion carries the same mass and emits nothing, breaking that relation.
+
+The relation holds, cleanly and monotonically:
+
+| RUWE | n | fraction pristine | median C\* | median residual |
+|---|---|---|---|---|
+| 1.4–2.0 | 63,045 | 0.674 | +0.87 | +0.191 |
+| 2.0–3.0 | 38,189 | 0.613 | +1.05 | +0.212 |
+| 3.0–5.0 | 27,533 | 0.595 | +1.24 | +0.226 |
+| 5.0–10.0 | 16,454 | 0.545 | +1.87 | +0.256 |
+| > 10 | 4,315 | 0.404 | +4.26 | +0.344 |
+
+Astrometric disturbance and photometric blend evidence rise together across a
+factor of seven in RUWE, which is what unresolved binaries do and what mass
+without light cannot do.
+
+### Two bugs in the comparison, both pushing the same way
+
+The first run of this channel reported the pristine sample as *less*
+one-sidedly dim than the low-RUWE reference — 3.96 against 22.60, p = 1 — and
+called it a null. **That comparison was invalid**, for two independent reasons:
+
+1. **One threshold, two widths.** Both populations were cut at a fixed
+   0.530 mag. Against each population's own robust scatter that is **5.35 σ for
+   the reference but only 1.81 σ for the pristine high-RUWE sample**. A
+   dim/bright ratio always climbs as the cut moves out, so the two numbers were
+   read off entirely different points of their respective tails.
+
+2. **Two different estimators.** The high-RUWE residuals came from a degree-5
+   polynomial refit inside the script (σ = 0.1767); the reference residuals
+   were read from the pipeline's `residual` column, built with a local-slope
+   model (σ = 0.0991). The refit exists *specifically* so the comparison would
+   be like-for-like, and then the comparison was made against the other
+   estimator anyway.
+
+Both errors widen the high-RUWE distribution relative to the reference and so
+suppress its apparent one-sidedness. The null was manufactured.
+
+### The corrected channel
+
+One polynomial applied to both populations, one selection box, one distance
+support (69–500 pc, the reference's own span), counted at *k* σ of each
+population's own scatter:
+
+| k | population | σ | threshold | dim | bright | ratio |
+|---|---|---|---|---|---|---|
+| 2.0 | reference, low RUWE | 0.1767 | 0.353 | 182,537 | 68,104 | 2.68 |
+| 2.0 | high-RUWE pristine | 0.2921 | 0.584 | 4,873 | 1,081 | **4.51** |
+| 2.0 | high-RUWE blended | 0.3724 | 0.745 | 5,625 | 517 | 10.88 |
+| 3.0 | reference, low RUWE | 0.1767 | 0.530 | 74,676 | 12,363 | 6.04 |
+| 3.0 | high-RUWE pristine | 0.2921 | 0.876 | 976 | 214 | **4.56** |
+| 3.0 | high-RUWE blended | 0.3724 | 1.117 | 2,426 | 107 | 22.67 |
+
+The pristine sample is **1.68× the reference ratio at k = 2** (p = 6.3e−60) but
+**0.76× at k = 3**. The excess *shrinks* as the cut moves out.
+
+That direction is the whole result. A genuine population of dim objects sits at
+some offset, so isolating it harder makes it more conspicuous and its excess
+must **grow** with k. Extra symmetric scatter does the opposite: it inflates
+both tails and drags the ratio back toward the reference's shape. The 2 σ
+excess is therefore the degraded astrometry of high-RUWE stars — noisier
+parallaxes, hence noisier distance moduli — and not a one-sided dim tail. This
+is a discriminant a single fixed cut could not have seen at all.
+
+The pristine cut also demonstrably works, which the first run could not show:
+the blended subsample runs at 10.88 and 22.67 against 4.51 and 4.56 pristine, a
+factor of five of contaminant suppression at k = 3.
+
+**No numerical limit on f is quoted from this channel.** The dominant
+contaminant here is one-signed — 2MASS aperture mismatch in a 4″ beam brightens
+Ks and so manufactures a *dim* residual — so the bright tail is a conservative
+mirror rather than a clean false-positive rate, and one-sidedness on its own
+proves nothing.
+
+### Infrastructure note
+
+The original puller for this population could not work: it used the keyset
+pagination (`source_id > X ORDER BY source_id`) that is correct on the 72k-row
+NSS table but catastrophic against 1.8e9-row `gaia_source`, where an open-ended
+lower bound leaves the planner no bound on the scan. Measured: **>300 s for a
+single page** against **16.8 s for an equivalent indexed `BETWEEN` range
+scan**. One run burned 2 h 47 m without completing a page.
+
+It also cross-matched Gaia epoch-2016.0 positions against a ~1999.5 survey
+inside 3″ without propagating proper motion. Measured on the delivered sample,
+the 2016→1999.5 displacement has **median 0.37″, 99th percentile 3.02″, maximum
+51.5″** — so over 1% of the sample falls outside the match radius outright. The
+subtler damage is downstream: the pristine cut uses `tmass_xm_dist < 0.5″` as a
+*blending* indicator, and at a median displacement of 0.37″ an unpropagated
+separation would have been substantially a proper-motion cut, selecting on
+kinematics at the exact point where this channel's discriminant lives. This is
+the same class of error as the 5″ match that produced a fake null earlier in
+this project, which is twice now.
+
+---
+
 ## Coverage gaps, stated because they are not nulls
 
 **Temperature.** Our mid-IR veto uses W1 and W2 only, so it responds to shells
@@ -800,6 +923,9 @@ run.sh scripts/46_searchB_cold_excess.py       # channel 9 — IR excess
 run.sh scripts/47b_searchC_xmatch.py            # channel 10 — radio (CDS XMatch)
 run.sh scripts/48_searchD_domain_edge.py       # channel 11 — domain edge
 run.sh scripts/36_velocity_clustering_v2.py    # channel 7 — velocity
+run.sh scripts/80_pull_high_ruwe_fast.py       # channel 20 - pull high-RUWE
+run.sh scripts/81_pull_ruwe_astrometry_cols.py # channel 20 - zero-point columns
+run.sh scripts/83_searchN_corrected.py         # channel 20 - corrected Search N
 run.sh scripts/45_grabby_figures.py            # figures
 ```
 

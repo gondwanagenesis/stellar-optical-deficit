@@ -1,0 +1,78 @@
+{
+  "tag": "primary",
+  "fit_degree": 5,
+  "fit_sigma": 0.17667518587455952,
+  "n_reference": 3321566,
+  "n_high_ruwe_box": 149536,
+  "n_pristine": 92976,
+  "dist_support_pc": [
+    69.0,
+    500.0
+  ],
+  "by_k": {
+    "2.0": {
+      "reference": {
+        "n": 3321566,
+        "sigma": 0.17667518587455952,
+        "median": -0.016044088683156765,
+        "threshold_mag": 0.35335037174911904,
+        "dim": 182537,
+        "bright": 68104,
+        "ratio": 2.6802684130153884
+      },
+      "pristine": {
+        "n": 92976,
+        "sigma": 0.2921305992246414,
+        "median": 0.16659821301980804,
+        "threshold_mag": 0.5842611984492828,
+        "dim": 4873,
+        "bright": 1081,
+        "ratio": 4.50786308973173
+      },
+      "blended": {
+        "n": 56560,
+        "sigma": 0.3723684993595114,
+        "median": 0.30754901106066335,
+        "threshold_mag": 0.7447369987190228,
+        "dim": 5625,
+        "bright": 517,
+        "ratio": 10.880077369439071
+      },
+      "pristine_over_reference": 1.6818700201224395,
+      "p_pristine_more_onesided": 6.294517122876515e-60
+    },
+    "3.0": {
+      "reference": {
+        "n": 3321566,
+        "sigma": 0.17667518587455952,
+        "median": -0.016044088683156765,
+        "threshold_mag": 0.5300255576236785,
+        "dim": 74676,
+        "bright": 12363,
+        "ratio": 6.040281485076438
+      },
+      "pristine": {
+        "n": 92976,
+        "sigma": 0.2921305992246414,
+        "median": 0.16659821301980804,
+        "threshold_mag": 0.8763917976739242,
+        "dim": 976,
+        "bright": 214,
+        "ratio": 4.5607476635514015
+      },
+      "blended": {
+        "n": 56560,
+        "sigma": 0.3723684993595114,
+        "median": 0.30754901106066335,
+        "threshold_mag": 1.1171054980785342,
+        "dim": 2426,
+        "bright": 107,
+        "ratio": 22.672897196261683
+      },
+      "pristine_over_reference": 0.7550554845530824,
+      "p_pristine_more_onesided": 0.9998733741320086
+    }
+  },
+  "excess_grows_with_k": false,
+  "verdict": "NULL, but SUPERSEDING script 66, whose null was not valid. That run cut both populations at one fixed 0.530 mag -- 5.35 sigma for the reference against 1.81 sigma for the pristine high-RUWE sample -- and compared residuals built by two different estimators (a degree-5 refit at sigma 0.1767 against the pipeline local-slope column at 0.0991). Both errors widen the high-RUWE distribution relative to the reference and so suppress its apparent one-sidedness; its headline 3.96-against-22.60 comparison is meaningless and must not be cited.\n\nCorrected -- one polynomial, one box, one distance support, counted at k sigma of each population's own scatter -- the pristine high-RUWE sample is 1.68x the reference ratio at k=2 (4.51 against 2.68, p = 6.3e-60) but 0.76x at k=3 (4.56 against 6.04). The excess SHRINKS as the cut moves out. An added population of dim objects would do the reverse, becoming more conspicuous the harder it is isolated, so the 2-sigma excess is extra symmetric scatter -- expected, since high-RUWE stars have genuinely degraded astrometry and hence noisier distance moduli -- and not a one-sided dim tail.\n\nThe pristine cut is doing its job, which is the other thing script 66 could not demonstrate: the blended subsample runs at 10.88 (k=2) and 22.67 (k=3), against 4.51 and 4.56 pristine. That is the known one-signed contaminant -- 2MASS aperture mismatch in a 4 arcsec beam brightens Ks and so manufactures a dim residual -- being suppressed by roughly a factor of 5 at k=3. Because that contaminant is one-signed, the bright tail is a conservative mirror rather than a clean false-positive rate, so no numerical limit on f is quoted from this channel."
+}
