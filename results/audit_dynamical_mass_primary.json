@@ -1,0 +1,351 @@
+{
+  "composition": [
+    {
+      "subset": "all systems",
+      "N": 88149,
+      "n_m1_photometric": 88111,
+      "n_m1_dynamical": 38,
+      "frac_photometric": 0.9995689117290043
+    },
+    {
+      "subset": "faint secondary (headline row)",
+      "N": 13482,
+      "n_m1_photometric": 13481,
+      "n_m1_dynamical": 1,
+      "frac_photometric": 0.9999258270286308
+    }
+  ],
+  "by_method": {
+    "Orbital+M1": {
+      "N": 41012,
+      "photometric": true
+    },
+    "SB1+M1": {
+      "N": 29670,
+      "photometric": true
+    },
+    "AstroSpectroSB1+M1": {
+      "N": 14058,
+      "photometric": true
+    },
+    "SB2+M1": {
+      "N": 2214,
+      "photometric": true
+    },
+    "Orbital+SB1+M1": {
+      "N": 1119,
+      "photometric": true
+    },
+    "Eclipsing+SB2": {
+      "N": 25,
+      "photometric": false
+    },
+    "Eclipsing+SB1+M1": {
+      "N": 22,
+      "photometric": true
+    },
+    "EclipsingSpectro+M1": {
+      "N": 16,
+      "photometric": true
+    },
+    "Orbital+SB2": {
+      "N": 12,
+      "photometric": false
+    },
+    "EclipsingSpectro(SB2)": {
+      "N": 1,
+      "photometric": false
+    }
+  },
+  "determinism": [
+    {
+      "method": "EclipsingSpectro+M1",
+      "N": 16,
+      "photometric": true,
+      "scatter_dex_mad": 0.0022419331380718827,
+      "R2": 0.9842412520383651
+    },
+    {
+      "method": "Eclipsing+SB1+M1",
+      "N": 22,
+      "photometric": true,
+      "scatter_dex_mad": 0.005728470307085976,
+      "R2": 0.9320815058004036
+    },
+    {
+      "method": "SB2+M1",
+      "N": 2214,
+      "photometric": true,
+      "scatter_dex_mad": 0.007406153656279691,
+      "R2": 0.9901233892835125
+    },
+    {
+      "method": "SB1+M1",
+      "N": 29670,
+      "photometric": true,
+      "scatter_dex_mad": 0.013439257659035147,
+      "R2": 0.9638752485815771
+    },
+    {
+      "method": "AstroSpectroSB1+M1",
+      "N": 14058,
+      "photometric": true,
+      "scatter_dex_mad": 0.014546162924042294,
+      "R2": 0.9533328425049371
+    },
+    {
+      "method": "Orbital+M1",
+      "N": 41012,
+      "photometric": true,
+      "scatter_dex_mad": 0.01563720598905343,
+      "R2": 0.9754495007855115
+    },
+    {
+      "method": "Orbital+SB1+M1",
+      "N": 1119,
+      "photometric": true,
+      "scatter_dex_mad": 0.0167872306877581,
+      "R2": 0.9449065244889789
+    },
+    {
+      "method": "Eclipsing+SB2",
+      "N": 25,
+      "photometric": false,
+      "scatter_dex_mad": 0.053417545468550515,
+      "R2": 0.6058720274202127
+    }
+  ],
+  "nested_distance_test": [
+    {
+      "method": "AstroSpectroSB1+M1",
+      "N": 14058,
+      "photometric": true,
+      "scatter_photometry_only": 0.014546162924042294,
+      "scatter_plus_distance": 0.014337375023211517,
+      "improvement": 0.014353469153414067
+    },
+    {
+      "method": "Eclipsing+SB2",
+      "N": 25,
+      "photometric": false,
+      "scatter_photometry_only": 0.053417545468550515,
+      "scatter_plus_distance": 0.057306217169082886,
+      "improvement": -0.07279764853332349
+    },
+    {
+      "method": "Orbital+M1",
+      "N": 41012,
+      "photometric": true,
+      "scatter_photometry_only": 0.01563720598905343,
+      "scatter_plus_distance": 0.015519609205702188,
+      "improvement": 0.007520319386568386
+    },
+    {
+      "method": "Orbital+SB1+M1",
+      "N": 1119,
+      "photometric": true,
+      "scatter_photometry_only": 0.0167872306877581,
+      "scatter_plus_distance": 0.016268188804661302,
+      "improvement": 0.030918850926097252
+    },
+    {
+      "method": "Orbital+SB2",
+      "N": 12,
+      "photometric": false,
+      "scatter_photometry_only": 0.025196436626996818,
+      "scatter_plus_distance": 0.020616654005414264,
+      "improvement": 0.1817631075925843
+    },
+    {
+      "method": "SB1+M1",
+      "N": 29670,
+      "photometric": true,
+      "scatter_photometry_only": 0.013439257659035147,
+      "scatter_plus_distance": 0.013286407201223701,
+      "improvement": 0.01137343011715275
+    },
+    {
+      "method": "SB2+M1",
+      "N": 2214,
+      "photometric": true,
+      "scatter_photometry_only": 0.007406153656279691,
+      "scatter_plus_distance": 0.00676150152348074,
+      "improvement": 0.08704277047402986
+    }
+  ],
+  "F_map_scatter_dex": 0.016374330663574244,
+  "injection": [
+    {
+      "delta_mag": 0.1,
+      "response_circular": 0.3214882604758751,
+      "recovered_mag": 0.03214882604758751,
+      "response_dynamical_control": 0.9999999999999964,
+      "frac_surviving_cuts": 0.9875141884222475,
+      "f_covering": 0.08798916064409024
+    },
+    {
+      "delta_mag": 0.25,
+      "response_circular": 0.31868561003163975,
+      "recovered_mag": 0.07967140250790994,
+      "response_dynamical_control": 1.0,
+      "frac_surviving_cuts": 0.9886492622020431,
+      "f_covering": 0.2056717652757185
+    },
+    {
+      "delta_mag": 0.5,
+      "response_circular": 0.31174886003923286,
+      "recovered_mag": 0.15587443001961643,
+      "response_dynamical_control": 1.0,
+      "frac_surviving_cuts": 0.9875141884222475,
+      "f_covering": 0.36904265551980675
+    },
+    {
+      "delta_mag": 0.75,
+      "response_circular": 0.3085538320074879,
+      "recovered_mag": 0.23141537400561596,
+      "response_dynamical_control": 1.0,
+      "frac_surviving_cuts": 0.9863791146424518,
+      "f_covering": 0.49881276637272776
+    },
+    {
+      "delta_mag": 1.0,
+      "response_circular": 0.30478584954568655,
+      "recovered_mag": 0.30478584954568655,
+      "response_dynamical_control": 1.0,
+      "frac_surviving_cuts": 0.9829738933030647,
+      "f_covering": 0.6018928294465028
+    },
+    {
+      "delta_mag": 1.5,
+      "response_circular": 0.29468119332095305,
+      "recovered_mag": 0.4420217899814296,
+      "response_dynamical_control": 1.0,
+      "frac_surviving_cuts": 0.9772985244040863,
+      "f_covering": 0.748811356849042
+    },
+    {
+      "delta_mag": 2.0,
+      "response_circular": 0.2680921718838829,
+      "recovered_mag": 0.5361843437677658,
+      "response_dynamical_control": 1.0,
+      "frac_surviving_cuts": 0.9568671963677639,
+      "f_covering": 0.8415106807538887
+    },
+    {
+      "delta_mag": 3.0,
+      "response_circular": 0.15361382524708458,
+      "recovered_mag": 0.4608414757412538,
+      "response_dynamical_control": 1.0,
+      "frac_surviving_cuts": 0.9114642451759364,
+      "f_covering": 0.9369042655519807
+    },
+    {
+      "delta_mag": 4.0,
+      "response_circular": 0.015153372482341165,
+      "recovered_mag": 0.06061348992936466,
+      "response_dynamical_control": 1.0,
+      "frac_surviving_cuts": 0.8206583427922814,
+      "f_covering": 0.9748811356849042
+    },
+    {
+      "delta_mag": 5.0,
+      "response_circular": -0.08055317981088424,
+      "recovered_mag": -0.4027658990544212,
+      "response_dynamical_control": 1.0,
+      "frac_surviving_cuts": 0.6367763904653803,
+      "f_covering": 0.99
+    },
+    {
+      "delta_mag": 6.0,
+      "response_circular": -0.12509106912179965,
+      "recovered_mag": -0.7505464147307979,
+      "response_dynamical_control": 1.0,
+      "frac_surviving_cuts": 0.39727582292849034,
+      "f_covering": 0.996018928294465
+    }
+  ],
+  "mirror_gain_1mag": 0.3227078603341016,
+  "gain_circular_median": 0.29468119332095305,
+  "gain_control_median": 1.0,
+  "max_recovered_mag": 0.5361843437677658,
+  "recovery_curve": {
+    "delta_mag": [
+      0.1,
+      0.25,
+      0.5,
+      0.75,
+      1.0,
+      1.5,
+      2.0,
+      3.0,
+      4.0,
+      5.0,
+      6.0
+    ],
+    "recovered_mag": [
+      0.03214882604758751,
+      0.07967140250790994,
+      0.15587443001961643,
+      0.23141537400561596,
+      0.30478584954568655,
+      0.4420217899814296,
+      0.5361843437677658,
+      0.4608414757412538,
+      0.06061348992936466,
+      -0.4027658990544212,
+      -0.7505464147307979
+    ]
+  },
+  "limits": [
+    {
+      "subset": "all systems",
+      "N": 88149,
+      "sigma": 0.2772644911582011,
+      "threshold_mag": 1.3863224557910057,
+      "f_det_as_published": 0.7210855481337608,
+      "n_pos": 14,
+      "n_neg": 41,
+      "p_UL_as_published": 0.0002482896676408251,
+      "efficiency_ideal": 0.49999432778590797,
+      "p_UL_efficiency_corrected": 0.0004965849687541655,
+      "efficiency_with_measured_gain": 0.0015768755175895358,
+      "p_UL_gain_corrected": 0.157456733186123,
+      "true_dimming_needed_mag": null,
+      "f_actually_reached": null
+    },
+    {
+      "subset": "faint secondary",
+      "N": 13482,
+      "sigma": 0.2879008926078252,
+      "threshold_mag": 1.439504463039126,
+      "f_det_as_published": 0.7344182582507905,
+      "n_pos": 0,
+      "n_neg": 8,
+      "p_UL_as_published": 0.0002222023641562075,
+      "efficiency_ideal": 0.5,
+      "p_UL_efficiency_corrected": 0.000444404728312415,
+      "efficiency_with_measured_gain": 0.0008159026850615635,
+      "p_UL_gain_corrected": 0.27233929759581726,
+      "true_dimming_needed_mag": null,
+      "f_actually_reached": null
+    }
+  ],
+  "dynamical_only": {
+    "N": 38,
+    "methods": {
+      "Eclipsing+SB2": 25,
+      "Orbital+SB2": 12,
+      "EclipsingSpectro(SB2)": 1
+    },
+    "best_possible_p_UL": 0.07883505983036815
+  },
+  "notes": {
+    "ks_selection_not_estimator": {
+      "n_pass": 98477,
+      "n_total": 99174
+    },
+    "trials": "best of 4 rows, no penalty",
+    "degree_selection": "in-sample, conservative direction"
+  },
+  "verdict": "Channel 4 is not an independent probe of grey absorbers. 99.99% of the headline faint-secondary subset carries a primary mass imported from the primary's own absolute G magnitude rather than solved from the orbit - an SB1 mass function and an astrometric mass-ratio function each give one equation in two unknowns, so m1 cannot come from the orbit at all. The estimator therefore regresses absolute G on a function of absolute G, and a grey dimming slides the star along the relation instead of off it. Injection recovers +0.295 mag of residual per magnitude injected against +1.000 for the dynamical-m1 positive control, and the recovered signal saturates at 0.54 mag - below the 1.44 mag threshold the channel needs to clear - then reverses sign, so a heavily harvested star is reported as slightly OVER-luminous. The channel does not reach its own threshold at any covering fraction up to f = 1, its zero positives are uninformative, and the grey blind spot the report says only channel 4 covers is open. The headline p_total is unaffected: channel 4 does not enter the joint constraint. What is lost is coverage, and specifically the only coverage claimed for alpha = 0."
+}

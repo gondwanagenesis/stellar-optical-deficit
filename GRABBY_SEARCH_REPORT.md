@@ -15,7 +15,7 @@ covered.
 | 1 | optical deficit vs M_Ks, single star | selective absorbers, f ≳ 0.5 | p < 6.1e−3 |
 | 2 | optical deficit, wide-pair differential | same, cleaner background | **p < 1.4e−3** (was 5.3e−4; efficiency term) |
 | 3 | mid-IR veto (beamed class) | deficit + no warm re-emission (>300 K) | **p < 8.6e−4** (was 4.3e−4; efficiency term) |
-| 4 | **dynamical mass** | **ANY spectral slope, incl. grey** | **p < 2.2e−4**, 0 positives |
+| 4 | ~~dynamical mass~~ | ~~ANY spectral slope, incl. grey~~ | **WITHDRAWN** — m1 is photometric; see Audit 2 |
 | 5 | spectral-slope fit, 7 bands | α ≠ 2 absorbers | 372 asymmetric survivors |
 | 6 | 3D spatial front | a spreading domain | 19.5σ → dust |
 | 7 | kinematic (Δv) clustering | a propagating network | 4301σ → young associations |
@@ -29,7 +29,7 @@ covered.
 | 15 | cold blackbody, 3–100 K (β free) | engineered radiators below every prior search | 0 of 3,030; all dust-like |
 | 16 | dark companions vs WD channel | fully enshrouded star (f→1) | 486:0 → extrapolated orbits |
 | 17 | stellar mass function, spatially | **holes** in the population | 59σ → completeness; null at 100 pc |
-| 18 | **bolometric closure vs dynamical mass** | **energy missing at ANY wavelength** | **18 vs 36 mirror → p < 2.8e−4** |
+| 18 | bolometric closure vs "dynamical" mass | energy missing at ANY wavelength | 18 vs 36 mirror → p < 2.8e−4 — **premise falsified, number pending** |
 | 19 | **Planck excluded compact-source bin** | cold radiators at 100–857 GHz, invisible to every IR survey | 36 vs 325 mirror → **null**; two grid-edge bugs caught |
 | 20 | **high-RUWE mass without light** | unseen mass with no photometric trace (f→1), a population every other channel excluded server-side | **null**; excess shrinks with cut depth; two comparison bugs caught |
 | 21 | **energy-conservation locus (ΔL_opt vs ΔL_IR)** | a partial absorber that re-emits what it removes, at ANY covering fraction | **null**; 146σ excess is a broad dim/IR correlation, balanced band is its trough |
@@ -57,7 +57,15 @@ momentum, and shadow.**
 
 ---
 
-## Channel 4 — dynamical mass. The one that closes the grey blind spot.
+## Channel 4 — dynamical mass. WITHDRAWN.
+
+> **This channel is withdrawn.** Its masses are not dynamical. 99.96% of the
+> sample carries an `m1` imported from the primary's own absolute G magnitude,
+> so the estimator regresses absolute G against a function of absolute G and
+> a grey absorber slides a star *along* the relation rather than off it.
+> Measured response is 0.29 mag recovered per magnitude injected, saturating at
+> 0.54 mag against a 1.44 mag threshold, then reversing sign. The section below
+> is left standing as published; see **Audit 2** for what replaced it.
 
 Every photometric channel regresses M_G on M_Ks, which is structurally blind to
 a grey absorber (it produces a residual of the *wrong sign*) and anchored on
@@ -617,7 +625,21 @@ stars that are not there.
 
 ---
 
-## Channel 18 — bolometric closure. Energy in, energy out.
+## Channel 18 — bolometric closure. Premise falsified, number pending.
+
+> **The stated rationale is false.** This channel says "the anchor has to be
+> gravity … Gaia's `binary_masses` supplies m1 from astrometric orbits,
+> independent of every band summed." It does not: the same provenance problem
+> documented in **Audit 2** applies to the same catalogue column. The direction
+> is worse here than in channel 4, and follows deductively — this channel's
+> target signal is intercept-and-re-emit, which leaves M_bol unchanged while
+> dimming G; m1 is derived from G, so it falls, and the *predicted* M_bol falls
+> with it. The star is then reported as over-luminous. That is the wrong sign,
+> which is consistent with the mirror tail being the larger one (36 against 18)
+> — a fact this section attributes to unresolved secondary light instead.
+> The response has not been measured, because doing so needs a band-resolved
+> injection rather than the grey one used for channel 4. Until it is, treat
+> p < 2.8e−4 as unsupported rather than as a null.
 
 Channel 4 is this project's strongest constraint, and it has one specific
 escape: it measures a single band. An absorber that intercepts optical light
@@ -1124,6 +1146,137 @@ statement survives at f ≥ 0.58.
 
 ---
 
+## Audit 2 — channel 4's masses are not dynamical
+
+The previous audit checked the only channel that quotes a *number*. This one
+checks the only channel that quotes *coverage*. The report's own gaps section
+says the grey case "is invisible to every photometric channel by construction
+and is covered **only** by channel 4," so channel 4 alone carries the summary
+table's "ANY spectral slope, incl. grey." `scripts/90_audit_dynamical_mass.py`
+rebuilds it and checks that claim.
+
+**It does not hold.** The masses are photometric.
+
+### Where m1 comes from
+
+`gaiadr3.binary_masses` carries a `combination_method` string. Seven of its nine
+values end in `+M1`, and that suffix marks the primary mass as *imported* rather
+than solved. Reproducing channel 4's cut chain exactly:
+
+| subset | N | photometric m1 | dynamical m1 |
+|---|---|---|---|
+| all systems | 88,149 | 88,111 (**99.96%**) | 38 |
+| **faint secondary** — the headline row | 13,482 | 13,481 (**99.99%**) | **1** |
+
+This is not primarily a statistical finding. It is arithmetic. An SB1 orbit
+yields the mass function (m₂ sin i)³/(m₁+m₂)², and an astrometric orbit yields
+the mass-ratio function — **one equation, two unknowns, in both cases**. m₁
+cannot be recovered from either orbit, so it has to be supplied, and what
+supplies it is the primary's absolute G magnitude through a mass–luminosity
+relation. `Orbital+M1` and `SB1+M1` alone are 82,920 of the 88,149.
+
+Two empirical confirmations, since the deduction covers 94% and not all of it:
+
+**Determinism.** Fitting log m₁ from photometry alone, F(M_G, BP−RP):
+
+| method | N | scatter |
+|---|---|---|
+| SB2+M1 | 2,214 | 0.0074 dex |
+| SB1+M1 | 29,670 | 0.0134 dex |
+| AstroSpectroSB1+M1 | 14,058 | 0.0145 dex |
+| Orbital+M1 | 41,012 | 0.0156 dex |
+| **Eclipsing+SB2** *(genuinely dynamical)* | **25** | **0.0534 dex** |
+
+The dynamical control scatters 3–7× more. It is also n = 25, so on its own this
+split is suggestive rather than decisive.
+
+**Provenance.** This one is well powered. An astrometric mass goes as a³/P²
+with a = θ·d, so at fixed (M_G, BP−RP) a genuinely dynamical m₁ must *still*
+depend strongly on distance. A mass read off a magnitude–luminosity relation
+cannot. Adding apparent G — which restores the parallax that M_G divided out —
+improves the prediction of log m₁ by **0.8% for Orbital+M1 (n=41,012), 1.1% for
+SB1+M1 (n=29,670), 1.4% for AstroSpectroSB1+M1 (n=14,058)**. m₁ knows nothing
+that the photometry does not already know.
+
+### What that does to the search
+
+Inject a grey dimming Δ into a random 1% of the real stars, propagate it through
+an empirically reconstructed F — Gaia would re-derive m₁ from the *dimmed*
+photometry — and run the channel's own polynomial estimator. Both branches are
+baselined through their own zero-injection value, so error in reconstructing F
+cancels out of the response. F is never extrapolated beyond the magnitude range
+it was fitted over; stars leaving it are dropped.
+
+| injected | recovered | gain | control gain | surviving |
+|---|---|---|---|---|
+| 0.25 mag | +0.080 | 0.319 | **1.000** | 98.9% |
+| 1.00 mag | +0.305 | 0.305 | **1.000** | 98.3% |
+| **2.00 mag** | **+0.536** | 0.268 | **1.000** | 95.7% |
+| 3.00 mag | +0.461 | 0.154 | **1.000** | 91.1% |
+| 4.00 mag | +0.061 | 0.015 | **1.000** | 82.1% |
+| 5.00 mag | **−0.403** | −0.081 | **1.000** | 63.7% |
+
+**The positive control is exactly 1.000 at every Δ.** That is the same
+injection harness with m₁ held fixed — the genuinely dynamical case — and it is
+in the script for the reason a positive control is always in the script: a
+response of zero from a broken harness looks identical to a response of zero
+from a blind channel. Mirror control, a 1 mag *brightening*: gain +0.323,
+symmetric, as an attenuation should be.
+
+Three things follow.
+
+1. **The channel is attenuated 3.4×.** It recovers under a third of any grey
+   dimming, because the dimming moves the predictor and the predictand together.
+2. **It saturates below its own threshold.** The most residual the estimator can
+   ever produce is **0.54 mag**, at Δ ≈ 2. Its 5σ threshold is **1.44 mag**. So
+   the channel does not reach detection at *any* covering fraction, up to and
+   including f = 1. Efficiency at the published f ≥ 0.734 is **0.0008**, not 1.
+3. **Past saturation it inverts.** By Δ = 5 the recovered residual is −0.40 mag:
+   a heavily harvested star is reported as *over-luminous*. The turnover is
+   measured on a shrinking sample (64% surviving at Δ = 5) and that part is
+   softer, but the saturation at Δ = 2 is measured on 95.7%.
+
+Zero positives in 13,482 systems was never evidence. It is what this estimator
+returns whether or not the signal is there.
+
+### The limit, and the third instance of one bug
+
+`scripts/37` also hand-rolls `p_UL = ul / n` with no efficiency factor — the
+same omission `scripts/34` had, bypassing the same tested helper
+(`pipeline.statistics.exclusion_curve`). **That is now three times in this
+project**: the C\* formula, the pair limit, and this. The correction is
+academic here, since the channel has no reach to correct:
+
+| | p_UL | at f ≥ |
+|---|---|---|
+| as published | 2.22e−4 | 0.734 |
+| efficiency term restored (assuming 1:1 response) | 4.44e−4 | 0.734 |
+| **measured response folded in** | **0.27** | 0.734 |
+| honest statement | — | **no reach at any f** |
+
+### What is left
+
+38 systems in the whole sample have a dynamically solved m₁ (Eclipsing+SB2 25,
+Orbital+SB2 12, EclipsingSpectro(SB2) 1). With zero positives that is
+**p < 7.9e−2, one star in 13** — against the one in 4,545 the channel claimed.
+That is a non-measurement, and it is reported as one.
+
+Two smaller notes. `scripts/37` requires a clean 2MASS Ks even though the M_G
+branch never touches Ks; the channel is free of the 2MASS anchor in its
+estimator but not in its selection. And the quoted row is the best of four
+(2 subsets × 2 bands) with no trials penalty — the same optimism the pair-limit
+audit found.
+
+### What it costs
+
+**Not the headline.** Channel 4 does not enter the joint constraint;
+p_total < 1.05e−3 is built from the pair and IR channels and is unchanged.
+
+**Coverage, and specifically the grey case.** The gaps section below now says
+what it should have said all along: α = 0 is covered by nothing here.
+
+---
+
 ## Coverage gaps, stated because they are not nulls
 
 **Temperature.** Our mid-IR veto uses W1 and W2 only, so it responds to shells
@@ -1150,7 +1303,13 @@ Reaching into it needs angular profile, ACT/SPT-resolution follow-up, or the
 non-Gaussianity of a discrete population against a Gaussian field.
 
 **Spectral slope.** The grey case (α = 0) is invisible to every photometric
-channel by construction and is covered *only* by channel 4.
+channel by construction. It was covered *only* by channel 4, and channel 4 is
+withdrawn: its masses are photometric, so it slides with the absorber instead of
+resisting it (**Audit 2**). **Nothing in this project constrains a grey
+absorber.** Closing it needs a mass that is genuinely independent of the
+primary's own light — SB2 orbits, eclipsing systems with both components, or
+DR4's astrometric orbits with resolved photometry — and the SB2 sample in hand
+is 38 stars.
 
 **Covering fraction.** Nothing here reaches f ≲ 0.1 at any abundance. A
 civilisation taking 1% of its star — still ~10²⁴ W — is invisible to all eleven
@@ -1185,7 +1344,8 @@ run.sh scripts/84_pull_ipd_harmonic.py       # channel 22 - pull IPD harmonic co
 run.sh scripts/85_searchV_harmonic_phase.py  # channel 22 - alignment (superseded verdict)
 run.sh scripts/87_searchV_resolution_scan.py # channel 22 - resolution scan, the verdict
 run.sh scripts/88_searchW_energy_locus.py    # channel 21 - energy-conservation locus
-run.sh scripts/89_audit_pair_limit.py      # audit of the headline limit
+run.sh scripts/89_audit_pair_limit.py      # audit 1 - the headline limit
+run.sh scripts/90_audit_dynamical_mass.py  # audit 2 - channel 4's masses
 run.sh scripts/45_grabby_figures.py            # figures
 ```
 

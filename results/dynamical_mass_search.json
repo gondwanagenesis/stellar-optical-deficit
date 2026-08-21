@@ -1,4 +1,7 @@
 {
+  "SUPERSEDED": true,
+  "superseded_by": "results/audit_dynamical_mass_primary.json (scripts/90_audit_dynamical_mass.py)",
+  "why": "m1 is NOT dynamical. 99.96% of this sample (99.99% of the quoted faint-secondary row) carries a primary mass imported from the primary's own absolute G magnitude via a mass-luminosity relation, flagged by the '+M1' suffix in combination_method. An SB1 mass function and an astrometric mass-ratio function each give one equation in two unknowns, so m1 cannot come from the orbit. The estimator therefore regresses M_G on a function of M_G. Injected grey dimming is recovered at gain 0.29 (positive control with m1 held fixed: 1.000), saturates at 0.54 mag against a 1.44 mag threshold, and reverses sign beyond that. The channel has no reach at any covering fraction up to f=1; the zero positives are uninformative. p_UL also omits the efficiency term that pipeline.statistics.exclusion_curve carries. Genuinely dynamical subset is 38 systems, best possible p < 7.9e-2. The joint constraint is unaffected: this channel does not enter it.",
   "n_systems": 88149,
   "k": 5.0,
   "table": [
