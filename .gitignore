@@ -13,3 +13,6 @@ __pycache__/
 *.pyc
 .pytest_cache/
 logs_*.txt
+
+# Run logs. The verdicts live in results/, the narrative in the report.
+logs/

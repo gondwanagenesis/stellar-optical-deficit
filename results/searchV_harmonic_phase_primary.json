@@ -1,0 +1,302 @@
+{
+  "VERDICT_SUPERSEDED": true,
+  "superseded_by": "results/searchV_resolution_scan_primary.json (scripts/87_searchV_resolution_scan.py)",
+  "why": "The verdict below reports ALIGNMENT DETECTED from a p=0.002 excess over an nside=8 local-shuffle null. Shrinking the null cell shows that excess is itself survey geometry: +0.00349 (2.7 sigma) at nside=8 falls to +0.00148 (1.5 sigma) at nside=128 (0.46 deg cells), a loss of 58 percent, while the same shrunken null still recovers an injected 0.5 percent aligned population. The null keeps its power and the signal does not survive, so the excess is residual correlation between two smooth sky fields inside a 7.3 deg cell. CHANNEL 22 IS NULL. Do not cite the alignment, and do not act on its suggestion that a comoving non-aligned remainder was isolated -- no aligned component was measured, so no remainder was defined. Every number below other than the verdict string stands.",
+  "tag": "primary",
+  "n_input": 224081,
+  "n_usable": 224081,
+  "nside": 8,
+  "n_perm": 500,
+  "seed": 20260820,
+  "mirror_control": "DEGENERATE BY CONSTRUCTION and therefore not quoted. The statistic is the Rayleigh R of the doubled angle, which is invariant under a constant rotation of dphi, so measuring against PA_PM+90 returns the identical R. The false-positive rate here comes from the local mark permutation instead.",
+  "marginals": {
+    "phase_R": 0.09583704609784571,
+    "pa_pm_R": 0.010513656265212461,
+    "product_R": 0.001007597760146071,
+    "note": "Expected resultant for two INDEPENDENT axial variables with these marginals, against which the permutation null means are the empirical check."
+  },
+  "global": {
+    "n": 224081,
+    "R": 0.04091258562422065,
+    "Z": 375.0756654035169,
+    "p": 1.2785220399490393e-163,
+    "preferred_dphi_deg": 3.8657568790534413,
+    "p_is_descriptive_only": true
+  },
+  "null_global_shuffle": {
+    "mean_R": 0.002097977207083998,
+    "sd_R": 0.0011097637094243512,
+    "p_obs": 0.001996007984031936
+  },
+  "null_local_shuffle": {
+    "n_cells_used": 356,
+    "mean_R": 0.03747453495483032,
+    "sd_R": 0.0012572618884555686,
+    "p_obs": 0.001996007984031936
+  },
+  "geometry_leakage": {
+    "excess_R_of_local_null_over_global_null": 0.035376557747746326,
+    "note": "How much apparent alignment survives destroying the per-star pairing while keeping sky position. Any of the observed R below this level is survey geometry, not structure."
+  },
+  "control_amplitude": {
+    "bins": [
+      {
+        "bin": 0,
+        "n": 56020,
+        "lo": 7.813254342181608e-05,
+        "hi": 0.013308458961546421,
+        "R": 0.023599773458164344,
+        "null_R": 0.02458239395795975,
+        "null_sd": 0.002487189467011134,
+        "excess_R": -0.0009826204997954065,
+        "p_local": 0.6693227091633466
+      },
+      {
+        "bin": 1,
+        "n": 56020,
+        "lo": 0.013308480381965637,
+        "hi": 0.022962413728237152,
+        "R": 0.04712938496910567,
+        "null_R": 0.04265675841048483,
+        "null_sd": 0.0024396827723333733,
+        "excess_R": 0.0044726265586208375,
+        "p_local": 0.035856573705179286
+      },
+      {
+        "bin": 2,
+        "n": 56020,
+        "lo": 0.0229624193161726,
+        "hi": 0.04023963585495949,
+        "R": 0.051105466771914056,
+        "null_R": 0.04953503694642563,
+        "null_sd": 0.0023471251574051447,
+        "excess_R": 0.0015704298254884258,
+        "p_local": 0.24701195219123506
+      },
+      {
+        "bin": 3,
+        "n": 56021,
+        "lo": 0.040239736437797546,
+        "hi": 5.208505153656006,
+        "R": 0.042603147807658434,
+        "null_R": 0.03427087402048097,
+        "null_sd": 0.0022672469729722454,
+        "excess_R": 0.008332273787177463,
+        "p_local": 0.00398406374501992
+      }
+    ],
+    "trend": {
+      "top_minus_bottom": 0.00931489428697287,
+      "sigma": 0.003365489604985126,
+      "nsigma": 2.767767956607323,
+      "spearman_rho_over_bins": 0.7999999999999999,
+      "passes": true
+    }
+  },
+  "control_proper_motion": {
+    "bins": [
+      {
+        "bin": 0,
+        "n": 56020,
+        "lo": 0.011870742174056656,
+        "hi": 12.473316956804652,
+        "R": 0.011464219956878961,
+        "null_R": 0.010992216537216812,
+        "null_sd": 0.0025305671045377505,
+        "excess_R": 0.00047200341966214913,
+        "p_local": 0.450199203187251
+      },
+      {
+        "bin": 1,
+        "n": 56020,
+        "lo": 12.473341354868683,
+        "hi": 22.24625584042338,
+        "R": 0.03664431175642268,
+        "null_R": 0.031315869932921944,
+        "null_sd": 0.0024646966455716336,
+        "excess_R": 0.005328441823500736,
+        "p_local": 0.01195219123505976
+      },
+      {
+        "bin": 2,
+        "n": 56020,
+        "lo": 22.24645302561456,
+        "hi": 38.427123621996046,
+        "R": 0.052218243833647614,
+        "null_R": 0.049661329705531554,
+        "null_sd": 0.00233072040402434,
+        "excess_R": 0.00255691412811606,
+        "p_local": 0.15139442231075698
+      },
+      {
+        "bin": 3,
+        "n": 56021,
+        "lo": 38.42717378788758,
+        "hi": 3120.8664603872057,
+        "R": 0.06345644371463154,
+        "null_R": 0.05746181833621278,
+        "null_sd": 0.0024905456588082088,
+        "excess_R": 0.005994625378418758,
+        "p_local": 0.01593625498007968
+      }
+    ],
+    "trend": {
+      "top_minus_bottom": 0.005522621958756609,
+      "sigma": 0.0035505756644770986,
+      "nsigma": 1.5554159326921253,
+      "spearman_rho_over_bins": 0.7999999999999999,
+      "passes": false
+    }
+  },
+  "control_multi_peak": {
+    "bins": [
+      {
+        "bin": 0,
+        "n": 144274,
+        "lo": 0.0,
+        "hi": 0.0,
+        "R": 0.04318662079651832,
+        "null_R": 0.04090934707847426,
+        "null_sd": 0.001516802518308566,
+        "excess_R": 0.002277273718044058,
+        "p_local": 0.06772908366533864
+      },
+      {
+        "bin": 1,
+        "n": 18480,
+        "lo": 1.0,
+        "hi": 2.0,
+        "R": 0.04924499883929213,
+        "null_R": 0.04364623085637307,
+        "null_sd": 0.004517864580434942,
+        "excess_R": 0.005598767982919056,
+        "p_local": 0.10358565737051793
+      },
+      {
+        "bin": 2,
+        "n": 11825,
+        "lo": 3.0,
+        "hi": 9.0,
+        "R": 0.03444245492068508,
+        "null_R": 0.02855767767296292,
+        "null_sd": 0.005187849761945493,
+        "excess_R": 0.0058847772477221595,
+        "p_local": 0.13147410358565736
+      },
+      {
+        "bin": 3,
+        "n": 49502,
+        "lo": 10.0,
+        "hi": 100.0,
+        "R": 0.03304563306888542,
+        "null_R": 0.029011285854709946,
+        "null_sd": 0.0027944620293211754,
+        "excess_R": 0.004034347214175477,
+        "p_local": 0.06772908366533864
+      }
+    ],
+    "trend": {
+      "top_minus_bottom": 0.0017570734961314186,
+      "sigma": 0.0031795766876842315,
+      "nsigma": 0.5526123974104052,
+      "spearman_rho_over_bins": 0.39999999999999997,
+      "passes": false
+    }
+  },
+  "controls_pass": {
+    "amplitude": true,
+    "proper_motion": false,
+    "multi_peak": false
+  },
+  "within_cell_pa_dispersion_deg": 49.450551823887004,
+  "sensitivity": {
+    "scan": [
+      {
+        "injected_fraction": 0.0025,
+        "R": 0.04287588574869893,
+        "null_R": 0.03743079189807186,
+        "null_sd": 0.0013062689519053922,
+        "p_local": 0.00398406374501992,
+        "detected": true
+      },
+      {
+        "injected_fraction": 0.005,
+        "R": 0.045312819321882136,
+        "null_R": 0.03760727754815416,
+        "null_sd": 0.0012415546583250832,
+        "p_local": 0.00398406374501992,
+        "detected": true
+      },
+      {
+        "injected_fraction": 0.01,
+        "R": 0.048922478149244976,
+        "null_R": 0.037803651154934004,
+        "null_sd": 0.0011658032903945896,
+        "p_local": 0.00398406374501992,
+        "detected": true
+      },
+      {
+        "injected_fraction": 0.02,
+        "R": 0.057207651457460984,
+        "null_R": 0.03804072885751742,
+        "null_sd": 0.0013697061300707919,
+        "p_local": 0.00398406374501992,
+        "detected": true
+      },
+      {
+        "injected_fraction": 0.05,
+        "R": 0.08283342019173709,
+        "null_R": 0.039054509585095605,
+        "null_sd": 0.0012961766755444596,
+        "p_local": 0.00398406374501992,
+        "detected": true
+      },
+      {
+        "injected_fraction": 0.1,
+        "R": 0.12496114740565926,
+        "null_R": 0.040454139867419185,
+        "null_sd": 0.0012693018555786158,
+        "p_local": 0.00398406374501992,
+        "detected": true
+      },
+      {
+        "injected_fraction": 0.2,
+        "R": 0.20641608164087735,
+        "null_R": 0.04373478809948206,
+        "null_sd": 0.0014044231668168805,
+        "p_local": 0.00398406374501992,
+        "detected": true
+      }
+    ],
+    "min_detectable_fraction": 0.0025,
+    "permutation_p_floor": 0.00398406374501992,
+    "note": "Aligned fraction recoverable at p<0.01 against the local null, injected at 15 deg scatter on the real positions. A null from this channel excludes aligned populations at or above this fraction and says nothing below it. The permutation p cannot fall below the floor quoted here, so a scan that detects every injected fraction is resolution-limited and its lowest entry is an upper bound on the true threshold, not the threshold."
+  },
+  "dim_vs_bright_tail": {
+    "status": "ok",
+    "fit_degree": 5,
+    "n_box": 149536,
+    "sigma": 0.3210173763252086,
+    "median": 0.21363972372754692,
+    "k": 2.0,
+    "dim": {
+      "n": 11455,
+      "R": 0.04437958159840927,
+      "null_R": 0.03151279768556994,
+      "null_sd": 0.005791336476907692,
+      "excess_R": 0.012866783912839325,
+      "p_local": 0.02390438247011952
+    },
+    "bright": {
+      "n": 1549,
+      "R": 0.06250858739792223,
+      "null_R": 0.0410076846916277,
+      "null_sd": 0.012959711877263467,
+      "excess_R": 0.021500902706294525,
+      "p_local": 0.06374501992031872
+    },
+    "dim_minus_bright_excess_R": -0.0086341187934552,
+    "interpretation": "A positive dim-minus-bright difference means the dim tail is more contaminated by stationary background structure than the bright tail, which is the direct version of the argument channel 20 had to make indirectly from how its excess moved with the cut. A difference consistent with zero means the two tails are equally blended and the dim tail's origin is elsewhere."
+  },
+  "verdict": "ALIGNMENT DETECTED. R = 0.04091 against a local-shuffle null of 0.03747 +- 0.00126 (p = 0.002), an excess of +0.00344 concentrated near dphi = 3.9 deg. 1/3 positive controls pass. This is a measurement of the background-blend contamination of the high-RUWE population, not a technosignature: alignment with the proper-motion axis is the signature of a stationary contaminant the star is drifting away from. The comoving -- that is, non-aligned -- remainder is the population any future channel should search."
+}

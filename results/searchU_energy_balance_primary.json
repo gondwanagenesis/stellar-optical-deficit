@@ -1,4 +1,7 @@
 {
+  "SUPERSEDED": true,
+  "superseded_by": "results/searchW_energy_locus_primary.json (scripts/88_searchW_energy_locus.py)",
+  "why": "The balance ratio below was formed as nu_fnu(M_G) / nu_fnu(wise_w3mpro), mixing an ABSOLUTE optical magnitude with an APPARENT infrared one. Every ratio is therefore the physical ratio divided by (d/10pc)^2 -- a median suppression of 3.16 dex over these 2,632 candidates, whose median distance is 379 pc. That is why all 2,632 land in the 'starved' bin, why n_balanced and n_mirror_balanced are both 0, and why balanced_over_mirror is null: the mirror control could not fire because both arms were railed against the same edge. Correcting the magnitude system on this same file moves the median log10 balance from -4.28 to -1.17 and puts 314 of the candidates inside the balanced band. DO NOT CITE the verdict string below: it claims the population 'splits into disc-like objects that gain without losing and extinction-like objects that lose without gaining', which this file's own counts contradict (n_runaway_disclike = 0, n_starved_extinctionlike = 2632). There was no split. The corrected channel is still a null, but for a completely different and actually measured reason.",
   "tag": "primary",
   "n_candidates": 2632,
   "n_usable": 2632,

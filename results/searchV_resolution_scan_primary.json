@@ -1,0 +1,290 @@
+{
+  "tag": "primary",
+  "n": 224081,
+  "R_observed": 0.04091258562422065,
+  "n_perm": 500,
+  "seed": 20260820,
+  "sample_geometry": {
+    "nside8_cells_occupied": 356,
+    "nside8_cells_total": 768,
+    "note": "source_id chunks are sky stripes: DR3 source_id carries the level-12 HEALPix index in its high bits, so taking every 5th of 1000 id chunks samples 200 contiguous sky stripes. Partial cell coverage makes the within-cell null more conservative, not less."
+  },
+  "estimator_crosscheck": {
+    "n_draws": 60,
+    "group_loop_mean_R": 0.03727961982708982,
+    "group_loop_sd": 0.0011804483937506388,
+    "vectorised_mean_R": 0.03748749717348046,
+    "vectorised_sd": 0.0013440394068893742,
+    "mean_difference": 0.00020787734639064054,
+    "tolerance_3se": 0.000692809534170107,
+    "agrees": true
+  },
+  "scan": [
+    {
+      "nside": 2,
+      "cell_deg": 29.316150714175198,
+      "cells_occupied": 48,
+      "shufflable_fraction": 1.0,
+      "within_cell_pa_dispersion_deg": 50.839387067448676,
+      "null_R": 0.02906118652776133,
+      "null_sd": 0.0013923676139442856,
+      "excess_R": 0.011851399096459318,
+      "nsigma": 8.511688276694965,
+      "p_local": 0.001996007984031936,
+      "injection_power": [
+        {
+          "injected_fraction": 0.02,
+          "R": 0.05668140408574074,
+          "null_R": 0.02971887463022565,
+          "excess_R": 0.02696252945551509,
+          "p_local": 0.001996007984031936,
+          "recovered": true
+        },
+        {
+          "injected_fraction": 0.005,
+          "R": 0.04476523023826349,
+          "null_R": 0.02924861546249526,
+          "excess_R": 0.015516614775768229,
+          "p_local": 0.001996007984031936,
+          "recovered": true
+        }
+      ]
+    },
+    {
+      "nside": 4,
+      "cell_deg": 14.658075357087599,
+      "cells_occupied": 192,
+      "shufflable_fraction": 1.0,
+      "within_cell_pa_dispersion_deg": 49.830924001039705,
+      "null_R": 0.035021995959137416,
+      "null_sd": 0.0012221956726939506,
+      "excess_R": 0.005890589665083233,
+      "nsigma": 4.819678057032601,
+      "p_local": 0.001996007984031936,
+      "injection_power": [
+        {
+          "injected_fraction": 0.02,
+          "R": 0.05714724093087773,
+          "null_R": 0.03578039698233316,
+          "excess_R": 0.021366843948544573,
+          "p_local": 0.001996007984031936,
+          "recovered": true
+        },
+        {
+          "injected_fraction": 0.005,
+          "R": 0.045201164746907344,
+          "null_R": 0.03517851227782458,
+          "excess_R": 0.010022652469082766,
+          "p_local": 0.001996007984031936,
+          "recovered": true
+        }
+      ]
+    },
+    {
+      "nside": 8,
+      "cell_deg": 7.329037678543799,
+      "cells_occupied": 356,
+      "shufflable_fraction": 0.9999821493120791,
+      "within_cell_pa_dispersion_deg": 49.450551823887004,
+      "null_R": 0.037423694462753884,
+      "null_sd": 0.001274701598394547,
+      "excess_R": 0.0034888911614667645,
+      "nsigma": 2.7370257994976477,
+      "p_local": 0.007984031936127744,
+      "injection_power": [
+        {
+          "injected_fraction": 0.02,
+          "R": 0.05778177960919151,
+          "null_R": 0.03790536256983002,
+          "excess_R": 0.019876417039361487,
+          "p_local": 0.001996007984031936,
+          "recovered": true
+        },
+        {
+          "injected_fraction": 0.005,
+          "R": 0.04506407052264663,
+          "null_R": 0.03748665173045031,
+          "excess_R": 0.007577418792196325,
+          "p_local": 0.001996007984031936,
+          "recovered": true
+        }
+      ]
+    },
+    {
+      "nside": 16,
+      "cell_deg": 3.6645188392718997,
+      "cells_occupied": 812,
+      "shufflable_fraction": 0.9999821493120791,
+      "within_cell_pa_dispersion_deg": 48.968529786316324,
+      "null_R": 0.03875543543674398,
+      "null_sd": 0.0012167213571201753,
+      "excess_R": 0.0021571501874766696,
+      "nsigma": 1.772920459440582,
+      "p_local": 0.04590818363273453,
+      "injection_power": [
+        {
+          "injected_fraction": 0.02,
+          "R": 0.05685417443405512,
+          "null_R": 0.03940614007661412,
+          "excess_R": 0.017448034357441,
+          "p_local": 0.001996007984031936,
+          "recovered": true
+        },
+        {
+          "injected_fraction": 0.005,
+          "R": 0.044990686079233864,
+          "null_R": 0.038858006010784395,
+          "excess_R": 0.00613268006844947,
+          "p_local": 0.001996007984031936,
+          "recovered": true
+        }
+      ]
+    },
+    {
+      "nside": 32,
+      "cell_deg": 1.8322594196359498,
+      "cells_occupied": 2655,
+      "shufflable_fraction": 0.9999642986241583,
+      "within_cell_pa_dispersion_deg": 48.34386889429393,
+      "null_R": 0.039448934696057626,
+      "null_sd": 0.0012007473019810418,
+      "excess_R": 0.0014636509281630225,
+      "nsigma": 1.2189500036754042,
+      "p_local": 0.11377245508982035,
+      "injection_power": [
+        {
+          "injected_fraction": 0.02,
+          "R": 0.05785416226034152,
+          "null_R": 0.040151192089933424,
+          "excess_R": 0.017702970170408096,
+          "p_local": 0.001996007984031936,
+          "recovered": true
+        },
+        {
+          "injected_fraction": 0.005,
+          "R": 0.044963233262949265,
+          "null_R": 0.039466632140900314,
+          "excess_R": 0.005496601122048951,
+          "p_local": 0.001996007984031936,
+          "recovered": true
+        }
+      ]
+    },
+    {
+      "nside": 64,
+      "cell_deg": 0.9161297098179749,
+      "cells_occupied": 10016,
+      "shufflable_fraction": 0.9998839705285142,
+      "within_cell_pa_dispersion_deg": 44.580200484109305,
+      "null_R": 0.03949663754339595,
+      "null_sd": 0.0012184671575050643,
+      "excess_R": 0.0014159480808247013,
+      "nsigma": 1.162073242683044,
+      "p_local": 0.1317365269461078,
+      "injection_power": [
+        {
+          "injected_fraction": 0.02,
+          "R": 0.05735919082388714,
+          "null_R": 0.040897885541355906,
+          "excess_R": 0.016461305282531237,
+          "p_local": 0.001996007984031936,
+          "recovered": true
+        },
+        {
+          "injected_fraction": 0.005,
+          "R": 0.04494007082019399,
+          "null_R": 0.039898315096166155,
+          "excess_R": 0.005041755724027833,
+          "p_local": 0.001996007984031936,
+          "recovered": true
+        }
+      ]
+    },
+    {
+      "nside": 128,
+      "cell_deg": 0.45806485490898746,
+      "cells_occupied": 39002,
+      "shufflable_fraction": 0.9922081747225334,
+      "within_cell_pa_dispersion_deg": 41.859567769723945,
+      "null_R": 0.03943742500470006,
+      "null_sd": 0.0010049513524327822,
+      "excess_R": 0.0014751606195205907,
+      "nsigma": 1.4678925660924063,
+      "p_local": 0.07584830339321358,
+      "injection_power": [
+        {
+          "injected_fraction": 0.02,
+          "R": 0.05704472073250877,
+          "null_R": 0.042999740115328984,
+          "excess_R": 0.014044980617179785,
+          "p_local": 0.001996007984031936,
+          "recovered": true
+        },
+        {
+          "injected_fraction": 0.005,
+          "R": 0.04508998704497698,
+          "null_R": 0.04038811724029527,
+          "excess_R": 0.0047018698046817076,
+          "p_local": 0.001996007984031936,
+          "recovered": true
+        }
+      ]
+    }
+  ],
+  "control_ruwe": {
+    "bins": [
+      {
+        "bin": 0,
+        "n": 56020,
+        "lo": 1.400000810623169,
+        "hi": 1.6728657484054565,
+        "R": 0.045105240190507774,
+        "null_R": 0.03879377983454698,
+        "null_sd": 0.0024437657658484806,
+        "excess_R": 0.0063114603559607935,
+        "p_local": 0.00796812749003984
+      },
+      {
+        "bin": 1,
+        "n": 56020,
+        "lo": 1.672871708869934,
+        "hi": 2.2363011837005615,
+        "R": 0.03829851833120659,
+        "null_R": 0.03854946220793049,
+        "null_sd": 0.002446013452916242,
+        "excess_R": -0.0002509438767239053,
+        "p_local": 0.545816733067729
+      },
+      {
+        "bin": 2,
+        "n": 56020,
+        "lo": 2.2363123893737793,
+        "hi": 3.610720634460449,
+        "R": 0.042215649344438035,
+        "null_R": 0.03824865007904585,
+        "null_sd": 0.002658149203014773,
+        "excess_R": 0.003966999265392186,
+        "p_local": 0.06374501992031872
+      },
+      {
+        "bin": 3,
+        "n": 56021,
+        "lo": 3.6108202934265137,
+        "hi": 89.1904296875,
+        "R": 0.03821353729533567,
+        "null_R": 0.03445336305875978,
+        "null_sd": 0.0026086954608941807,
+        "excess_R": 0.003760174236575889,
+        "p_local": 0.06374501992031872
+      }
+    ],
+    "trend": {
+      "top_minus_bottom": -0.0025512861193849046,
+      "sigma": 0.003574532574480601,
+      "nsigma": -0.713739787293901,
+      "spearman_rho_over_bins": -0.39999999999999997,
+      "passes": false
+    }
+  },
+  "verdict": "SUB-CELL SURVEY GEOMETRY. The nside=8 excess of +0.00349 (2.7 sigma) falls to +0.00148 (1.5 sigma) at nside=128 (0.46 deg cells), a loss of 58%, while that same null still recovers an injected aligned population. The null retains power and the signal does not survive, so the excess reported by channel 22 is residual correlation between two smooth sky fields inside a 7.3 deg cell. Channel 22 is NULL and its verdict string must be corrected."
+}

@@ -1,0 +1,635 @@
+{
+  "tag": "primary",
+  "supersedes": "results/searchU_energy_balance_primary.json (scripts/75_searchU_energy_balance.py)",
+  "why_superseded": "Script 75 formed the balance ratio from nu_fnu(M_G) over nu_fnu(wise_w3mpro), mixing an absolute magnitude with an apparent one. The ratio was therefore the physical ratio divided by (d/10pc)^2, a median suppression of 3.16 dex over the 2,632 candidates. Every object was forced into the 'starved' bin, the balanced count went to zero, the mirror control could not fire, and the zero-count verdict branch printed a claim of a two-population split that the same JSON's own counts (n_runaway_disclike = 0) contradict.",
+  "n_perm": 200,
+  "seed": 20260821,
+  "balanced_band": [
+    0.2,
+    5.0
+  ],
+  "n_parent": 3321566,
+  "n_usable": 234377,
+  "n_permutation_cells": 511,
+  "log10_balance_percentiles": {
+    "1": -3.667095492903955,
+    "5": -2.9514099956239286,
+    "16": -2.411322071614959,
+    "50": -1.6482593414790478,
+    "84": -0.7791671986663194,
+    "95": -0.13402854021845362,
+    "99": 0.6422912367779392
+  },
+  "primary_local_shuffle": {
+    "observed": 30881,
+    "null_mean": 16827.98,
+    "null_sd": 96.33682326913183,
+    "excess": 14053.02,
+    "nsigma": 145.87381567213103,
+    "p": 0.004975124378109453,
+    "p_floor": 0.004975124378109453
+  },
+  "primary_global_shuffle": {
+    "observed": 30881,
+    "null_mean": 12419.275,
+    "null_sd": 97.4916534244711,
+    "excess": 18461.725,
+    "nsigma": 189.36723659428648,
+    "p": 0.004975124378109453,
+    "p_floor": 0.004975124378109453
+  },
+  "geometry_leakage": {
+    "local_minus_global_null_mean": 4408.705,
+    "note": "How much of the balanced count survives destroying the per-star pairing while keeping the flux scale and extinction. The local null is the honest one; the global null would overstate."
+  },
+  "mirror_control": {
+    "n": 244245,
+    "observed": 10503,
+    "null_mean": 5933.105,
+    "null_sd": 60.195610576381036,
+    "excess": 4569.895,
+    "nsigma": 75.91741251966121,
+    "p": 0.004975124378109453,
+    "p_floor": 0.004975124378109453,
+    "signal_excess_rate": 0.059959040349522354,
+    "mirror_excess_rate": 0.018710290896435958,
+    "signal_over_mirror": 3.204602252386343,
+    "note": "Optically bright and infrared faint. An absorber can only dim, so this population cannot host one and its balanced excess is the false-positive rate."
+  },
+  "balance_ratio_profile": {
+    "bins": [
+      {
+        "log10B_lo": -4.0,
+        "log10B_hi": -3.75,
+        "observed": 857,
+        "null_mean": 372.12,
+        "null_sd": 17.955153513363296,
+        "obs_over_null": 2.3030205310115015,
+        "nsigma": 27.005060114864705
+      },
+      {
+        "log10B_lo": -3.75,
+        "log10B_hi": -3.5,
+        "observed": 1509,
+        "null_mean": 664.58,
+        "null_sd": 24.060927687976413,
+        "obs_over_null": 2.270606999909717,
+        "nsigma": 35.09507243238874
+      },
+      {
+        "log10B_lo": -3.5,
+        "log10B_hi": -3.25,
+        "observed": 2523,
+        "null_mean": 1166.075,
+        "null_sd": 34.61735375363811,
+        "obs_over_null": 2.163668717706837,
+        "nsigma": 39.19782573956549
+      },
+      {
+        "log10B_lo": -3.25,
+        "log10B_hi": -3.0,
+        "observed": 4533,
+        "null_mean": 2049.335,
+        "null_sd": 42.660666159659655,
+        "obs_over_null": 2.211937042991995,
+        "nsigma": 58.21908618831128
+      },
+      {
+        "log10B_lo": -3.0,
+        "log10B_hi": -2.75,
+        "observed": 7843,
+        "null_mean": 3535.19,
+        "null_sd": 56.07464425783916,
+        "obs_over_null": 2.2185511952681467,
+        "nsigma": 76.82277894072905
+      },
+      {
+        "log10B_lo": -2.75,
+        "log10B_hi": -2.5,
+        "observed": 12977,
+        "null_mean": 5933.38,
+        "null_sd": 75.11850336460846,
+        "obs_over_null": 2.1871176294119032,
+        "nsigma": 93.76677761818337
+      },
+      {
+        "log10B_lo": -2.5,
+        "log10B_hi": -2.25,
+        "observed": 19629,
+        "null_mean": 9317.365,
+        "null_sd": 92.92219566517024,
+        "obs_over_null": 2.1067115005154355,
+        "nsigma": 110.97063436981485
+      },
+      {
+        "log10B_lo": -2.25,
+        "log10B_hi": -2.0,
+        "observed": 25409,
+        "null_mean": 12993.9,
+        "null_sd": 111.26151908068086,
+        "obs_over_null": 1.9554560216717076,
+        "nsigma": 111.58485074248573
+      },
+      {
+        "log10B_lo": -2.0,
+        "log10B_hi": -1.75,
+        "observed": 28884,
+        "null_mean": 15662.605,
+        "null_sd": 115.68067716931711,
+        "obs_over_null": 1.8441376769700826,
+        "nsigma": 114.29216463392916
+      },
+      {
+        "log10B_lo": -1.75,
+        "log10B_hi": -1.5,
+        "observed": 29003,
+        "null_mean": 16421.395,
+        "null_sd": 118.58643551621839,
+        "obs_over_null": 1.7661715097895154,
+        "nsigma": 106.09649362704123
+      },
+      {
+        "log10B_lo": -1.5,
+        "log10B_hi": -1.25,
+        "observed": 26092,
+        "null_mean": 15263.97,
+        "null_sd": 113.84424297386082,
+        "obs_over_null": 1.7093849110028387,
+        "nsigma": 95.11267076092875
+      },
+      {
+        "log10B_lo": -1.25,
+        "log10B_hi": -1.0,
+        "observed": 21630,
+        "null_mean": 12926.015,
+        "null_sd": 102.17550560052851,
+        "obs_over_null": 1.6733695574390097,
+        "nsigma": 85.18661051729583
+      },
+      {
+        "log10B_lo": -1.0,
+        "log10B_hi": -0.75,
+        "observed": 16599,
+        "null_mean": 9996.9,
+        "null_sd": 97.01717197636432,
+        "obs_over_null": 1.6604147285658555,
+        "nsigma": 68.05083951126124
+      },
+      {
+        "log10B_lo": -0.75,
+        "log10B_hi": -0.5,
+        "observed": 12433,
+        "null_mean": 7160.765,
+        "null_sd": 77.65747350355132,
+        "obs_over_null": 1.736267004991785,
+        "nsigma": 67.89089011193363
+      },
+      {
+        "log10B_lo": -0.5,
+        "log10B_hi": -0.25,
+        "observed": 8707,
+        "null_mean": 4829.09,
+        "null_sd": 66.68543044148271,
+        "obs_over_null": 1.8030312129200325,
+        "nsigma": 58.15228265494835
+      },
+      {
+        "log10B_lo": -0.25,
+        "log10B_hi": 0.0,
+        "observed": 5698,
+        "null_mean": 3051.395,
+        "null_sd": 52.39949916328222,
+        "obs_over_null": 1.8673426416442316,
+        "nsigma": 50.50821176272901
+      },
+      {
+        "log10B_lo": 0.0,
+        "log10B_hi": 0.25,
+        "observed": 3565,
+        "null_mean": 1847.775,
+        "null_sd": 37.02388710117297,
+        "obs_over_null": 1.929347458429733,
+        "nsigma": 46.381542686413276
+      },
+      {
+        "log10B_lo": 0.25,
+        "log10B_hi": 0.5,
+        "observed": 2196,
+        "null_mean": 1086.63,
+        "null_sd": 28.944117011022108,
+        "obs_over_null": 2.0209270864967834,
+        "nsigma": 38.32799596469101
+      },
+      {
+        "log10B_lo": 0.5,
+        "log10B_hi": 0.75,
+        "observed": 1322,
+        "null_mean": 634.39,
+        "null_sd": 22.4400463099335,
+        "obs_over_null": 2.083891612415076,
+        "nsigma": 30.642093625966215
+      },
+      {
+        "log10B_lo": 0.75,
+        "log10B_hi": 1.0,
+        "observed": 805,
+        "null_mean": 368.675,
+        "null_sd": 17.950500755882405,
+        "obs_over_null": 2.1834949481250425,
+        "nsigma": 24.30712134072447
+      },
+      {
+        "log10B_lo": 1.0,
+        "log10B_hi": 1.25,
+        "observed": 453,
+        "null_mean": 207.76,
+        "null_sd": 12.613401184741415,
+        "obs_over_null": 2.180400462071621,
+        "nsigma": 19.44281295806795
+      },
+      {
+        "log10B_lo": 1.25,
+        "log10B_hi": 1.5,
+        "observed": 254,
+        "null_mean": 123.115,
+        "null_sd": 10.865637828822367,
+        "obs_over_null": 2.063111724810137,
+        "nsigma": 12.045772375443283
+      },
+      {
+        "log10B_lo": 1.5,
+        "log10B_hi": 1.75,
+        "observed": 164,
+        "null_mean": 71.99,
+        "null_sd": 7.772513094166839,
+        "obs_over_null": 2.278094179747187,
+        "nsigma": 11.837870053773496
+      },
+      {
+        "log10B_lo": 1.75,
+        "log10B_hi": 2.0,
+        "observed": 97,
+        "null_mean": 37.74,
+        "null_sd": 5.845790479623631,
+        "obs_over_null": 2.570217276099629,
+        "nsigma": 10.137209023580217
+      }
+    ],
+    "peak": {
+      "log10B_lo": 1.75,
+      "log10B_hi": 2.0,
+      "observed": 97,
+      "null_mean": 37.74,
+      "null_sd": 5.845790479623631,
+      "obs_over_null": 2.570217276099629,
+      "nsigma": 10.137209023580217
+    },
+    "trough": {
+      "log10B_lo": -1.0,
+      "log10B_hi": -0.75,
+      "observed": 16599,
+      "null_mean": 9996.9,
+      "null_sd": 97.01717197636432,
+      "obs_over_null": 1.6604147285658555,
+      "nsigma": 68.05083951126124
+    },
+    "balanced_band_mean_obs_over_null": 1.9051620998726952,
+    "peak_is_at_unity": false,
+    "note": "Where in the balance ratio the excess over the shuffled null lives. Energy conservation predicts a locus at log10 B = 0. An excess that peaks elsewhere, or that rises monotonically toward one end, is a correlation between the two residuals and not a conservation locus."
+  },
+  "balanced_group_properties": {
+    "balanced": {
+      "n": 30881,
+      "median_A_0": 0.08067792559317467,
+      "median_abs_b": 22.76421080524468,
+      "median_ruwe": 1.0111829042434692,
+      "median_dist_pc": 296.30466335869033,
+      "median_M_Ks": 5.534167372626684,
+      "median_resid_optical": 0.02286250678331392,
+      "median_resid_w3": -0.613741735961721,
+      "median_w3_err": 0.221
+    },
+    "rest_of_usable": {
+      "n": 203496,
+      "median_A_0": 0.09086383064835626,
+      "median_abs_b": 27.619933562880803,
+      "median_ruwe": 1.0155883431434631,
+      "median_dist_pc": 345.26171249700246,
+      "median_M_Ks": 4.364195303430499,
+      "median_resid_optical": 0.06575843701122164,
+      "median_resid_w3": -0.15782029597182112,
+      "median_w3_err": 0.2
+    }
+  },
+  "p_note": "Permutation p saturates at 1/(n_perm+1) for any real excess and is reported, not tested. The criterion is the excess measured against the permutation spread.",
+  "extinction_control": [
+    {
+      "observed": 8949,
+      "null_mean": 4051.62,
+      "null_sd": 52.26302786514241,
+      "excess": 4897.38,
+      "nsigma": 93.70639628145959,
+      "p": 0.0196078431372549,
+      "p_floor": 0.0196078431372549,
+      "bin": 0,
+      "n": 58594,
+      "A0_lo": 0.005049154003730855,
+      "A0_hi": 0.043648181646239445,
+      "balanced_frac": 0.152728948356487
+    },
+    {
+      "observed": 7530,
+      "null_mean": 4138.96,
+      "null_sd": 52.763221575453564,
+      "excess": 3391.04,
+      "nsigma": 64.26900971447837,
+      "p": 0.0196078431372549,
+      "p_floor": 0.0196078431372549,
+      "bin": 1,
+      "n": 58594,
+      "A0_lo": 0.043648181646239445,
+      "A0_hi": 0.0894549528946766,
+      "balanced_frac": 0.1285114516844728
+    },
+    {
+      "observed": 7152,
+      "null_mean": 4162.58,
+      "null_sd": 53.682395548603594,
+      "excess": 2989.42,
+      "nsigma": 55.68715720395533,
+      "p": 0.0196078431372549,
+      "p_floor": 0.0196078431372549,
+      "bin": 2,
+      "n": 58594,
+      "A0_lo": 0.0894549528946766,
+      "A0_hi": 0.19460235267592252,
+      "balanced_frac": 0.12206027920947538
+    },
+    {
+      "observed": 7250,
+      "null_mean": 4478.08,
+      "null_sd": 49.283370544686754,
+      "excess": 2771.92,
+      "nsigma": 56.24452973415474,
+      "p": 0.0196078431372549,
+      "p_floor": 0.0196078431372549,
+      "bin": 3,
+      "n": 58595,
+      "A0_lo": 0.19460235267592252,
+      "A0_hi": 0.7519397932049394,
+      "balanced_frac": 0.1237306937452001
+    }
+  ],
+  "deficit_depth_scan": [
+    {
+      "observed": 8955,
+      "null_mean": 4039.12,
+      "null_sd": 40.197796670251186,
+      "excess": 4915.88,
+      "nsigma": 122.29227488077848,
+      "p": 0.0196078431372549,
+      "p_floor": 0.0196078431372549,
+      "k_sigma": 0.5,
+      "threshold_mag": 0.04956399626840096,
+      "n": 132972,
+      "excess_ratio": 2.2170670839192694
+    },
+    {
+      "observed": 3869,
+      "null_mean": 1412.7,
+      "null_sd": 27.538655577576915,
+      "excess": 2456.3,
+      "nsigma": 89.19462292124452,
+      "p": 0.0196078431372549,
+      "p_floor": 0.0196078431372549,
+      "k_sigma": 1.0,
+      "threshold_mag": 0.09912799253680192,
+      "n": 71731,
+      "excess_ratio": 2.7387272598570114
+    },
+    {
+      "observed": 1913,
+      "null_mean": 642.64,
+      "null_sd": 18.014461311028168,
+      "excess": 1270.3600000000001,
+      "nsigma": 70.51890023612896,
+      "p": 0.0196078431372549,
+      "p_floor": 0.0196078431372549,
+      "k_sigma": 1.5,
+      "threshold_mag": 0.14869198880520287,
+      "n": 42675,
+      "excess_ratio": 2.976783269015312
+    },
+    {
+      "observed": 975,
+      "null_mean": 322.36,
+      "null_sd": 11.941626730876822,
+      "excess": 652.64,
+      "nsigma": 54.65252052406762,
+      "p": 0.0196078431372549,
+      "p_floor": 0.0196078431372549,
+      "k_sigma": 2.0,
+      "threshold_mag": 0.19825598507360384,
+      "n": 27903,
+      "excess_ratio": 3.0245688050626627
+    },
+    {
+      "observed": 305,
+      "null_mean": 92.42,
+      "null_sd": 8.413036531090864,
+      "excess": 212.57999999999998,
+      "nsigma": 25.267927842034002,
+      "p": 0.0196078431372549,
+      "p_floor": 0.0196078431372549,
+      "k_sigma": 3.0,
+      "threshold_mag": 0.29738397761040575,
+      "n": 13449,
+      "excess_ratio": 3.3001514823631246
+    }
+  ],
+  "w3_plus_w4_variant": {
+    "n_with_both": 5091,
+    "balanced_w3_only": 2624,
+    "balanced_w3_plus_w4": 2464,
+    "note": "Sensitivity of the balanced count to the band-limited bolometric proxy."
+  },
+  "strict_extinction_rerun": {
+    "a0_max": 0.3,
+    "n": 155851,
+    "observed": 17990,
+    "null_mean": 9811.89,
+    "null_sd": 79.49910969445541,
+    "excess": 8178.110000000001,
+    "nsigma": 102.87046020303262,
+    "p": 0.004975124378109453,
+    "p_floor": 0.004975124378109453
+  },
+  "sensitivity": [
+    {
+      "f_injected": 0.02,
+      "n_injected": 200,
+      "balanced_after": 31018,
+      "balanced_before": 30881,
+      "delta": 137,
+      "recovered_fraction": 0.685,
+      "null_sd_of_count": 96.33682326913183,
+      "nsigma_of_delta": 1.4220938095215088,
+      "detected": false
+    },
+    {
+      "f_injected": 0.02,
+      "n_injected": 1000,
+      "balanced_after": 31565,
+      "balanced_before": 30881,
+      "delta": 684,
+      "recovered_fraction": 0.684,
+      "null_sd_of_count": 96.33682326913183,
+      "nsigma_of_delta": 7.100088800822715,
+      "detected": true
+    },
+    {
+      "f_injected": 0.02,
+      "n_injected": 5000,
+      "balanced_after": 34267,
+      "balanced_before": 30881,
+      "delta": 3386,
+      "recovered_fraction": 0.6772,
+      "null_sd_of_count": 96.33682326913183,
+      "nsigma_of_delta": 35.147515613429405,
+      "detected": true
+    },
+    {
+      "f_injected": 0.05,
+      "n_injected": 200,
+      "balanced_after": 31059,
+      "balanced_before": 30881,
+      "delta": 178,
+      "recovered_fraction": 0.89,
+      "null_sd_of_count": 96.33682326913183,
+      "nsigma_of_delta": 1.8476839276994783,
+      "detected": false
+    },
+    {
+      "f_injected": 0.05,
+      "n_injected": 1000,
+      "balanced_after": 31692,
+      "balanced_before": 30881,
+      "delta": 811,
+      "recovered_fraction": 0.811,
+      "null_sd_of_count": 96.33682326913183,
+      "nsigma_of_delta": 8.418380142495938,
+      "detected": true
+    },
+    {
+      "f_injected": 0.05,
+      "n_injected": 5000,
+      "balanced_after": 34996,
+      "balanced_before": 30881,
+      "delta": 4115,
+      "recovered_fraction": 0.823,
+      "null_sd_of_count": 96.33682326913183,
+      "nsigma_of_delta": 42.7147155195694,
+      "detected": true
+    },
+    {
+      "f_injected": 0.1,
+      "n_injected": 200,
+      "balanced_after": 31046,
+      "balanced_before": 30881,
+      "delta": 165,
+      "recovered_fraction": 0.825,
+      "null_sd_of_count": 96.33682326913183,
+      "nsigma_of_delta": 1.7127407194967075,
+      "detected": false
+    },
+    {
+      "f_injected": 0.1,
+      "n_injected": 1000,
+      "balanced_after": 31742,
+      "balanced_before": 30881,
+      "delta": 861,
+      "recovered_fraction": 0.861,
+      "null_sd_of_count": 96.33682326913183,
+      "nsigma_of_delta": 8.937392481737366,
+      "detected": true
+    },
+    {
+      "f_injected": 0.1,
+      "n_injected": 5000,
+      "balanced_after": 35214,
+      "balanced_before": 30881,
+      "delta": 4333,
+      "recovered_fraction": 0.8666,
+      "null_sd_of_count": 96.33682326913183,
+      "nsigma_of_delta": 44.97760931866202,
+      "detected": true
+    },
+    {
+      "f_injected": 0.2,
+      "n_injected": 200,
+      "balanced_after": 31048,
+      "balanced_before": 30881,
+      "delta": 167,
+      "recovered_fraction": 0.835,
+      "null_sd_of_count": 96.33682326913183,
+      "nsigma_of_delta": 1.7335012130663645,
+      "detected": false
+    },
+    {
+      "f_injected": 0.2,
+      "n_injected": 1000,
+      "balanced_after": 31753,
+      "balanced_before": 30881,
+      "delta": 872,
+      "recovered_fraction": 0.872,
+      "null_sd_of_count": 96.33682326913183,
+      "nsigma_of_delta": 9.051575196370479,
+      "detected": true
+    },
+    {
+      "f_injected": 0.2,
+      "n_injected": 5000,
+      "balanced_after": 35200,
+      "balanced_before": 30881,
+      "delta": 4319,
+      "recovered_fraction": 0.8638,
+      "null_sd_of_count": 96.33682326913183,
+      "nsigma_of_delta": 44.83228586367442,
+      "detected": true
+    },
+    {
+      "f_injected": 0.4,
+      "n_injected": 200,
+      "balanced_after": 31058,
+      "balanced_before": 30881,
+      "delta": 177,
+      "recovered_fraction": 0.885,
+      "null_sd_of_count": 96.33682326913183,
+      "nsigma_of_delta": 1.83730368091465,
+      "detected": false
+    },
+    {
+      "f_injected": 0.4,
+      "n_injected": 1000,
+      "balanced_after": 31730,
+      "balanced_before": 30881,
+      "delta": 849,
+      "recovered_fraction": 0.849,
+      "null_sd_of_count": 96.33682326913183,
+      "nsigma_of_delta": 8.812829520319422,
+      "detected": true
+    },
+    {
+      "f_injected": 0.4,
+      "n_injected": 5000,
+      "balanced_after": 35157,
+      "balanced_before": 30881,
+      "delta": 4276,
+      "recovered_fraction": 0.8552,
+      "null_sd_of_count": 96.33682326913183,
+      "nsigma_of_delta": 44.385935251926796,
+      "detected": true
+    }
+  ],
+  "verdict": "NULL. THE BALANCED BAND IS NOT SPECIAL, IT IS THE WORST PART OF THE PLANE. The excess over the shuffled null is +14053 (145.9 sigma), which taken alone is a 146-sigma detection. Scanning where in the balance ratio that excess lives shows it is present in every bin from log10 B = -4 to +2 and is a U: obs/null runs 2.57 at the ends and falls to 1.66 at log10 B = -0.88, with the balanced band itself averaging 1.91 -- at the BOTTOM of the profile, not the top. Energy conservation predicts a maximum at B = 1. What is measured is a broad correlation between optical dimness and infrared brightness, of which the balanced band is the least enhanced slice. The balanced objects are also not balanced systems: their median infrared residual is -0.614 mag against -0.158 for the rest, while their median optical deficit is SMALLER (+0.023 against +0.066). They are large infrared excesses divided by negligible optical losses, landing near unity by arithmetic accident. That is a debris disc. The excess is real and it is not conservation."
+}

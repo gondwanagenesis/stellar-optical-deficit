@@ -32,6 +32,8 @@ covered.
 | 18 | **bolometric closure vs dynamical mass** | **energy missing at ANY wavelength** | **18 vs 36 mirror → p < 2.8e−4** |
 | 19 | **Planck excluded compact-source bin** | cold radiators at 100–857 GHz, invisible to every IR survey | 36 vs 325 mirror → **null**; two grid-edge bugs caught |
 | 20 | **high-RUWE mass without light** | unseen mass with no photometric trace (f→1), a population every other channel excluded server-side | **null**; excess shrinks with cut depth; two comparison bugs caught |
+| 21 | **energy-conservation locus (ΔL_opt vs ΔL_IR)** | a partial absorber that re-emits what it removes, at ANY covering fraction | **null**; 146σ excess is a broad dim/IR correlation, balanced band is its trough |
+| 22 | **sub-PSF orientation vs proper-motion axis** | comoving vs background blends, the Hephaistos false-positive class | **null**; alignment decays 58% as the null cell shrinks |
 
 **Joint, disposal-agnostic: p_total < 6.2e−4.** Fewer than 1 in 1,614 nearby
 lower-main-sequence stars intercepts ≥51% of its optical output by any means.
@@ -869,6 +871,148 @@ this project, which is twice now.
 
 ---
 
+## Channel 21 — energy conservation as a locus. A 146σ excess that is a debris disc.
+
+Channel 9 required a star to be *both* optically dim and infrared bright and
+found 2,632 candidates, all of which looked like debris discs. It never checked
+the thing that would have separated a disc from an intercepting structure: that
+the two effects **balance**. A partial absorber conserves bolometric
+luminosity. It moves flux out of the optical and re-emits it in the infrared,
+so at fixed parallax and effective temperature the two residuals must lie on a
+locus of slope −1 in luminosity units — the energy taken out equals the energy
+put back. Searching either side alone throws away half the signal and all of
+the specificity.
+
+The discovery statistic is therefore the **balance ratio**
+
+  B = ΔL_IR(re-emitted) / ΔL_opt(removed),
+
+counted in a band around B = 1, against a mark-permutation null.
+
+### The first attempt was arithmetically broken
+
+`scripts/75_searchU_energy_balance.py` formed B from νf_ν(M_G) over
+νf_ν(W3_apparent) — an **absolute** optical magnitude divided into an
+**apparent** infrared one. Every ratio was therefore the physical ratio divided
+by (d/10 pc)², a median suppression of **3.16 dex** across candidates whose
+median distance is 379 pc. All 2,632 objects railed into the "starved" bin,
+`n_balanced` and `n_mirror_balanced` both went to zero, the mirror control could
+not fire because both arms were pinned against the same edge, and the
+zero-count branch printed a claim of a two-population split that the same
+file's own counts contradict (`n_runaway_disclike = 0`). Correcting only the
+magnitude system moves the median log₁₀B from −4.28 to −1.17 and puts 314
+candidates inside the band. That JSON is now stamped `SUPERSEDED` on disk.
+
+### The rebuilt channel
+
+`scripts/88_searchW_energy_locus.py` rebuilds it on the full sample rather than
+on channel 9's already-selected candidate list — selecting on both residuals
+first and then asking whether they balance is circular — using channel 9's own
+photospheric fiducial, 234,377 usable stars out of a 3,321,566 parent, a local
+mark-permutation null over 511 cells in (distance, M_Ks, A₀), 200 permutations.
+
+Taken alone it is a **146σ detection**: 30,881 objects in the balanced band
+against a null mean of 16,828 ± 96. It survives every crude control. Extinction
+quartiles all fire (56–94σ). Restricting to A₀ < 0.3 leaves 103σ. The excess
+*grows* with deficit depth, exactly as a real population should — observed over
+null runs 2.22, 2.74, 2.98, 3.02, 3.30 as the optical cut moves out to 3σ.
+Injection recovers 68–87% of an injected balanced population, so the estimator
+works.
+
+### The profile kills it
+
+The test that matters is *where in B* the excess lives. Conservation predicts a
+maximum at B = 1. What the data show is a **U**:
+
+| log₁₀B | −4.0 | −3.0 | −2.0 | **−0.9** | 0.0 | +1.0 | +2.0 |
+|---|---|---|---|---|---|---|---|
+| obs/null | 2.30 | 2.22 | 1.84 | **1.66** | 1.93 | 2.18 | 2.57 |
+
+The excess is present in **every bin from log₁₀B = −4 to +2**, and the balanced
+band averages 1.91 — at the *bottom* of the profile. Energy conservation
+predicts a peak at unity; the balanced band is the least enhanced slice of the
+plane. What is being measured is a broad correlation between optical dimness
+and infrared brightness, which any reddening-plus-disc population produces, and
+the shuffle destroys that correlation wherever it sits.
+
+The balanced objects are also not balanced systems. Their median infrared
+residual is **−0.614 mag** against −0.158 for the rest of the sample, while
+their median optical deficit is *smaller* — +0.023 against +0.066. They are
+large infrared excesses divided by negligible optical losses, landing near unity
+by arithmetic accident. That is the signature of a disc that intercepts a
+geometrically small fraction of the starlight and reprocesses it into a large
+mid-infrared excess, not of a structure that removes what it re-emits.
+
+The mirror control — optically bright and infrared faint, a population that
+cannot host an absorber because an absorber can only dim — fires at 76σ with an
+excess rate of 1.87% against the signal's 6.00%. Signal over mirror is 3.2,
+which would have looked like a detection had the profile not already explained
+it.
+
+**Channel 21 is null.** The 146σ excess is real and it is not conservation.
+
+## Channel 22 — sub-PSF orientation vs the proper-motion axis. Null at every resolution.
+
+`ipd_gof_harmonic_phase` is the position angle, mod 180°, of whatever
+unresolved structure Gaia's image-parameter fit cannot describe with a single
+PSF. That gives a discriminant nothing published uses. A **stationary
+background blend** has a separation vector from the star that rotates at the
+proper-motion rate, so its harmonic phase tracks — or drifts toward —
+PA_PM = atan2(pmra, pmdec). A **comoving** structure keeps a fixed geometry, so
+its phase is uncorrelated with PA_PM. This is exactly the false-positive class
+that destroyed the Project Hephaistos Dyson-sphere candidates.
+
+Fresh pull of `ipd_gof_harmonic_amplitude` and `ipd_gof_harmonic_phase`
+(`scripts/84_pull_ipd_harmonic.py`; these are not in the local partitions),
+224,081 usable sources, statistic = the Rayleigh resultant R of the doubled
+angle 2(φ − PA_PM).
+
+**The mirror control is degenerate here and is not quoted.** R of a doubled
+angle is invariant under a constant rotation of Δφ, so testing against
+PA_PM + 90° returns the identical R by construction. The false-positive rate has
+to come from the local mark permutation instead, which is why the resolution
+scan below is the whole channel rather than a footnote to it.
+
+The first run reported ALIGNMENT DETECTED: R = 0.0409 observed against a local
+nside = 8 shuffle null of 0.0375 ± 0.0013, p = 0.002. Note already how little of
+the observed R is signal — the null alone sits at 92% of it. That is survey
+geometry: the Gaia scanning law makes both φ and PA_PM smooth functions of
+position on the sky, and two smooth fields correlate inside any cell large
+enough to contain their gradients.
+
+`scripts/87_searchV_resolution_scan.py` shrinks the null cell and watches both
+the excess and the null's own power:
+
+| nside | cell | excess R | σ | recovers injected 0.5% |
+|---|---|---|---|---|
+| 2 | 29.3° | +0.01185 | 8.5 | yes |
+| 4 | 14.7° | +0.00589 | 4.8 | yes |
+| 8 | 7.3° | +0.00349 | 2.7 | yes |
+| 16 | 3.7° | +0.00216 | 1.8 | yes |
+| 32 | 1.8° | +0.00146 | 1.2 | yes |
+| 64 | 0.9° | +0.00142 | 1.2 | yes |
+| 128 | 0.46° | +0.00148 | 1.5 | yes |
+
+The excess falls by **58% from nside 8 to nside 128** and by 88% from nside 2,
+while the null keeps recovering an injected aligned population of 0.5% at every
+resolution — the shrunken null has not lost its power, the signal has lost its
+support. An alignment carried by real per-star structure cannot care how the
+sky is diced. One carried by two smooth fields must decay exactly like this.
+
+**Channel 22 is null.** The first run's verdict string is stamped
+`VERDICT_SUPERSEDED` on disk; its suggestion that a "comoving non-aligned
+remainder" had been isolated must not be cited, because no aligned component was
+ever measured and so no remainder was defined. The RUWE control is flat
+(−0.71σ across quartiles, Spearman ρ = −0.4), and a group-loop versus
+vectorised cross-check of the estimator agrees to within 3 standard errors.
+
+This channel does not constrain harvesting. It establishes that Gaia's sub-PSF
+orientation carries **no measurable blend signature at the population level**,
+which means the blend-versus-comoving discrimination that channel 20 had to
+make indirectly cannot be made directly this way either.
+
+---
+
 ## Coverage gaps, stated because they are not nulls
 
 **Temperature.** Our mid-IR veto uses W1 and W2 only, so it responds to shells
@@ -926,6 +1070,10 @@ run.sh scripts/36_velocity_clustering_v2.py    # channel 7 — velocity
 run.sh scripts/80_pull_high_ruwe_fast.py       # channel 20 - pull high-RUWE
 run.sh scripts/81_pull_ruwe_astrometry_cols.py # channel 20 - zero-point columns
 run.sh scripts/83_searchN_corrected.py         # channel 20 - corrected Search N
+run.sh scripts/84_pull_ipd_harmonic.py       # channel 22 - pull IPD harmonic cols
+run.sh scripts/85_searchV_harmonic_phase.py  # channel 22 - alignment (superseded verdict)
+run.sh scripts/87_searchV_resolution_scan.py # channel 22 - resolution scan, the verdict
+run.sh scripts/88_searchW_energy_locus.py    # channel 21 - energy-conservation locus
 run.sh scripts/45_grabby_figures.py            # figures
 ```
 
