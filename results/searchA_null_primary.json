@@ -3,5 +3,8 @@
   "n_brightened": 13,
   "ratio": 28.615384615384617,
   "frac_amplitude_positive": 0.9662337662337662,
-  "verdict": "ASYMMETRIC at 28.6:1. The dimmed set exceeds the unphysical mirror, so it is not purely noise."
+  "verdict": "ASYMMETRIC at 28.6:1. The dimmed set exceeds the unphysical mirror, so it is not purely noise.",
+  "VERDICT_QUALIFIED": true,
+  "qualified_by": "results/audit_spectral_slope_primary.json (scripts/91_audit_spectral_slope.py)",
+  "why": "The counts here are correct and reproduce bit-identically, but the verdict over-reads them. This mirror flips the sign of the fitted AMPLITUDE, which only tests whether something dims -- and interstellar dust dims stars too, so a 28.6:1 dim/bright asymmetry carries no specificity for an engineered absorber. The specificity of channel 5 is supposed to come from the SLOPE, and the slope has no valid mirror: on injected pure alpha=2 dust the fitter certifies 'significantly flat' 169 times in 167,715 and 'significantly steep' 0 times in 167,715, because the normalised absorber shapes converge at large alpha and steepness can almost never be certified. Separately, the 372 survivors had never been compared to a mark-permutation null; against one (200 draws, fitted SED vectors and quality marks shuffled over sky positions and extinctions) the expectation is 573 +/- 18, so the observed 372 is a 35% DEFICIT at z = -10.9, not an excess. The flat-slope population itself IS real -- 74x above the dust expectation, 9.8x above a band-wise permutation -- and concentrates toward the plane, which is the grain-growth conclusion scripts/41 already reached. Do not cite 'the only channel that produced an asymmetric surviving population' without this."
 }

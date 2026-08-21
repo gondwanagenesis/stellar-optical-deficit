@@ -16,7 +16,7 @@ covered.
 | 2 | optical deficit, wide-pair differential | same, cleaner background | **p < 1.4e−3** (was 5.3e−4; efficiency term) |
 | 3 | mid-IR veto (beamed class) | deficit + no warm re-emission (>300 K) | **p < 8.6e−4** (was 4.3e−4; efficiency term) |
 | 4 | ~~dynamical mass~~ | ~~ANY spectral slope, incl. grey~~ | **WITHDRAWN** — m1 is photometric; see Audit 2 |
-| 5 | spectral-slope fit, 7 bands | α ≠ 2 absorbers | 372 asymmetric survivors |
+| 5 | spectral-slope fit, 7 bands | α ≠ 2 absorbers | flat population real (74× dust); **372 survivors are a deficit**, 573 ± 18 expected — Audit 3 |
 | 6 | 3D spatial front | a spreading domain | 19.5σ → dust |
 | 7 | kinematic (Δv) clustering | a propagating network | 4301σ → young associations |
 | 8 | deficit colour type | grey vs reddening | all reddening-like |
@@ -137,8 +137,13 @@ fitted amplitude gives the pipeline's own false-positive rate:
 | brightened (unphysical mirror) | **13** |
 | **ratio** | **28.6 : 1** |
 
-**This set is not symmetric noise.** It is the only channel in the entire
-project that produced an asymmetric surviving population.
+**This set is not symmetric noise** in *amplitude*. But amplitude asymmetry is
+the weakest thing this channel could have shown — dust dims stars too — and
+**Audit 3** finds that the two controls which would have carried the actual
+claim both fail: the α-axis mirror cannot fire in one direction (a pure-dust
+injection is called flat at least 10⁶ times more often than steep), and against
+a 200-draw mark-permutation null the 372 are a **35% deficit**, 573 ± 18
+expected, z = −10.9. Read the rest of this section with that in front of it.
 
 ### What that does and does not mean
 
@@ -1277,6 +1282,151 @@ what it should have said all along: α = 0 is covered by nothing here.
 
 ---
 
+## Audit 3 — channel 5's slope is real; its mirror is not, and 372 is a deficit
+
+Channel 5 is the largest-N channel here (2,991,398 stars) and the only one that
+ever produced a surviving population. Its entire claim to specificity rests on
+one number, α, and nobody had ever checked that the fitter can measure it.
+`scripts/91_audit_spectral_slope.py` does four things.
+
+**T0, first, or nothing else counts.** The audit transcribes the fitter out of
+`scripts/40` and refits all 2,991,398 stars. Against the stored output:
+`max|diff| = 0` on α, on the amplitude, on Δχ² and on the confidence edge —
+2,991,398 of 2,991,398 identical. This project has twice been bitten by
+auditing a *reimplementation* instead of the code (the C\* formula, the
+epoch-blind cross-match), so the reproduction check runs before any conclusion
+is drawn from the transcription.
+
+### T1 — α is recovered, above a floor nobody had stated
+
+Inject an absorber of known (α, amplitude) into real residuals, refit. Median
+recovered α:
+
+| injected α | 0.05 mag | 0.10 | 0.20 | 0.50 | 1.00 |
+|---|---|---|---|---|---|
+| −0.5 | +0.60 | −0.40 | **−0.50** | **−0.50** | **−0.50** |
+| 0.5 | +1.40 | +0.90 | **+0.50** | **+0.50** | **+0.50** |
+| 2.0 | +1.70 | +1.75 | +1.90 | **+2.00** | **+2.00** |
+| 4.0 | +1.75 | +2.10 | +3.10 | **+4.05** | **+4.00** |
+
+Above 0.2 mag the estimator is unbiased. Below 0.1 mag it is not measuring α at
+all: every input collapses onto an attractor at **α ≈ 1.7**, close enough to the
+dust value to be mistaken for it. (The apparent good recovery of α = 1.5 at
+0.05 mag in the JSON is that attractor passing through, not skill.)
+
+This does **not** break the published "median α = 1.95." The Δχ² > 25
+significance cut removes the biased regime entirely — recovery rate is 0.000 at
+0.05 and 0.10 mag — and the 79,426 significant absorbers have median amplitude
+0.597 mag, deep inside the unbiased range. It does add a coverage statement
+that was missing: **channel 5 measures slope only for absorbers deeper than
+about 0.2 mag differentially in G.** Weaker ones are reported as dust-like by
+construction, whatever they are.
+
+### T1b — the flat population is real
+
+"5,239 stars have α significantly below 1.5" is only interesting if it exceeds
+what pure dust plus this fitter's noise would manufacture. That rate had never
+been measured. Folding the injected α = 2 misclassification rate through the
+real amplitude distribution:
+
+| | count |
+|---|---|
+| flagged flat, observed | **3,931** |
+| expected if every significant absorber were pure α = 2 dust | **53** |
+| ratio | **74×** |
+
+The flat-slope population is not misclassified dust. **Channel 5's central
+measurement survives the audit.** What follows is about how it was *framed*.
+
+### T1c — the slope mirror is invalid, so T2 proves nothing
+
+Grain physics cannot make α much steeper than 2 any more than it can make it
+much flatter than 1.5, so "α significantly above 2.6" is the natural mirror for
+the flat tail, and this project's own standard (Search T carries β > 3 against
+β ≈ 0) demands it. Running it: **372 flat survivors, 0 steep.** That looks
+decisive and is not.
+
+On *injected pure dust* at 0.5 mag, the fitter calls a star significantly flat
+**169 times in 167,715** and significantly steep **0 times in 167,715**. The α
+axis is skewed by at least a factor 10⁶, for a mechanical reason: normalised on
+G, the absorber shapes at α = 3, 4, 5, 6 are nearly identical, so the Δχ² ≤ 4
+interval of a steep fit runs off the top of the grid and steepness can almost
+never be *certified*, while at low α the shapes separate fast and flatness
+certifies easily. A zero steep count is therefore what the estimator does, not
+what the sky does. This is the same one-signed-contaminant logic already applied
+to the 2MASS aperture mismatch: when the pipeline can only err one way,
+one-sidedness proves nothing. **Use T1b's injection-measured rate instead**; the
+steep tail is not a control.
+
+### T3A — 372 is 65% of chance, not an excess
+
+The published mirror (372 dimmed against 13 brightened, 28.6 : 1) flips the sign
+of the *amplitude*. That tests whether something dims. It does not test whether
+the survivors sit on clean sky more often than chance, and the survivor cut
+stack is mostly sky: not in a star-forming complex, A₀ < 0.15, |b| > 20.
+
+Mark permutation, 200 draws, fitted SED vectors and their photometric and
+astrometric quality marks shuffled over sky positions and extinctions — values
+over positions, never synthetic positions:
+
+| | count |
+|---|---|
+| observed survivors | **372** |
+| mark-permutation null | **573 ± 18** |
+| analytic factorisation cross-check | 571.0 |
+| **z** | **−10.9** |
+
+**The survivor set is a 35% deficit against its own null.** Flat-slope absorbers
+avoid clean, high-latitude, low-extinction sky — they concentrate where the cuts
+delete them. That is exactly what `scripts/41` concluded from median A₀ (0.116
+against 0.055) and median |b| (12.7° against 25.6°), and the permutation now
+puts a number on it.
+
+So the sentence in channel 5 — *"it is the only channel in the entire project
+that produced an asymmetric surviving population"* — is true about the amplitude
+and misleading about everything else. Both an absorber and dust dim a star, so
+amplitude asymmetry carries no specificity; the specificity was supposed to come
+from α; α's mirror is invalid (T1c); and against the sky null the survivors are
+fewer than chance.
+
+### T3B — but the SEDs are coherent
+
+Shuffling each band independently destroys cross-band coherence while preserving
+every band's marginal distribution and the survey geometry:
+
+| | real | band-permuted |
+|---|---|---|
+| significant absorbers | 79,426 | 11,064 |
+| median α | 1.95 | 1.00 |
+| flat survivors | 372 | 38 |
+| steep survivors | 0 | 62 |
+
+7.2× on the significant population and 9.8× on the survivors. The Δχ² > 25
+threshold really is selecting coherent SED shape, not band-wise noise. Note also
+that incoherent noise produces 62 *steep* survivors where the real sky produces
+0 — the real residuals are less pathological than the permuted ones, as they
+should be.
+
+### What this costs
+
+**Not the headline.** Channel 5 does not enter p_total < 1.05e−3, which is built
+from the pair and IR channels and is unchanged.
+
+**Not the flat population.** T1b and T3B both say it is real. The grain-growth
+diagnosis stands and is now stronger, because T3A supplies the quantitative
+version of "these things live in the dust."
+
+**The framing of the 372.** They are not an asymmetric excess. They are 65% of
+what random reassignment of the same fitted SEDs to the same sky produces, and
+the α-axis mirror that would have caught this cannot fire in one direction. The
+candidate list remains what the channel-5 section already called it — a target
+list whose decisive test is spectroscopy — with one fewer reason to like it.
+
+Run: `run.sh scripts/91_audit_spectral_slope.py --tag primary`.
+Output: `results/audit_spectral_slope_primary.json`.
+
+---
+
 ## Coverage gaps, stated because they are not nulls
 
 **Temperature.** Our mid-IR veto uses W1 and W2 only, so it responds to shells
@@ -1302,7 +1452,10 @@ temperature axis — the one place a waste-heat argument genuinely cannot follow
 Reaching into it needs angular profile, ACT/SPT-resolution follow-up, or the
 non-Gaussianity of a discrete population against a Gaussian field.
 
-**Spectral slope.** The grey case (α = 0) is invisible to every photometric
+**Spectral slope.** Channel 5 measures α only for absorbers deeper than about
+**0.2 mag** differentially in G; below roughly 0.1 mag the fit collapses onto an
+attractor at α ≈ 1.7 and reports every input as dust-like, whatever it is
+(Audit 3, T1). And the grey case (α = 0) is invisible to every photometric
 channel by construction. It was covered *only* by channel 4, and channel 4 is
 withdrawn: its masses are photometric, so it slides with the absorber instead of
 resisting it (**Audit 2**). **Nothing in this project constrains a grey
@@ -1346,6 +1499,7 @@ run.sh scripts/87_searchV_resolution_scan.py # channel 22 - resolution scan, the
 run.sh scripts/88_searchW_energy_locus.py    # channel 21 - energy-conservation locus
 run.sh scripts/89_audit_pair_limit.py      # audit 1 - the headline limit
 run.sh scripts/90_audit_dynamical_mass.py  # audit 2 - channel 4's masses
+run.sh scripts/91_audit_spectral_slope.py # audit 3 - channel 5's slope
 run.sh scripts/45_grabby_figures.py            # figures
 ```
 
