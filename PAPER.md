@@ -6,6 +6,77 @@ regenerable by a numbered script.
 
 ---
 
+## ERRATUM — 2026-08-21. Every wide-pair limit in this paper is a factor of two too strong.
+
+`scripts/89_audit_pair_limit.py` audited the wide-pair limit and found that
+`scripts/34_pair_limit_v3.py`, and its predecessors 32 and 33, computed
+
+    p_UL = N_UL / n_stars
+
+with **no detection-efficiency term**, while
+`pipeline.statistics.exclusion_curve` — the shared helper used by the
+single-star channel and the exclusion contour — defines
+
+    p_UL(f) = N_UL / (N_total × efficiency(f, k))
+
+f_det is defined as the covering fraction whose magnitude deficit *equals* the
+threshold, so a star at exactly f_det is scattered above the threshold half the
+time. The measured efficiency at every quoted f_det, at every k, in both
+samples, is **0.5001**.
+
+**The correction rule is therefore uniform: every p_dark, p_total and 1-in-N in
+this paper doubles (or halves) at the covering fraction it is quoted against.**
+The published values remain true at a larger f — for the headline row, at
+f ≥ 0.58 rather than f ≥ 0.507 (90% efficiency; f ≥ 0.66 for 99%).
+
+Corrected current values:
+
+| | as published | corrected at the same f |
+|---|---|---|
+| p_dark, beamed class, f ≥ 0.507 | < 4.3 × 10⁻⁴ | **< 8.6 × 10⁻⁴** |
+| p_dark, all clean pairs, f ≥ 0.507 | < 5.3 × 10⁻⁴ | **< 1.4 × 10⁻³** † |
+| **p_total (joint)** | **< 6.2 × 10⁻⁴** | **< 1.05 × 10⁻³** |
+| **one star in** | **1,614** | **953** |
+
+† this row also loses the background-subtraction branch; see below.
+
+The sample, the pair search, the fiducial and the counts all reproduce
+bit-for-bit. Nothing about the *measurement* changed. The error is in the last
+line of arithmetic, and it is the second time in this project that a local
+reimplementation of a shared, tested helper silently dropped one of its terms —
+the first was the Riello+2021 C\* locus.
+
+### A second finding: the pair background model is for the wrong statistic
+
+`scripts/34` predicts the pair tail as `2·q(T)·n_pairs` with
+q(T) = P(|r_star| > T) measured on single-star residuals, and applies it to
+|Δr|, a *difference*. It over-predicts by up to 13× — 3 observed against 37.7
+predicted at the headline row. Two candidate explanations were tested and both
+fail: expressing T in σ_r rather than σ_dr moves obs/pred only 0.080 → 0.094,
+and a 200-draw mark-permutation null on Δr over-predicts worse still (0.062).
+
+The explanation is physical. The single-star tail is dominated by contaminants
+common to both components of a wide pair — shared crowding, shared extinction
+error, shared fiducial mis-specification — which cancel in the difference. The
+core already carries 53% common-mode variance and the tail carries far more.
+
+**Consequence:** no valid background for |Δr| exists in this analysis, so
+`best = min(ul_cons, ul_sub)` must not take the subtracted branch. It does so in
+6 of the 8 rows of §5.8c, which weaken by a further 1.32–5.61× when forced onto
+the Poisson branch. The headline row — beamed class, k = 7 — is **not** among
+them, so the abstract's number is affected only by the efficiency factor above.
+
+The claim in §5.8b that "the pair estimator is background-subtracted, so its
+limit scales as √N/N rather than saturating" is withdrawn: the honest estimator
+is Poisson on the raw two-sided count, which scales more weakly, and the
+projected pair-sample multiples needed to make β measurable are correspondingly
+optimistic.
+
+Full audit: `results/audit_pair_limit_primary.json`. The superseded result
+files carry `SUPERSEDED` stamps on disk.
+
+---
+
 ## Abstract
 
 Essentially every survey for Dyson-type stellar energy harvesting has searched
@@ -49,7 +120,7 @@ Combining that with the infrared limit gives what we believe is the **first
 bound on stellar energy harvesting that does not assume how the waste heat is
 disposed of**: writing p_total = p_iso + p_dark for the isotropic-warm and
 beamed/cold/non-thermal populations, Suazo et al. constrain the former and §5.7
-constrains the latter, so **p_total < 6.8 × 10⁻⁴** — fewer than 1 in 1,473
+constrains the latter, so **p_total < 6.8 × 10⁻⁴** [— see ERRATUM: 1.17 × 10⁻³, 1 in 855 —] — fewer than 1 in 1,473
 nearby lower-main-sequence stars intercepts ≥45% of its optical output by any
 means. We further show that a 10× larger wide-pair sample, well within the
 existing El-Badry et al. catalogue, would push the deficit limit below the
@@ -651,6 +722,9 @@ alongside the deficit. Suazo et al. (2022) measure **p_iso**. They combine:
 | **p_dark** (beamed / cold / non-thermal, 500 pc) | **< 4.9 × 10⁻⁴** | **this work, §5.7** |
 | **p_total** | **< 6.8 × 10⁻⁴** | **combined** |
 
+> **ERRATUM.** Every row of this table doubles at the f it is quoted against:
+> p_dark < 9.8 × 10⁻⁴, p_total < 1.17 × 10⁻³, 1 in 855. See ERRATUM at the top.
+
 **Fewer than 1 in 1,473 nearby lower-main-sequence stars intercepts ≥45% of its
 optical output by any means, warm or dark.** To our knowledge this is the first
 bound on stellar energy harvesting that does not assume how the energy is
@@ -718,6 +792,11 @@ negative: no signal anywhere.
 | **beamed class** (both components bare) | **p < 4.9 × 10⁻⁴** | f ≥ 0.505 |
 | single stars, same threshold | p ≈ 2.9 × 10⁻³ | — |
 
+> **ERRATUM.** "Because the pair estimator is background-subtracted, its limit
+> scales as √N/N rather than saturating" is withdrawn — the pair background
+> model is for the wrong statistic and the honest estimator is Poisson on the
+> raw count. See ERRATUM at the top.
+
 The pair sample's background rate is **5.2× cleaner** than the single-star
 sample at matched threshold. The joint constraint of §5.8 is unchanged at
 p_total < 6.8 × 10⁻⁴ because the corrected p_dark is numerically almost
@@ -773,8 +852,13 @@ two-sided count.**
 | **beamed class** | **p < 4.3 × 10⁻⁴** | f ≥ 0.507 | 4.9 × 10⁻⁴ |
 | **p_total (joint)** | **< 6.2 × 10⁻⁴** | | 6.8 × 10⁻⁴ |
 
-**Fewer than 1 in 1,614 nearby lower-main-sequence stars intercepts ≥51% of its
-optical output by any disposal mode.** A 12% improvement from 40% more pairs —
+> **ERRATUM.** Corrected: all clean pairs **p < 1.4 × 10⁻³** (efficiency term
+> AND loss of the background branch), beamed class **p < 8.6 × 10⁻⁴**,
+> **p_total < 1.05 × 10⁻³**, fewer than 1 in **953**. See ERRATUM at the top.
+
+**Fewer than 1 in 953 nearby lower-main-sequence stars intercepts ≥51% of its
+optical output by any disposal mode** (the 1-in-1,614 figure as first published
+omitted the efficiency term; it holds at f ≥ 0.58). A 12% improvement from 40% more pairs —
 Poisson-limited statistics scale weakly when the counts are single digits,
 which is exactly why the deeper sample matters more than any estimator tweak.
 
@@ -1056,7 +1140,8 @@ judge the pipeline's reliability.
 3. Requiring a **measured bare photosphere** gives **p < 4.9 × 10⁻⁴ at
    f ≥ 0.45** for the beamed / cold / non-thermal class — the one limit here
    not superseded, because infrared estimators weight that class to zero.
-4. Combining the two channels gives **p_total < 6.8 × 10⁻⁴**, the first
+4. Combining the two channels gives **p_total < 1.17 × 10⁻³** (published as
+   6.8 × 10⁻⁴ — see ERRATUM at the top), the first
    disposal-agnostic bound: fewer than 1 in 1,473 nearby lower-main-sequence
    stars intercepts ≥45% of its output by any means. A 10× larger wide-pair
    sample makes the beamed fraction β measurable.
@@ -1077,7 +1162,8 @@ judge the pipeline's reliability.
    (1,316:1 asymmetry, 2,632 stars) are debris discs; the 148.5σ planar edge
    is extinction + Gaia scanning law; radio cross-match is null (1/5,000 dimmed
    vs 4/5,000 control). The updated joint constraint stands at
-   **p < 6.2 × 10⁻⁴** (fewer than 1 in 1,614).
+   **p < 1.05 × 10⁻³** (fewer than 1 in 953; the 6.2 × 10⁻⁴ / 1-in-1,614 figure
+   as first published omitted the efficiency term — see ERRATUM at the top).
 
 ---
 

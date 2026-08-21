@@ -13,8 +13,8 @@ covered.
 | # | channel | what it can see | result |
 |---|---|---|---|
 | 1 | optical deficit vs M_Ks, single star | selective absorbers, f ≳ 0.5 | p < 6.1e−3 |
-| 2 | optical deficit, wide-pair differential | same, cleaner background | **p < 5.3e−4** |
-| 3 | mid-IR veto (beamed class) | deficit + no warm re-emission (>300 K) | **p < 4.3e−4** |
+| 2 | optical deficit, wide-pair differential | same, cleaner background | **p < 1.4e−3** (was 5.3e−4; efficiency term) |
+| 3 | mid-IR veto (beamed class) | deficit + no warm re-emission (>300 K) | **p < 8.6e−4** (was 4.3e−4; efficiency term) |
 | 4 | **dynamical mass** | **ANY spectral slope, incl. grey** | **p < 2.2e−4**, 0 positives |
 | 5 | spectral-slope fit, 7 bands | α ≠ 2 absorbers | 372 asymmetric survivors |
 | 6 | 3D spatial front | a spreading domain | 19.5σ → dust |
@@ -35,8 +35,11 @@ covered.
 | 21 | **energy-conservation locus (ΔL_opt vs ΔL_IR)** | a partial absorber that re-emits what it removes, at ANY covering fraction | **null**; 146σ excess is a broad dim/IR correlation, balanced band is its trough |
 | 22 | **sub-PSF orientation vs proper-motion axis** | comoving vs background blends, the Hephaistos false-positive class | **null**; alignment decays 58% as the null cell shrinks |
 
-**Joint, disposal-agnostic: p_total < 6.2e−4.** Fewer than 1 in 1,614 nearby
+**Joint, disposal-agnostic: p_total < 1.05e−3.** Fewer than 1 in 953 nearby
 lower-main-sequence stars intercepts ≥51% of its optical output by any means.
+*Corrected 2026-08-21.* The previously quoted p_total < 6.2e−4, 1 in 1,614, omitted
+the detection-efficiency term and was a factor of two too strong at that covering
+fraction; it survives unchanged at f ≥ 0.58. See **Audit** below.
 
 ---
 
@@ -1013,6 +1016,114 @@ make indirectly cannot be made directly this way either.
 
 ---
 
+## Audit — the headline limit was a factor of two too strong
+
+Every channel above reports a null. The wide-pair limit is the only place this
+project quotes a **number**, so it is the only thing anyone would cite, and it
+had never been audited. It is also the number that was rebuilt twice under
+pressure (scripts 32 → 33 → 34) after the original asymmetry estimator turned
+out to be blind to a symmetric signal. `scripts/89_audit_pair_limit.py` rebuilds
+it through the same code path and checks it.
+
+**It reproduces exactly.** Every cell of `pair_limit_v3_primary.json` —
+thresholds, counts, f_det, p_UL — comes back bit-for-bit from a fresh fiducial
+fit, pair search and mid-IR veto. The pipeline is not the problem. The formula
+is.
+
+### The missing efficiency term
+
+`pipeline.statistics.exclusion_curve` — the shared helper channels 1, 3 and the
+exclusion contour all use — defines the limit as
+
+    p_UL(f) = N_UL / (N_total × efficiency(f, k))
+
+`scripts/34_pair_limit_v3.py` hand-rolled its own table and wrote
+`p_UL = best / n_stars`. There is no efficiency factor anywhere in it.
+
+The consequence is exactly the factor the omission implies. f_det is defined as
+the covering fraction whose magnitude deficit *equals* the threshold
+T = k·σ_dr. A star sitting exactly at threshold is scattered above it half the
+time. Measured by shifting the observed Δr distribution — so the real
+non-Gaussian noise shape is used, not a Gaussian assumption — the efficiency at
+the quoted f_det is **0.5001**, at every k, in both samples.
+
+So the headline
+
+> p_total < 6.2e−4, fewer than 1 in 1,614 stars intercepts ≥ 51%
+
+is a factor of two too strong **at the covering fraction it names**. Corrected:
+
+| | p_dark | p_total | one star in | at f ≥ |
+|---|---|---|---|---|
+| as published | 4.30e−4 | 6.20e−4 | 1,614 | 0.507 |
+| **corrected, same f** | **8.59e−4** | **1.05e−3** | **953** | **0.507** |
+| published number, corrected f | 4.30e−4 | 6.20e−4 | 1,614 | **0.580** |
+
+Both bottom rows are true; they are the same result quoted two ways. The
+published *number* is not wrong so much as attached to the wrong f — it holds
+where the channel is 90% efficient (f ≥ 0.58), not at its 50% threshold. At
+99% efficiency it holds at f ≥ 0.66.
+
+This is the same failure mode as the hand-reimplemented C\* formula caught
+earlier in this project: a shared, tested helper existed and was bypassed by a
+local reimplementation that dropped one of its terms. That is now twice.
+
+### The background model is for the wrong statistic
+
+At every k the observed count runs far below the prediction — 3 against 37.7 at
+the headline row, 206 against 422 at k = 4. The report treated that as
+reassurance. A background model that over-predicts by 13× is a broken model,
+and it is load-bearing, because `best = min(ul_cons, ul_sub)` takes the smaller
+of the Poisson and the background-subtracted limit.
+
+Two explanations were tested and **both failed**, which is the useful part.
+
+1. *A threshold-units mismatch.* T = k·σ_dr, but q's own scale is σ_r
+   (0.11338 against σ_dr = 0.10957), so q is evaluated at 6.76 σ_r rather than
+   7. On a Gaussian tail that is a factor ~5, about the size of the
+   discrepancy. Correcting it moves obs/pred from 0.080 to **0.094** and no
+   further.
+2. *A mark-permutation null on Δr* — residuals shuffled within
+   (M_Ks, distance) cells over the same pairs, 200 permutations. It
+   over-predicts **worse**: obs/pred = 0.062.
+
+What is left is physical. q(T) = P(|r_star| > T) is the tail of a *single-star*
+statistic, applied to a *difference*. The single-star tail is dominated by
+contaminants common to both components of a wide pair — shared crowding, shared
+extinction error, shared fiducial mis-specification — and those cancel in Δr.
+The core already carries **53% common-mode variance**, and the tail evidently
+carries far more. The permutation over-predicts most precisely because it
+destroys the cancellation outright.
+
+So this analysis has **no valid background for |Δr|**, and the subtracted branch
+must not be taken at any k. It is taken in **6 of the 8 published rows**, which
+weaken by factors of 1.32 to 5.61 once forced onto the Poisson branch. The
+headline row is not one of them — clean + bare at k = 7 already takes the
+conservative branch — so this finding costs the abstract nothing and costs the
+rest of the table a great deal.
+
+### Two smaller notes
+
+**The sign split is negative-heavy everywhere** (4:6, 10:16, 90:116, …). Δr is
+primary-minus-secondary and a harvested component can be either, so a signal is
+symmetric in sign and this split is a noise diagnostic rather than a mirror.
+The negative excess is the unresolved-companion brightening already identified
+in channel 12. Those objects cannot host an absorber, so counting them in a
+two-sided Poisson limit makes it conservative by roughly the negative fraction.
+
+**The quoted row is the best of eight** — four k × two samples — selected by
+minimum mean-f limit with no trials penalty. At a fixed pre-registered k = 5 the
+same sample gives p_dark < 4.00e−3 at f ≥ 0.396 after efficiency correction.
+The optimism is real but modest next to the factor of two above.
+
+### What replaces the abstract line
+
+**p_total < 1.05e−3 — fewer than 1 in 953 nearby lower-main-sequence stars
+intercepts ≥ 51% of its optical output by any means.** The stronger 1-in-1,614
+statement survives at f ≥ 0.58.
+
+---
+
 ## Coverage gaps, stated because they are not nulls
 
 **Temperature.** Our mid-IR veto uses W1 and W2 only, so it responds to shells
@@ -1074,6 +1185,7 @@ run.sh scripts/84_pull_ipd_harmonic.py       # channel 22 - pull IPD harmonic co
 run.sh scripts/85_searchV_harmonic_phase.py  # channel 22 - alignment (superseded verdict)
 run.sh scripts/87_searchV_resolution_scan.py # channel 22 - resolution scan, the verdict
 run.sh scripts/88_searchW_energy_locus.py    # channel 21 - energy-conservation locus
+run.sh scripts/89_audit_pair_limit.py      # audit of the headline limit
 run.sh scripts/45_grabby_figures.py            # figures
 ```
 

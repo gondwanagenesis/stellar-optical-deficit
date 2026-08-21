@@ -1,4 +1,7 @@
 {
+  "SUPERSEDED": true,
+  "superseded_by": "results/audit_pair_limit_primary.json (scripts/89_audit_pair_limit.py)",
+  "why": "Efficiency term omitted. p_UL was computed as N_UL / n_stars with no detection-efficiency factor, while pipeline.statistics.exclusion_curve -- the shared helper every other channel uses -- defines p_UL = N_UL / (N * efficiency(f, k)). Measured efficiency at the quoted f_det is 0.500 at every k, because a star whose covering fraction puts its expected |dr| exactly at the threshold clears the threshold only half the time. Every p_UL in this file is therefore a factor 2.00 too strong at the f it is quoted against. Separately, the background model (2*q(T)*n_pairs from single-star residuals) is for the wrong statistic and over-predicts the pair-difference tail by up to 13x, so the min(Poisson, background-subtracted) branch must not be taken; it is taken in 6 of 8 rows. See results/audit_pair_limit_primary.json (scripts/89_audit_pair_limit.py). p_dark_upper inherits the missing efficiency term from the pair limit; corrected p_total < 1.049e-03, one star in 953 at f >= 0.507, or the published value at f >= 0.58.",
   "f_this_work": 0.45276532244069934,
   "gamma_suazo": 0.5,
   "p_iso_upper": 0.00019,
